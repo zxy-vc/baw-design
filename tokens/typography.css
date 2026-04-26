@@ -57,7 +57,7 @@
   /* Inter: ss01 = single-story 'a', cv11 = alternate digits */
   --ff-inter:  "ss01", "cv11";
   /* IBM Plex Mono: zero = slashed zero (clave para datos numéricos) */
-  --ff-mono- "zero", "tnum";
+  --ff-mono-data: "zero", "tnum";
 }
 
 /* ── BASE — aplicar a html/body ─────────────────────────────────────── */
