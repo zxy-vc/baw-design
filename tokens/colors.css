@@ -1,0 +1,128 @@
+/* ════════════════════════════════════════════════════════════════════════
+   BaW OS — Color Tokens
+   ────────────────────────────────────────────────────────────────────────
+   Source of truth: /BRAND_FOUNDATIONS.md (sección Color)
+   Espacio de color: OKLCH (perceptualmente uniforme, soporta wide gamut)
+   Estrategia: tokens semánticos sobre escalas neutras + brand + agent + RAG
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── NEUTRAL — Light ──────────────────────────────────────────────── */
+  --l-bg:        oklch(99.2% 0.002 264);
+  --l-surface:   oklch(100% 0 0);
+  --l-surface-2: oklch(98.4% 0.003 264);
+  --l-surface-3: oklch(96.6% 0.004 264);
+  --l-line:      oklch(92.4% 0.005 264);
+  --l-line-2:    oklch(88% 0.006 264);
+  --l-text:      oklch(22% 0.012 264);
+  --l-text-2:    oklch(42% 0.012 264);
+  --l-text-3:    oklch(58% 0.014 264);
+  --l-text-4:    oklch(72% 0.010 264);
+
+  /* ── NEUTRAL — Dark ───────────────────────────────────────────────── */
+  /* Estrategia Linear: distinta luminosidad LCH por nivel de elevación */
+  --d-bg:        oklch(15.8% 0.008 264);
+  --d-surface:   oklch(18.6% 0.009 264);
+  --d-surface-2: oklch(21.4% 0.010 264);
+  --d-surface-3: oklch(24.6% 0.011 264);
+  --d-line:      oklch(28% 0.012 264);
+  --d-line-2:    oklch(34% 0.014 264);
+  --d-text:      oklch(96% 0.004 264);
+  --d-text-2:    oklch(78% 0.008 264);
+  --d-text-3:    oklch(62% 0.010 264);
+  --d-text-4:    oklch(48% 0.011 264);
+
+  /* ── BRAND — Electric Indigo ──────────────────────────────────────── */
+  /* Hue 266 = azul-violeta sharp, más cercano a Linear que a Stripe purple */
+  --brand-050:    oklch(97.5% 0.018 266);
+  --brand-100:    oklch(94% 0.04 266);
+  --brand-300:    oklch(76% 0.15 266);
+  --brand-400:    oklch(66% 0.20 266);
+  --brand-500:    oklch(58% 0.21 266);  /* primario */
+  --brand-600:    oklch(52% 0.22 266);  /* hover/pressed */
+  --brand-d-fill: oklch(32% 0.14 266);  /* fondo dark mode */
+
+  /* ── AGENT IDENTITY — Violet ──────────────────────────────────────── */
+  /* Reservado para todo lo que sea iniciado/operado por un agente IA.
+     Distinto del azul-humano y del indigo-marca para que el usuario
+     pueda distinguir visualmente "yo" vs "el agente" sin leer texto. */
+  --agent-100:    oklch(94% 0.035 300);
+  --agent-400:    oklch(70% 0.17 300);
+  --agent-500:    oklch(62% 0.19 300);
+  --agent-d-fill: oklch(30% 0.11 300);
+
+  /* ── SEMANTIC — RAG + Blue ────────────────────────────────────────── */
+  --red-100:      oklch(95% 0.035 25);
+  --red-400:      oklch(66% 0.20 25);
+  --red-500:      oklch(58% 0.22 25);
+  --red-d-fill:   oklch(30% 0.13 25);
+
+  --amber-100:    oklch(96% 0.04 85);
+  --amber-400:    oklch(78% 0.16 75);
+  --amber-500:    oklch(72% 0.17 75);
+  --amber-d-fill: oklch(33% 0.10 75);
+
+  --green-100:    oklch(94% 0.04 155);
+  --green-400:    oklch(68% 0.15 155);
+  --green-500:    oklch(62% 0.16 155);
+  --green-d-fill: oklch(30% 0.10 155);
+
+  --blue-100:     oklch(94% 0.04 235);
+  --blue-400:     oklch(68% 0.14 235);
+  --blue-500:     oklch(60% 0.16 235);
+  --blue-d-fill:  oklch(30% 0.10 235);
+
+  --gray-400:     oklch(66% 0.011 264);
+  --gray-500:     oklch(58% 0.012 264);
+}
+
+/* ── MODE SCOPES ────────────────────────────────────────────────────── */
+/* Aplicar .mode--light o .mode--dark al <html> o un contenedor.
+   Los tokens semánticos (--bg, --surface, --text, etc.) cambian según el modo. */
+
+.mode--light {
+  --bg: var(--l-bg);
+  --surface: var(--l-surface);
+  --surface-2: var(--l-surface-2);
+  --surface-3: var(--l-surface-3);
+  --line: var(--l-line);
+  --line-2: var(--l-line-2);
+  --text: var(--l-text);
+  --text-2: var(--l-text-2);
+  --text-3: var(--l-text-3);
+  --text-4: var(--l-text-4);
+
+  --red-fill:   var(--red-100);
+  --amber-fill: var(--amber-100);
+  --green-fill: var(--green-100);
+  --blue-fill:  var(--blue-100);
+  --agent-fill: var(--agent-100);
+  --brand-fill: var(--brand-100);
+}
+
+.mode--dark {
+  --bg: var(--d-bg);
+  --surface: var(--d-surface);
+  --surface-2: var(--d-surface-2);
+  --surface-3: var(--d-surface-3);
+  --line: var(--d-line);
+  --line-2: var(--d-line-2);
+  --text: var(--d-text);
+  --text-2: var(--d-text-2);
+  --text-3: var(--d-text-3);
+  --text-4: var(--d-text-4);
+
+  --red-fill:   color-mix(in oklch, var(--red-d-fill)   55%, transparent);
+  --amber-fill: color-mix(in oklch, var(--amber-d-fill) 55%, transparent);
+  --green-fill: color-mix(in oklch, var(--green-d-fill) 55%, transparent);
+  --blue-fill:  color-mix(in oklch, var(--blue-d-fill)  55%, transparent);
+  --agent-fill: color-mix(in oklch, var(--agent-d-fill) 55%, transparent);
+  --brand-fill: color-mix(in oklch, var(--brand-d-fill) 55%, transparent);
+}
+
+/* Sigue automáticamente la preferencia del sistema si el usuario no la fija manualmente */
+@media (prefers-color-scheme: dark) {
+  :root:not(.mode--light) {
+    color-scheme: dark;
+  }
+}

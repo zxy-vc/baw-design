@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW — Brand System v2</title>
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --surface-3: oklch(96.2% 0.004 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --ink: oklch(22% 0.012 264);
+    --ink-d: oklch(15% 0.010 264);
+
+    /* Voice 1 · SaaS / AI OS */
+    --v1-bg: oklch(99% 0.002 264);
+    --v1-surface: #fff;
+    --v1-accent: oklch(52% 0.22 266);
+    --v1-accent-soft: oklch(95% 0.03 266);
+
+    /* Voice 2 · Real Estate */
+    --v2-bg: oklch(97.2% 0.008 82);         /* crema */
+    --v2-surface: oklch(98.4% 0.006 82);
+    --v2-accent: oklch(64% 0.09 78);         /* latón */
+    --v2-ink: oklch(20% 0.012 80);
+
+    /* Voice 3 · Hospitality — three building examples */
+    --v3a-bg: #111;
+    --v3a-accent: oklch(72% 0.18 48);        /* Mateos — naranja cobre */
+    --v3b-bg: oklch(25% 0.05 250);
+    --v3b-accent: oklch(82% 0.14 90);        /* Adamant — mostaza */
+    --v3c-bg: oklch(94% 0.02 20);
+    --v3c-accent: oklch(55% 0.22 18);        /* Naran — rojo */
+
+    --font-sans: "Inter", -apple-system, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --font-serif: "IBM Plex Serif", Georgia, serif;
+    --font-plex-sans: "IBM Plex Sans", var(--font-sans);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1440px; margin: 0 auto; }
+  .block { padding: 72px 56px; border-bottom: 1px solid var(--line); }
+  .block:last-child { border-bottom: 0; }
+  .block-head { display: grid; grid-template-columns: 180px 1fr; gap: 40px; align-items: start; margin-bottom: 40px; }
+  .block-head .no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.1em; line-height: 1.5; }
+  .block-head .no span { display:block; color: var(--text-4); margin-top: 4px; }
+  .block-head h2 { font-family: var(--font-mono); font-size: 32px; line-height: 1.15; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 500; max-width: 860px; }
+  .block-head h2 em { font-style: normal; color: var(--v1-accent); }
+  .block-head p { max-width: 740px; color: var(--text-2); font-size: 14.5px; line-height: 1.6; margin: 0; }
+  .block-head p b { color: var(--text); font-weight: 500; }
+
+  /* ═══════════════════ Cover ═══════════════════ */
+  .cover { padding: 100px 56px 80px; border-bottom: 1px solid var(--line); background: var(--surface); position: relative; overflow: hidden; }
+  .cover::before { content:""; position:absolute; inset:0; background: linear-gradient(to right, oklch(0% 0 0 / 0.018) 1px, transparent 1px) 0 0/80px 80px; pointer-events: none; }
+  .cover-inner { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: end; }
+  .cover .mark-big { margin-bottom: 28px; }
+  .cover h1 { font-family: var(--font-mono); font-size: 56px; line-height: 1.02; letter-spacing: -0.03em; font-weight: 500; margin: 0 0 20px; }
+  .cover h1 em { font-style: normal; color: var(--v1-accent); }
+  .cover .kicker { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px; }
+  .cover .lead { font-size: 17px; line-height: 1.55; color: var(--text-2); max-width: 580px; }
+  .cover .lead b { color: var(--text); font-weight: 500; }
+  .cover-meta { border-top: 1px solid var(--line); padding-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); line-height: 1.6; }
+  .cover-meta b { display:block; color: var(--text); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+
+  /* ═══════════════════ Foundation — Mark + Wordmark + Badge ═══════════════════ */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 32px 30px; display: flex; flex-direction: column; gap: 18px; }
+  .card .tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .card h3 { font-family: var(--font-mono); font-size: 17px; margin: 0; font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+  .card p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0; }
+  .card p b { color: var(--text); font-weight: 500; }
+  .card .specs { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); line-height: 1.7; border-top: 1px dashed var(--line); padding-top: 14px; }
+  .card .specs b { color: var(--text); font-weight: 500; }
+  .card .hero { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 40px 24px; display: grid; place-items: center; min-height: 180px; position: relative; }
+  .card .hero::before { content:""; position:absolute; inset:0; background: linear-gradient(to right, oklch(0% 0 0 / 0.025) 1px, transparent 1px) 0 0/20px 20px, linear-gradient(to bottom, oklch(0% 0 0 / 0.025) 1px, transparent 1px) 0 0/20px 20px; border-radius: 6px; pointer-events: none; }
+  .card .hero > * { position: relative; z-index: 1; }
+
+  /* Wordmark */
+  .wm-big { font-family: var(--font-mono); font-weight: 500; font-size: 44px; letter-spacing: -0.025em; color: var(--ink); line-height: 1; }
+  .wm-big .sub { font-weight: 400; color: var(--text-3); }
+  .wm-sizes { display: flex; flex-direction: column; gap: 10px; font-family: var(--font-mono); color: var(--ink); }
+  .wm-sizes .row { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+  .wm-sizes .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .wm-sizes .row b { font-weight: 500; letter-spacing: -0.02em; }
+  .wm-sizes .row span { font-size: 10px; color: var(--text-3); letter-spacing: 0.05em; }
+
+  /* Badge — stacked label (FINAL) */
+  .badge-stack { display: inline-grid; grid-template-columns: auto auto; column-gap: 10px; align-items: center; color: var(--ink); }
+  .badge-stack svg { grid-row: 1 / span 2; align-self: center; }
+  .badge-stack .wm { font-family: var(--font-mono); font-weight: 500; font-size: 15px; letter-spacing: -0.015em; line-height: 1; grid-row: 1; align-self: end; }
+  .badge-stack .tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); line-height: 1; grid-row: 2; align-self: start; margin-top: 4px; }
+
+  /* Tagline */
+  .tagline-card { grid-column: span 3; background: var(--ink); color: #fff; border-radius: 10px; padding: 48px 56px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+  .tagline-card .t { font-family: var(--font-mono); font-weight: 500; font-size: 44px; letter-spacing: -0.025em; line-height: 1.05; }
+  .tagline-card .t em { font-style: normal; color: oklch(70% 0.18 266); }
+  .tagline-card .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(70% 0.01 264); text-align: right; line-height: 1.7; }
+
+  /* ═══════════════════ Typography ═══════════════════ */
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .type-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 32px 30px; display: flex; flex-direction: column; gap: 20px; }
+  .type-card .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .type-card .head h3 { font-family: var(--font-mono); font-size: 16px; margin: 0; font-weight: 500; color: var(--text); }
+  .type-card .head .role { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .type-card .sample { font-size: 56px; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+  .type-card.mono .sample { font-family: var(--font-mono); font-weight: 500; letter-spacing: -0.025em; }
+  .type-card.sans .sample { font-family: var(--font-plex-sans); font-weight: 500; }
+  .type-card.ui .sample { font-family: var(--font-sans); font-weight: 600; }
+  .type-card .desc { font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+  .type-card .desc b { color: var(--text); font-weight: 500; }
+  .type-card .specs { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); line-height: 1.8; border-top: 1px dashed var(--line); padding-top: 14px; }
+  .type-card .specs b { color: var(--text); font-weight: 500; }
+
+  /* Type scale bar */
+  .scale-row { grid-column: span 3; border: 1px solid var(--line); border-radius: 10px; padding: 28px 32px; background: var(--surface-2); display: flex; align-items: baseline; gap: 32px; flex-wrap: wrap; font-family: var(--font-mono); color: var(--ink); }
+  .scale-row .item { display: flex; flex-direction: column; gap: 4px; align-items: baseline; }
+  .scale-row .item b { font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+  .scale-row .item span { font-size: 9.5px; color: var(--text-3); letter-spacing: 0.08em; }
+
+  /* ═══════════════════ Color ═══════════════════ */
+  .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 28px; }
+  .sw { border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .sw .chip { aspect-ratio: 1 / 1; }
+  .sw .meta { padding: 10px 12px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text); line-height: 1.5; }
+  .sw .meta b { display: block; font-weight: 500; margin-bottom: 2px; color: var(--text); }
+  .sw .meta span { color: var(--text-3); font-size: 9.5px; letter-spacing: 0.04em; }
+
+  /* ═══════════════════ Three Voices ═══════════════════ */
+  .voice-strip { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+  .voice-col { padding: 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+  .voice-col:last-child { border-right: 0; }
+
+  /* Voice 1 — SaaS */
+  .v1-hero { background: var(--v1-bg); padding: 36px 32px 40px; border-bottom: 1px solid var(--line); min-height: 360px; display: flex; flex-direction: column; }
+  .v1-hero .pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; background: var(--v1-accent-soft); color: var(--v1-accent); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; border-radius: 999px; width: fit-content; margin-bottom: 24px; }
+  .v1-hero .pill::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--v1-accent); animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .v1-hero h4 { font-family: var(--font-mono); font-size: 28px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 500; color: var(--ink); margin: 0 0 14px; }
+  .v1-hero h4 em { font-style: normal; color: var(--v1-accent); }
+  .v1-hero .sub { font-size: 13px; color: var(--text-2); line-height: 1.55; max-width: 300px; margin-bottom: 24px; }
+  .v1-terminal { margin-top: auto; background: var(--ink-d); color: #e6edf3; border-radius: 6px; padding: 16px 18px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.65; }
+  .v1-terminal .line { display: flex; gap: 8px; }
+  .v1-terminal .prompt { color: oklch(68% 0.05 266); }
+  .v1-terminal .ok { color: oklch(72% 0.18 150); }
+  .v1-terminal .mute { color: oklch(62% 0.02 264); }
+
+  /* Voice 2 — Real Estate */
+  .v2-hero { background: var(--v2-bg); padding: 36px 32px 40px; border-bottom: 1px solid var(--line-2); min-height: 360px; display: flex; flex-direction: column; color: var(--v2-ink); }
+  .v2-hero .eyebrow { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v2-accent); margin-bottom: 24px; }
+  .v2-hero h4 { font-family: var(--font-serif); font-size: 28px; line-height: 1.18; letter-spacing: -0.01em; font-weight: 500; color: var(--v2-ink); margin: 0 0 16px; max-width: 320px; }
+  .v2-hero .sub { font-family: var(--font-plex-sans); font-size: 13px; color: oklch(38% 0.010 80); line-height: 1.6; max-width: 320px; margin-bottom: 24px; }
+  .v2-hero .figures { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; border-top: 1px solid oklch(80% 0.020 82); padding-top: 16px; font-family: var(--font-mono); }
+  .v2-hero .figures .f b { display: block; font-size: 22px; font-weight: 500; color: var(--v2-ink); letter-spacing: -0.01em; line-height: 1; margin-bottom: 4px; }
+  .v2-hero .figures .f span { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(48% 0.015 80); }
+
+  /* Voice 3 — Hospitality */
+  .v3-hero { background: var(--v3a-bg); color: #fff; padding: 36px 32px 40px; border-bottom: 1px solid var(--d-line); min-height: 360px; display: flex; flex-direction: column; }
+  .v3-hero .eyebrow { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v3a-accent); margin-bottom: 24px; }
+  .v3-hero h4 { font-family: var(--font-mono); font-size: 36px; line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: #fff; margin: 0 0 16px; }
+  .v3-hero h4 em { font-style: normal; color: var(--v3a-accent); }
+  .v3-hero .sub { font-family: var(--font-mono); font-size: 12px; color: oklch(72% 0.01 264); line-height: 1.55; max-width: 280px; margin-bottom: 28px; letter-spacing: 0.01em; }
+  .v3-hero .punchline { margin-top: auto; font-family: var(--font-mono); font-size: 13px; color: #fff; line-height: 1.5; padding: 14px 0; border-top: 1px solid oklch(32% 0.012 264); }
+  .v3-hero .punchline::before { content: "— "; color: var(--v3a-accent); }
+
+  /* Voice details (below the heroes) */
+  .voice-detail { padding: 22px 32px 30px; font-family: var(--font-mono); display: flex; flex-direction: column; gap: 14px; }
+  .voice-detail h5 { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin: 0; font-weight: 500; }
+  .voice-detail .row { display: grid; grid-template-columns: 60px 1fr; gap: 14px; font-size: 11.5px; color: var(--text-2); line-height: 1.55; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+  .voice-detail .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .voice-detail .row .k { color: var(--text-3); letter-spacing: 0.06em; font-size: 10px; padding-top: 2px; }
+  .voice-detail .row .v { color: var(--text); }
+  .voice-detail .swatch-row { display: flex; gap: 6px; margin-top: 2px; }
+  .voice-detail .swatch-row .chip { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--line); }
+
+  /* ═══════════════════ Naming architecture ═══════════════════ */
+  .naming { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .naming-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 30px 30px 26px; display: flex; flex-direction: column; gap: 18px; }
+  .naming-card .tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .naming-card h3 { font-family: var(--font-mono); font-size: 17px; margin: 0; font-weight: 500; color: var(--text); }
+  .naming-card .example { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 22px 20px; font-family: var(--font-mono); font-size: 24px; color: var(--ink); letter-spacing: -0.02em; font-weight: 500; line-height: 1.2; }
+  .naming-card .example .prefix { color: var(--text-3); font-weight: 400; }
+  .naming-card p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0; }
+  .naming-card p b { color: var(--text); font-weight: 500; }
+  .naming-card .when { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); line-height: 1.6; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .naming-card .when b { color: var(--text); font-weight: 500; display: block; margin-bottom: 4px; letter-spacing: 0.06em; text-transform: uppercase; font-size: 9.5px; }
+
+  /* ═══════════════════ Applications ═══════════════════ */
+  .app-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+  .app-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .app-card .app-top { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; background: var(--surface-2); }
+  .app-card .app-top h4 { font-family: var(--font-mono); font-size: 11px; margin: 0; font-weight: 500; color: var(--text); letter-spacing: 0.02em; }
+  .app-card .app-top .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); }
+  .app-card .app-body { padding: 20px; flex: 1; display: grid; place-items: center; background: var(--surface-3); min-height: 260px; }
+  .app-card .app-body.flush { padding: 0; }
+
+  /* Placa (brass) */
+  .plaque { background: linear-gradient(135deg, oklch(74% 0.020 80), oklch(58% 0.025 75)); color: oklch(18% 0.010 75); padding: 28px 30px; border-radius: 3px; box-shadow: 0 3px 14px -4px oklch(0% 0 0 / 0.22), inset 0 1px 0 oklch(100% 0 0 / 0.3); display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 340px; }
+  .plaque .main { display: flex; align-items: center; gap: 16px; }
+  .plaque .name { font-family: var(--font-mono); font-weight: 500; font-size: 24px; line-height: 1; letter-spacing: -0.015em; }
+  .plaque .addr { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(26% 0.010 75); margin-top: 6px; }
+  .plaque .foot { display: flex; justify-content: flex-end; padding-top: 14px; border-top: 1px solid oklch(46% 0.015 80); }
+  .plaque .badge-stack { color: oklch(22% 0.010 75); }
+  .plaque .badge-stack .tag { color: oklch(36% 0.010 75); }
+
+  /* Lobby sign */
+  .lobby { background: #0b0b0b; color: #fff; padding: 32px 28px; border-radius: 3px; display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 340px; min-height: 220px; }
+  .lobby .eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v3a-accent); }
+  .lobby .name { font-family: var(--font-mono); font-size: 30px; letter-spacing: -0.03em; font-weight: 500; line-height: 1; }
+  .lobby .c { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; color: oklch(72% 0.01 264); line-height: 1.55; max-width: 260px; }
+  .lobby .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 14px; border-top: 1px solid oklch(28% 0.012 264); }
+  .lobby .badge-stack { color: #fff; }
+  .lobby .badge-stack svg path { fill: #fff !important; }
+  .lobby .badge-stack .wm { color: #fff; font-size: 12px; }
+  .lobby .badge-stack .tag { color: oklch(68% 0.01 264); font-size: 8px; }
+  .lobby .room { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; color: oklch(58% 0.010 264); text-transform: uppercase; }
+
+  /* App mock — resident */
+  .app-mock { border-radius: 14px; overflow: hidden; background: #fff; border: 1px solid var(--line); width: 100%; max-width: 320px; display: flex; flex-direction: column; min-height: 420px; box-shadow: 0 2px 12px -4px oklch(0% 0 0 / 0.12); }
+  .app-mock .status-bar { padding: 14px 22px 10px; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--text); font-weight: 500; }
+  .app-mock .top-nav { padding: 6px 22px 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .app-mock .top-nav .building { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+  .app-mock .top-nav .building span { color: var(--text-3); font-weight: 400; }
+  .app-mock .top-nav .dot { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-3); border: 1px solid var(--line); }
+  .app-mock .body { flex: 1; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .app-mock .card-item { border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .app-mock .card-item.accent { background: var(--v1-accent-soft); border-color: oklch(86% 0.05 266); }
+  .app-mock .card-item .l { display: flex; flex-direction: column; gap: 3px; }
+  .app-mock .card-item .t { font-family: var(--font-mono); font-size: 11.5px; color: var(--text); font-weight: 500; letter-spacing: -0.01em; }
+  .app-mock .card-item .s { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .app-mock .card-item.accent .s { color: var(--v1-accent); }
+  .app-mock .card-item .v { font-family: var(--font-mono); font-size: 16px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+  .app-mock .tab-bar { padding: 10px 22px 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .app-mock .tabs { display: flex; gap: 16px; font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .app-mock .tabs .on { color: var(--text); }
+  .app-mock .tab-bar .badge-stack .wm { font-size: 10px; }
+  .app-mock .tab-bar .badge-stack .tag { font-size: 7.5px; }
+
+  /* Document — admin report */
+  .doc { background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 32px 34px; width: 100%; max-width: 360px; aspect-ratio: 1 / 1.35; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-plex-sans); color: var(--v2-ink); box-shadow: 0 2px 10px -4px oklch(0% 0 0 / 0.12); }
+  .doc .top { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid var(--line-2); }
+  .doc .top .badge-stack .wm { color: var(--v2-ink); font-size: 13px; }
+  .doc .top .badge-stack .tag { color: oklch(50% 0.015 80); font-size: 8.5px; }
+  .doc .top .meta { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(48% 0.015 80); text-align: right; line-height: 1.6; }
+  .doc h5 { font-family: var(--font-serif); font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin: 4px 0 0; color: var(--v2-ink); line-height: 1.2; }
+  .doc .sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(48% 0.015 80); }
+  .doc table { width: 100%; border-collapse: collapse; margin-top: 4px; font-family: var(--font-mono); font-size: 10.5px; }
+  .doc th, .doc td { padding: 7px 0; border-bottom: 1px solid var(--line-2); text-align: left; font-weight: 400; color: var(--v2-ink); }
+  .doc th { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.015 80); font-weight: 500; }
+  .doc td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .doc .foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line-2); display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(50% 0.015 80); }
+
+  /* Email signature */
+  .email-sig { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 22px 26px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 10px; font-family: var(--font-sans); }
+  .email-sig .nm { font-family: var(--font-plex-sans); font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+  .email-sig .rl { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.04em; }
+  .email-sig .ln { display: flex; gap: 20px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 10.5px; color: var(--text-2); }
+  .email-sig .ln a { color: var(--v1-accent); text-decoration: none; }
+  .email-sig .badge-stack { margin-top: 8px; }
+  .email-sig .badge-stack .wm { font-size: 12px; }
+  .email-sig .badge-stack .tag { font-size: 8px; }
+
+  /* Favicon stack */
+  .favicons { display: flex; align-items: flex-end; gap: 22px; }
+  .favicons .fv { display: flex; flex-direction: column; gap: 6px; align-items: center; font-family: var(--font-mono); font-size: 9px; color: var(--text-3); letter-spacing: 0.06em; }
+  .favicons .fv .f { border-radius: 6px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; }
+  .favicons .fv .f.dark { background: var(--ink); border-color: var(--ink); }
+
+  /* Business card */
+  .bc-flip { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 360px; }
+  .bc { width: 100%; aspect-ratio: 1.75 / 1; border-radius: 4px; padding: 22px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 3px 14px -4px oklch(0% 0 0 / 0.18); }
+  .bc.front { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+  .bc.back { background: var(--ink); color: #fff; }
+  .bc .top-row { display: flex; justify-content: space-between; align-items: flex-start; }
+  .bc .nm { font-family: var(--font-mono); font-size: 15px; font-weight: 500; letter-spacing: -0.015em; }
+  .bc .rl { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.06em; margin-top: 4px; text-transform: uppercase; }
+  .bc .b-row { display: flex; justify-content: space-between; align-items: flex-end; font-family: var(--font-mono); font-size: 9.5px; color: var(--text-3); letter-spacing: 0.04em; line-height: 1.5; }
+  .bc.back .brand-mark { font-family: var(--font-mono); font-size: 36px; font-weight: 500; letter-spacing: -0.03em; color: #fff; }
+  .bc.back .tagline-mini { font-family: var(--font-mono); font-size: 11px; color: oklch(70% 0.01 264); letter-spacing: 0.04em; margin-top: 6px; }
+  .bc.back .badge-stack { color: #fff; }
+  .bc.back .badge-stack svg path { fill: #fff !important; }
+  .bc.back .badge-stack .wm { color: #fff; }
+  .bc.back .badge-stack .tag { color: oklch(65% 0.01 264); }
+
+  /* Crossover */
+  .crossover { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .cross-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 28px 30px; display: flex; flex-direction: column; gap: 14px; }
+  .cross-card .tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cross-card h3 { font-family: var(--font-mono); font-size: 16px; margin: 0; font-weight: 500; color: var(--text); }
+  .cross-card p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0; }
+  .cross-card p b { color: var(--text); font-weight: 500; }
+  .cross-card .rule { background: var(--surface-2); border-left: 3px solid var(--v1-accent); padding: 12px 16px; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink); line-height: 1.55; }
+
+  /* Do / don't */
+  .dd { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .dd-col h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 14px; font-weight: 500; }
+  .dd-col.do h4 { color: oklch(42% 0.12 150); }
+  .dd-col.dont h4 { color: oklch(48% 0.14 25); }
+  .dd-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .dd-col li { padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+  .dd-col li::before { font-family: var(--font-mono); font-size: 10px; margin-right: 8px; letter-spacing: 0.08em; }
+  .dd-col.do li::before { content: "✓ "; color: oklch(42% 0.12 150); font-weight: 600; }
+  .dd-col.dont li::before { content: "× "; color: oklch(48% 0.14 25); font-weight: 600; }
+
+  /* Colophon */
+  .colophon { text-align: center; padding: 60px 56px; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+  .colophon b { color: var(--text); font-weight: 500; }
+
+  /* ═══════════════════ Tweaks panel ═══════════════════ */
+  .tweaks { position: fixed; right: 20px; bottom: 20px; width: 320px; background: var(--ink-d); color: #fff; border-radius: 12px; padding: 0; font-family: var(--font-mono); font-size: 11.5px; z-index: 9999; box-shadow: 0 20px 60px -12px oklch(0% 0 0 / 0.5), 0 2px 8px oklch(0% 0 0 / 0.3); display: none; overflow: hidden; }
+  .tweaks.on { display: block; }
+  .tweaks-head { padding: 14px 18px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid oklch(28% 0.008 264); }
+  .tweaks-head b { font-weight: 500; letter-spacing: 0.02em; font-size: 12px; }
+  .tweaks-head .model-tag { font-size: 9.5px; color: oklch(68% 0.01 264); letter-spacing: 0.1em; text-transform: uppercase; }
+  .tweaks-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 18px; max-height: 70vh; overflow-y: auto; }
+  .tw-group { display: flex; flex-direction: column; gap: 8px; }
+  .tw-group label { font-size: 9.5px; color: oklch(68% 0.01 264); letter-spacing: 0.12em; text-transform: uppercase; }
+  .tw-seg { display: flex; background: oklch(22% 0.010 264); border-radius: 6px; padding: 3px; gap: 2px; }
+  .tw-seg button { flex: 1; background: transparent; border: 0; color: oklch(75% 0.01 264); font-family: inherit; font-size: 10.5px; padding: 7px 8px; border-radius: 4px; cursor: pointer; letter-spacing: 0.02em; transition: all 0.15s; }
+  .tw-seg button:hover { color: #fff; }
+  .tw-seg button.on { background: var(--v1-accent); color: #fff; }
+  .tw-note { font-size: 10px; color: oklch(62% 0.01 264); line-height: 1.5; padding: 8px 10px; background: oklch(22% 0.010 264); border-radius: 4px; border-left: 2px solid var(--v1-accent); }
+  .tw-note b { color: oklch(82% 0.01 264); font-weight: 500; }
+
+  /* ─── Voice model: 2 vs 3 voces ─── */
+  /* Default is 3 voces. When body[data-voice-model="2"], hospitality column hides,
+     real-estate column renames to "Residencia" and absorbs hospitality examples. */
+  body[data-voice-model="2"] .voice-col.hospitality-col { display: none; }
+  body[data-voice-model="2"] .voice-strip { grid-template-columns: repeat(2, 1fr); }
+  body[data-voice-model="2"] [data-show="3voz"] { display: none !important; }
+  body[data-voice-model="3"] [data-show="2voz"] { display: none !important; }
+
+  /* Language toggle for guest-facing surfaces */
+  body[data-hosp-lang="es"] [data-lang="en"] { display: none !important; }
+  body[data-hosp-lang="en"] [data-lang="es"] { display: none !important; }
+
+  /* Hospitality tone: warm operator (default for 2-voice) vs irreverente (original) */
+  body[data-hosp-tone="warm"] [data-tone="irreverente"] { display: none !important; }
+  body[data-hosp-tone="irreverente"] [data-tone="warm"] { display: none !important; }
+
+  /* When 2-voice active, retitle the middle column and swap its chrome to Residencia */
+  body[data-voice-model="2"] .voice-col.re-col .v2-hero { background: var(--v2-bg); }
+  body[data-voice-model="2"] .col-title-re [data-show-when="3voz"] { display: none; }
+  body[data-voice-model="3"] .col-title-re [data-show-when="2voz"] { display: none; }
+
+  /* Residencia model A: show the merged dual-figures block */
+  .v2-dual { display: none; margin-top: auto; padding-top: 16px; border-top: 1px solid oklch(80% 0.020 82); display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-family: var(--font-mono); }
+  .v2-dual .col { display: flex; flex-direction: column; gap: 4px; }
+  .v2-dual .col .k { font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(48% 0.015 80); }
+  .v2-dual .col .v { font-size: 14px; color: var(--v2-ink); line-height: 1.35; letter-spacing: -0.005em; }
+  body[data-voice-model="2"] .v2-dual { display: grid; }
+  body[data-voice-model="2"] .v2-figures { display: none; }
+</style>
+</head>
+<body data-voice-model="2" data-hosp-lang="es" data-hosp-tone="warm">
+<div class="page">
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
+<header class="cover" data-screen-label="01 Cover">
+  <div class="cover-inner">
+    <div>
+      <div class="kicker">BaW · Brand System · Version 1 · 2026</div>
+      <div class="mark-big">
+        <svg viewBox="0 0 120 120" width="100" height="100" fill="none" aria-label="BaW mark">
+          <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+          <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+          <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        </svg>
+      </div>
+      <h1>Una marca, un <em>sistema operativo</em>,<br><span data-show="2voz">dos voces.</span><span data-show="3voz">tres voces.</span></h1>
+      <p class="lead" data-show="2voz"><b>BaW</b> es el sistema operativo agéntico de los edificios residenciales. Este documento define el ADN visual — y cómo ese ADN se flexiona para hablarle a dos audiencias sin perder cohesión: <b>el operador que compra el software</b> (SaaS · EN), y <b>quien habita o invierte en el edificio</b> (Residencia · ES). Renta, estadía, inversión — todos ven la misma marca del edificio, en español.</p>
+      <p class="lead" data-show="3voz"><b>BaW</b> es el sistema operativo agéntico de los edificios residenciales. Este documento define el ADN visual — y cómo ese ADN se flexiona para hablarle a tres audiencias sin perder cohesión: <b>el operador que compra el software</b>, <b>el inversionista que desarrolla propiedades</b>, y <b>el huésped que las habita</b>.</p>
+    </div>
+    <div></div>
+  </div>
+  <div class="cover-meta" style="max-width:1328px; margin: 80px auto 0;">
+    <div><b>Mark</b>Tres losas · 100/70/50 opacity · cubo alineado · sin modificaciones</div>
+    <div><b>Wordmark</b>IBM Plex Mono · 500 · tracking −0.025em · lowercase mixed</div>
+    <div><b>Badge</b>Stacked label · mark + wordmark + "Runs on BaW OS"</div>
+    <div><b>Tagline</b>Building Always Working · EN institucional</div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════ 01 · FOUNDATION ═══════════════════ -->
+<section class="block" data-screen-label="02 Foundation">
+  <div class="block-head">
+    <div class="no">01 · Foundation<span>ADN inmutable</span></div>
+    <div>
+      <h2>Cuatro piezas fijas. Nada más, nada menos.</h2>
+      <p>Estos cuatro elementos no cambian nunca — aparecen igual en SaaS, real estate y hospitalidad. Todo el resto del sistema (color, tipografía secundaria, imaginería, copy) es flexible.</p>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Mark -->
+    <div class="card">
+      <div class="tag">01 · Mark</div>
+      <h3>Tres losas</h3>
+      <div class="hero">
+        <svg viewBox="0 0 120 120" width="120" height="120" fill="none">
+          <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+          <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+          <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        </svg>
+      </div>
+      <p>Tres losas isométricas apiladas en cubo — lectura dual: <b>edificio</b> (física, real estate) y <b>stack operativo</b> (software, capas). Sin modificaciones, sin distintivos añadidos. <b>La simplicidad es el distintivo.</b></p>
+      <div class="specs">
+        <b>Geometría</b> Tres paralelogramos, alineados a cubo, vértices coincidentes<br>
+        <b>Opacidad</b> 100 / 70 / 50<br>
+        <b>Mínimo</b> 16 px en pantalla · 8 mm en impresión<br>
+        <b>Área segura</b> 1× la altura de una losa, en los 4 lados
+      </div>
+    </div>
+
+    <!-- Wordmark -->
+    <div class="card">
+      <div class="tag">02 · Wordmark</div>
+      <h3>BaW · Plex Mono 500</h3>
+      <div class="hero">
+        <span class="wm-big">BaW</span>
+      </div>
+      <p>El wordmark es siempre <b>"BaW"</b> — mayúsculas B y W, minúscula a. Nunca "BAW", nunca "baw". La mezcla de caja es la firma tipográfica. <b>IBM Plex Mono 500</b>, tracking −0.025em.</p>
+      <div class="wm-sizes">
+        <div class="row"><b style="font-size:36px">BaW</b><span>36 · display</span></div>
+        <div class="row"><b style="font-size:20px">BaW</b><span>20 · heading</span></div>
+        <div class="row"><b style="font-size:14px">BaW</b><span>14 · body</span></div>
+        <div class="row"><b style="font-size:11px">BaW</b><span>11 · mínimo</span></div>
+      </div>
+    </div>
+
+    <!-- Badge -->
+    <div class="card">
+      <div class="tag">03 · Inside Badge</div>
+      <h3>Stacked label · sin contenedor</h3>
+      <div class="hero">
+        <span class="badge-stack" style="transform:scale(1.35); transform-origin:center">
+          <svg viewBox="0 0 48 48" width="28" height="28"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm">BaW</span>
+          <span class="tag">Runs on BaW OS</span>
+        </span>
+      </div>
+      <p>Cuando el edificio tiene <b>nombre propio</b> (Adamant León, The Mateos, Naran), el badge aparece como endorsement: <b>mark + wordmark + "Runs on BaW OS"</b>. Sin marco, sin contenedor — limpio, institucional, no invasivo.</p>
+      <div class="specs">
+        <b>Dónde</b> Footer app residente · base de placa · pie de email · lobby sign · doc administrador<br>
+        <b>Mínimo</b> Mark a 14 px (o 20 px si el espacio permite)<br>
+        <b>Color</b> Monocromo — hereda el ink del contexto
+      </div>
+    </div>
+
+    <!-- Tagline full width -->
+    <div class="tagline-card">
+      <div class="t">Building <em>Always</em> Working.</div>
+      <div class="meta">
+        <b>04 · TAGLINE</b>
+        Siglas · B-a-W<br>
+        Doble lectura · 24/7 + siempre operativo<br>
+        EN principal · ES subordinada
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 02 · TYPOGRAPHY ═══════════════════ -->
+<section class="block" data-screen-label="03 Typography">
+  <div class="block-head">
+    <div class="no">02 · Typography<span>Un ecosistema</span></div>
+    <div>
+      <h2>Tres fuentes. Todas de la familia <em>IBM Plex</em> + Inter para UI densa.</h2>
+      <p>El sistema vive dentro de una familia coherente (Plex) y añade Inter solo donde la UI necesita más eficiencia de espacio. No hay fuentes decorativas, no hay serifas extravagantes. <b>Rigor tipográfico como firma.</b></p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-card mono">
+      <div class="head"><h3>IBM Plex Mono</h3><span class="role">wordmark + display</span></div>
+      <div class="sample">BaW&nbsp;809P</div>
+      <p><b>Carga principal.</b> Wordmark, nombres de edificio, headlines en hospitalidad, headers técnicos, números y códigos. El monoespaciado es nuestra firma — <b>la industria de real estate no lo usa</b>, y por eso lo usamos.</p>
+      <div class="specs">
+        <b>Pesos</b> 400 Regular · 500 Medium · 600 Semibold<br>
+        <b>Tracking</b> −0.025em en display · 0em en body · +0.08em en ALL CAPS<br>
+        <b>Uso</b> Wordmark, headlines hospitality, números, metadata, UI chrome
+      </div>
+    </div>
+
+    <div class="type-card sans">
+      <div class="head"><h3>IBM Plex Sans</h3><span class="role">real estate body</span></div>
+      <div class="sample">Operating</div>
+      <p><b>Voz adulta.</b> Cuerpo de texto en materiales de real estate (contratos, reportes de administrador, marketing institucional). Humanista, legible, con autoridad silenciosa. <b>Plex Serif</b> como acompañante editorial para headlines institucionales largos.</p>
+      <div class="specs">
+        <b>Pesos</b> 400 Regular · 500 Medium · 600 Semibold<br>
+        <b>Uso</b> Body real estate, documentos administrador, prensa, contratos<br>
+        <b>Plex Serif</b> Opcional para editorial y reports largos
+      </div>
+    </div>
+
+    <div class="type-card ui">
+      <div class="head"><h3>Inter</h3><span class="role">UI densa · SaaS</span></div>
+      <div class="sample">Dashboard</div>
+      <p><b>UI densa.</b> Solo donde la pantalla necesita mucha información: tablas, dashboards, formularios. Inter rinde mejor que Plex Sans a 12–14 px en UI saturada. <b>Nunca en marketing, nunca en impresión.</b></p>
+      <div class="specs">
+        <b>Pesos</b> 400 Regular · 500 Medium · 600 Semibold<br>
+        <b>Uso</b> Dashboards BaW OS, tablas, formularios, UI chrome a 12–14 px<br>
+        <b>Features</b> tabular-nums on, cv11 on (straight-sided a)
+      </div>
+    </div>
+
+    <div class="scale-row">
+      <div class="item"><b style="font-size:56px">Aa</b><span>display · 56 / mono</span></div>
+      <div class="item"><b style="font-size:40px">Aa</b><span>h1 · 40</span></div>
+      <div class="item"><b style="font-size:28px">Aa</b><span>h2 · 28</span></div>
+      <div class="item"><b style="font-size:20px">Aa</b><span>h3 · 20</span></div>
+      <div class="item"><b style="font-size:16px">Aa</b><span>h4 · 16</span></div>
+      <div class="item"><b style="font-size:14px">Aa</b><span>body · 14</span></div>
+      <div class="item"><b style="font-size:12px">Aa</b><span>meta · 12</span></div>
+      <div class="item"><b style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase">AA</b><span>eyebrow · 10 · +10% tracking</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 03 · COLOR ═══════════════════ -->
+<section class="block" data-screen-label="04 Color">
+  <div class="block-head">
+    <div class="no">03 · Color<span>Tokens + paletas por voz</span></div>
+    <div>
+      <h2>Una base neutra. Un acento por voz.</h2>
+      <p><b>Ink</b> y sus neutros viven en las tres voces sin cambiar. Lo único que flexiona es el acento: índigo en SaaS, latón en real estate, y un acento saturado por propiedad en hospitalidad. <b>Nunca más de un acento activo a la vez.</b></p>
+    </div>
+  </div>
+
+  <!-- Base / core -->
+  <h3 style="font-family:var(--font-mono); font-size:11px; color:var(--text-3); letter-spacing:0.12em; text-transform:uppercase; margin:0 0 14px; font-weight:500">Base — se usa en las tres voces</h3>
+  <div class="color-grid">
+    <div class="sw"><div class="chip" style="background:var(--ink)"></div><div class="meta"><b>Ink</b><span>oklch(22% 0.012 264)</span></div></div>
+    <div class="sw"><div class="chip" style="background:oklch(42% 0.012 264)"></div><div class="meta"><b>Ink 80</b><span>oklch(42% 0.012 264)</span></div></div>
+    <div class="sw"><div class="chip" style="background:oklch(58% 0.014 264)"></div><div class="meta"><b>Ink 60</b><span>oklch(58% 0.014 264)</span></div></div>
+    <div class="sw"><div class="chip" style="background:oklch(92% 0.005 264); border:1px solid var(--line)"></div><div class="meta"><b>Line</b><span>oklch(92.4% 0.005 264)</span></div></div>
+    <div class="sw"><div class="chip" style="background:oklch(98% 0.003 264); border:1px solid var(--line)"></div><div class="meta"><b>Surface</b><span>oklch(98.4% 0.003 264)</span></div></div>
+    <div class="sw"><div class="chip" style="background:#fff; border:1px solid var(--line)"></div><div class="meta"><b>White</b><span>#FFFFFF</span></div></div>
+  </div>
+
+  <!-- Voice accents -->
+  <h3 style="font-family:var(--font-mono); font-size:11px; color:var(--text-3); letter-spacing:0.12em; text-transform:uppercase; margin:32px 0 14px; font-weight:500">Acentos por voz — solo uno activo a la vez</h3>
+  <div class="color-grid">
+    <div class="sw"><div class="chip" style="background:var(--v1-accent)"></div><div class="meta"><b>SaaS · Electric indigo</b><span>oklch(52% 0.22 266)</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--v1-accent-soft)"></div><div class="meta"><b>SaaS · Indigo soft</b><span>oklch(95% 0.03 266)</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--v2-accent)"></div><div class="meta"><b>RE · Brass</b><span>oklch(64% 0.09 78)</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--v2-bg)"></div><div class="meta"><b>RE · Cream</b><span>oklch(97.2% 0.008 82)</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--v3a-accent)"></div><div class="meta"><b>Hosp · Copper</b><span>Mateos · oklch(72% 0.18 48)</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--v3c-accent)"></div><div class="meta"><b>Hosp · Red</b><span>Naran · oklch(55% 0.22 18)</span></div></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 04 · THREE VOICES ═══════════════════ -->
+<section class="block" data-screen-label="05 Voices">
+  <div class="block-head">
+    <div class="no">04 · <span data-show="2voz">Two voices</span><span data-show="3voz">Three voices</span><span><span data-show="2voz">Un ADN, dos audiencias</span><span data-show="3voz">Un ADN, tres audiencias</span></span></div>
+    <div>
+      <h2>El mismo <em>sistema operativo</em>, hablando a <span data-show="2voz">dos</span><span data-show="3voz">tres</span> salas distintas.</h2>
+      <p data-show="2voz"><b>Decisión v2:</b> Colapsamos "Real Estate" y "Hospitalidad" en una sola voz — <b>Residencia</b>. Un inquilino de largo plazo, un huésped de estadía corta y un inversionista ven <i>la misma marca del edificio</i>, solo con superficies distintas. Menos complejidad, más reconocimiento. La voz SaaS sigue siendo aparte — solo el operador B2B la ve.</p>
+      <p data-show="3voz">Mismos mark, wordmark, badge, tagline. Lo que cambia es el <b>lenguaje</b>: tipografía de apoyo, color, tono de copy, imaginería. Cada voz sirve a una audiencia distinta sin contaminar a la siguiente.</p>
+    </div>
+  </div>
+
+  <div class="voice-strip">
+    <!-- Voice 1 · SaaS -->
+    <div class="voice-col">
+      <div class="v1-hero">
+        <div class="pill">● ok · 12 agents online</div>
+        <h4>The agentic OS<br>for <em>residential buildings</em>.</h4>
+        <div class="sub">Rentas, cobranza, mantenimiento, energía — operados por agentes. 24/7. Sin mesa de administración.</div>
+        <div class="v1-terminal">
+          <div class="line"><span class="prompt">$</span><span>baw agents status</span></div>
+          <div class="line"><span class="mute">rent-collector</span><span class="ok">✓ ok</span><span class="mute">· 48/48 units</span></div>
+          <div class="line"><span class="mute">energy-optimizer</span><span class="ok">✓ ok</span><span class="mute">· 4.2% saved MTD</span></div>
+          <div class="line"><span class="mute">tenant-concierge</span><span class="ok">✓ ok</span><span class="mute">· 3 tickets open</span></div>
+        </div>
+      </div>
+      <div class="voice-detail">
+        <h5>01 · Agentic-native AI OS</h5>
+        <div class="row"><div class="k">AUD</div><div class="v">Operadores, administradores, developers que compran el software</div></div>
+        <div class="row"><div class="k">TONO</div><div class="v">CLI, preciso, honesto, técnico. Frases cortas. Números.</div></div>
+        <div class="row"><div class="k">TIPO</div><div class="v">Plex Mono wordmark + headlines · Inter UI</div></div>
+        <div class="row"><div class="k">COLOR</div><div class="v"><div class="swatch-row"><div class="chip" style="background:var(--ink)"></div><div class="chip" style="background:var(--v1-accent)"></div><div class="chip" style="background:var(--v1-accent-soft)"></div></div></div></div>
+        <div class="row"><div class="k">IMG</div><div class="v">UI screens reales, dashboards, logs, axonometría técnica</div></div>
+      </div>
+    </div>
+
+    <!-- Voice 2 · Real Estate / Residencia -->
+    <div class="voice-col re-col">
+      <div class="v2-hero">
+        <div class="eyebrow col-title-re">
+          <span data-show-when="2voz">BaW · Residencia · Mateos 809P</span>
+          <span data-show-when="3voz">BaW · Mateos 809P · Real Estate</span>
+        </div>
+        <h4 data-show="3voz">A residential asset that operates itself.</h4>
+        <h4 data-show="2voz">Un edificio que se<br>opera solo — y <em>se vive bien.</em></h4>
+        <div class="sub" data-show="3voz">48 unidades en Colonia Roma. Gestión integral por agentes. Reportes al inversionista, automatizados.</div>
+        <div class="sub" data-show="2voz">48 unidades en Colonia Roma. Tu renta, tu estadía, tu reporte trimestral — todo desde la misma marca del edificio. En español, sin mesa de administración.</div>
+
+        <!-- 3-voz: KPI figures -->
+        <div class="figures v2-figures">
+          <div class="f"><b>94%</b><span>occupancy</span></div>
+          <div class="f"><b>7.2×</b><span>NOI multiple</span></div>
+          <div class="f"><b>−41%</b><span>opex</span></div>
+        </div>
+
+        <!-- 2-voz: dual audience — huésped/inquilino + inversionista -->
+        <div class="v2-dual">
+          <div class="col">
+            <span class="k">Huésped · inquilino</span>
+            <span class="v">Check-in en la app. Renta automática. Soporte 24/7 en español.</span>
+          </div>
+          <div class="col">
+            <span class="k">Inversionista</span>
+            <span class="v">NOI +41%. Reportes trimestrales. Ocupación 94%.</span>
+          </div>
+        </div>
+      </div>
+      <div class="voice-detail">
+        <h5><span data-show="2voz">02 · Residencia — la voz del edificio</span><span data-show="3voz">02 · Real estate institucional</span></h5>
+        <div class="row"><div class="k">AUD</div>
+          <div class="v" data-show="2voz">Huéspedes, inquilinos, inversionistas — <b>todos los que tocan el edificio</b>, no el software</div>
+          <div class="v" data-show="3voz">Inversionistas, fondos, developers, inquilinos clase A</div>
+        </div>
+        <div class="row"><div class="k">TONO</div>
+          <div class="v" data-show="2voz">Adulto, cálido, claro. Español primero. Cifras cuando hablan al inversionista; claridad cuando hablan al huésped.</div>
+          <div class="v" data-show="3voz">Adulto, reservado, data-forward. Cifras sobre adjetivos.</div>
+        </div>
+        <div class="row"><div class="k">IDIOMA</div>
+          <div class="v" data-show="2voz"><b>ES primario</b> · EN disponible para reportes a fondos internacionales</div>
+          <div class="v" data-show="3voz">EN primario · ES disponible</div>
+        </div>
+        <div class="row"><div class="k">TIPO</div><div class="v">Plex Mono wordmark · Plex Serif headlines · Plex Sans body</div></div>
+        <div class="row"><div class="k">COLOR</div><div class="v"><div class="swatch-row"><div class="chip" style="background:var(--v2-ink)"></div><div class="chip" style="background:var(--v2-accent)"></div><div class="chip" style="background:var(--v2-bg); border-color:oklch(84% 0.02 80)"></div></div></div></div>
+        <div class="row"><div class="k">IMG</div><div class="v">Fachadas, planos, axonometría arquitectónica, latón, materiales — <span data-show="2voz">+ fotografía de huésped cuando aplica</span></div></div>
+      </div>
+    </div>
+
+    <!-- Voice 3 · Hospitality (hidden in 2-voz) -->
+    <div class="voice-col hospitality-col">
+      <div class="v3-hero">
+        <div class="eyebrow">
+          <span data-lang="es">The Mateos · Hospedaje</span>
+          <span data-lang="en">The Mateos · Hospitality</span>
+        </div>
+        <h4 data-tone="irreverente" data-lang="en">The building<br>runs <em>itself.</em></h4>
+        <h4 data-tone="irreverente" data-lang="es">El edificio<br>se opera <em>solo.</em></h4>
+        <h4 data-tone="warm" data-lang="es">Tu edificio.<br>Tu <em>llave digital.</em></h4>
+        <h4 data-tone="warm" data-lang="en">Your building.<br>Your <em>digital key.</em></h4>
+
+        <div class="sub" data-tone="irreverente" data-lang="en">No front desk. No concierge emails. No landlord anxiety. We read the meter so you don't.</div>
+        <div class="sub" data-tone="irreverente" data-lang="es">Sin recepción. Sin correos al administrador. Sin dramas de inquilino. Leemos el medidor para que tú no lo hagas.</div>
+        <div class="sub" data-tone="warm" data-lang="es">Reserva, check-in, renta y soporte — todo desde tu celular, en español. 48 departamentos. 12 pisos. Cero fricción.</div>
+        <div class="sub" data-tone="warm" data-lang="en">Booking, check-in, rent and support — all from your phone, in Spanish. 48 apartments. 12 floors. Zero friction.</div>
+
+        <div class="punchline" data-tone="irreverente" data-lang="en">12 floors. 48 apartments. Zero humans in the loop.</div>
+        <div class="punchline" data-tone="irreverente" data-lang="es">12 pisos. 48 deptos. Cero humanos en el loop.</div>
+        <div class="punchline" data-tone="warm" data-lang="es">Reserva por noche, mes o año. La app es la misma.</div>
+        <div class="punchline" data-tone="warm" data-lang="en">Book by the night, month or year. Same app.</div>
+      </div>
+      <div class="voice-detail">
+        <h5 data-show="3voz">03 · Hospitality irreverente</h5>
+        <h5 data-show="2voz">03 · Hospitality (plegada en Residencia)</h5>
+        <div class="row" data-show="2voz"><div class="k">NOTA</div><div class="v"><b>En v2 esta voz se pliega en Residencia.</b> Se mantiene como <i>modo opcional</i> para activaciones de corto plazo tipo ACE/Standard — pero por default el edificio usa la voz Residencia, en español.</div></div>
+        <div class="row"><div class="k">AUD</div><div class="v">Residentes jóvenes, tech-forward, short-stay premium</div></div>
+        <div class="row"><div class="k">TONO</div>
+          <div class="v" data-tone="irreverente">Punchy, autoconsciente, irónico. Afirmaciones cortas. Humor seco.</div>
+          <div class="v" data-tone="warm">Cálido, directo, hospitalario. Español primero. Instrucciones claras; sin rudeza.</div>
+        </div>
+        <div class="row"><div class="k">IDIOMA</div>
+          <div class="v" data-lang="es"><b>ES primario</b> — la mayoría de huéspedes LatAm no son bilingües</div>
+          <div class="v" data-lang="en">EN primario — perfil short-stay global</div>
+        </div>
+        <div class="row"><div class="k">TIPO</div><div class="v">Plex Mono todo — body, display, copy. Sin sans serif.</div></div>
+        <div class="row"><div class="k">COLOR</div><div class="v"><div class="swatch-row"><div class="chip" style="background:#111"></div><div class="chip" style="background:var(--v3a-accent)"></div><div class="chip" style="background:var(--v3b-accent)"></div><div class="chip" style="background:var(--v3c-accent)"></div></div></div></div>
+        <div class="row"><div class="k">IMG</div><div class="v">Fotografía conceptual, objetos aislados, humor visual, alto contraste</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 05 · NAMING ARCHITECTURE ═══════════════════ -->
+<section class="block" data-screen-label="06 Naming">
+  <div class="block-head">
+    <div class="no">05 · Naming<span>Arquitectura libre + endorsement</span></div>
+    <div>
+      <h2 data-show="2voz">Dos marcas: <em>BaW</em> (software) + nombre del edificio (operador).</h2>
+      <h2 data-show="3voz">El edificio es libre de tener el nombre que quiera. <em>BaW aparece adentro.</em></h2>
+      <p data-show="2voz"><b>Simplificación v2.</b> Ya no separamos "marca de real estate" y "marca de hospitalidad" — <b>son la misma marca del edificio</b>. Cuando alguien renta o reserva, ve una sola identidad (ej. <i>The Mateos</i>). BaW aparece como endorsement operativo ("Runs on BaW OS") — igual que Intel Inside.</p>
+      <p data-show="3voz">Estrategia tipo <b>Intel Inside</b>: el edificio puede llamarse lo que quiera — con prefijo BaW, con nombre independiente, o con nombre nuevo diseñado para hospitality. En todos los casos, el badge "Runs on BaW OS" aparece como endorsement, no como marca principal.</p>
+    </div>
+  </div>
+
+  <div class="naming">
+    <div class="naming-card">
+      <div class="tag">Modo A · Prefijo</div>
+      <h3>BaW + identificador</h3>
+      <div class="example"><span class="prefix">BaW </span>Mateos&nbsp;809P</div>
+      <p><b>El edificio adopta el prefijo BaW.</b> Identifica por dirección, piso, o código corto. Voz: directa, operativa, técnica.</p>
+      <div class="when"><b>Cuándo</b>Edificio operado por BaW directamente · portfolio del fondo · B2B2C donde BaW es el landlord</div>
+    </div>
+
+    <div class="naming-card">
+      <div class="tag">Modo B · Independiente</div>
+      <h3>Nombre propio</h3>
+      <div class="example">Adamant León</div>
+      <p><b>El edificio tiene nombre institucional propio.</b> BaW aparece solo como endorsement al pie. Voz: clase A, real estate tradicional.</p>
+      <div class="when"><b>Cuándo</b>Developer externo usa BaW OS como operador · edificios premium · white-label</div>
+    </div>
+
+    <div class="naming-card">
+      <div class="tag">Modo C · <span data-show="2voz">Marca plegada</span><span data-show="3voz">Hospitality</span></div>
+      <h3 data-show="3voz">Nombre de marca propia</h3>
+      <h3 data-show="2voz">Nombre propio · una sola voz</h3>
+      <div class="example">The Mateos</div>
+      <p data-show="3voz"><b>El edificio se posiciona como marca de hospitalidad.</b> Naming corto, evocador, memorable. BaW firma al final como el sistema que lo hace posible.</p>
+      <p data-show="2voz"><b>El edificio tiene un nombre evocador — pero habla con la voz Residencia.</b> Mismo tono cálido/ES para el huésped de 2 noches, el inquilino de 2 años y el inversionista. Una sola marca operadora del edificio.</p>
+      <div class="when" data-show="3voz"><b>Cuándo</b>Short-stay premium · posicionamiento irreverente tipo ACE / The Standard · multi-propiedad</div>
+      <div class="when" data-show="2voz"><b>Cuándo</b>Default recomendado · edificios mixed-use (renta + estadía) · mercado LatAm · hispanohablante</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 06 · APPLICATIONS ═══════════════════ -->
+<section class="block" data-screen-label="07 Applications">
+  <div class="block-head">
+    <div class="no">06 · Applications<span>El sistema en el mundo</span></div>
+    <div>
+      <h2>El mismo badge, seis contextos.</h2>
+      <p>Una colección de aplicaciones reales, cada una usando el stacked badge como firma común. Nota cómo el naming cambia — el badge no.</p>
+    </div>
+  </div>
+
+  <div class="app-grid">
+    <!-- Placa · real estate -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>Placa de edificio · latón</h4><span class="meta">Modo B · Adamant León</span></div>
+      <div class="app-body">
+        <div class="plaque">
+          <div class="main">
+            <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="currentColor"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="currentColor" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="currentColor" opacity=".5"/></svg>
+            <div>
+              <div class="name">Adamant León</div>
+              <div class="addr">Av. Reforma 2468 · CDMX</div>
+            </div>
+          </div>
+          <div class="foot">
+            <span class="badge-stack">
+              <svg viewBox="0 0 48 48" width="18" height="18"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="oklch(22% 0.010 75)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="oklch(22% 0.010 75)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="oklch(22% 0.010 75)" opacity=".5"/></svg>
+              <span class="wm">BaW</span>
+              <span class="tag">Runs on BaW OS</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lobby sign · hospitality -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>Letrero de lobby</h4><span class="meta">Modo C · The Mateos</span></div>
+      <div class="app-body">
+        <div class="lobby">
+          <div class="eyebrow" data-lang="es">Lobby · Planta baja</div>
+          <div class="eyebrow" data-lang="en">Lobby · Ground floor</div>
+          <div class="name">Mateos 809P</div>
+          <div class="c" data-tone="warm" data-lang="es">12 pisos. 48 departamentos. Check-in digital — tu celular abre la puerta. Soporte 24/7 en español.</div>
+          <div class="c" data-tone="warm" data-lang="en">12 floors. 48 apartments. Digital check-in — your phone unlocks the door. 24/7 support.</div>
+          <div class="c" data-tone="irreverente" data-lang="en">12 floors. 48 apartments. Zero humans in the loop. Front door? Your phone.</div>
+          <div class="c" data-tone="irreverente" data-lang="es">6 pisos. 38 deptos. Cero humanos en el loop. ¿Puerta? Tu celular.</div>
+          <div class="foot">
+            <span class="room">412 · North</span>
+            <span class="badge-stack">
+              <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+              <span class="wm">BaW</span>
+              <span class="tag">Runs on BaW OS</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resident app -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>App del residente</h4><span class="meta">Modo A · BaW Mateos 809P</span></div>
+      <div class="app-body">
+        <div class="app-mock">
+          <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+          <div class="top-nav">
+            <div class="building">BaW · <span>Mateos 809P</span></div>
+            <div class="dot"></div>
+          </div>
+          <div class="body">
+            <div class="card-item accent">
+              <div class="l">
+                <div class="s" data-lang="es">Renta · diciembre</div>
+                <div class="s" data-lang="en">Rent · December</div>
+                <div class="t" data-lang="es">Pagado automáticamente</div>
+                <div class="t" data-lang="en">Paid automatically</div>
+              </div>
+              <div class="v">$24,800</div>
+            </div>
+            <div class="card-item">
+              <div class="l">
+                <div class="s" data-lang="es">Elevador · norte</div>
+                <div class="s" data-lang="en">Elevator · north</div>
+                <div class="t" data-lang="es">Operativo</div>
+                <div class="t" data-lang="en">Operational</div>
+              </div>
+              <div class="v" style="color:oklch(56% 0.16 150); font-size:11px">● ok</div>
+            </div>
+            <div class="card-item">
+              <div class="l">
+                <div class="s" data-lang="es">Energía · este mes</div>
+                <div class="s" data-lang="en">Energy · this month</div>
+                <div class="t" data-lang="es">Debajo del promedio</div>
+                <div class="t" data-lang="en">Below average</div>
+              </div>
+              <div class="v">132 kWh</div>
+            </div>
+            <div class="card-item">
+              <div class="l">
+                <div class="s" data-lang="es">Paquete · pendiente</div>
+                <div class="s" data-lang="en">Package · pending</div>
+                <div class="t" data-lang="es">Casillero B-14</div>
+                <div class="t" data-lang="en">Locker B-14</div>
+              </div>
+              <div class="v" style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.08em"><span data-lang="es">abrir</span><span data-lang="en">open</span></div>
+            </div>
+          </div>
+          <div class="tab-bar">
+            <div class="tabs">
+              <span class="on" data-lang="es">Inicio</span><span class="on" data-lang="en">Home</span>
+              <span data-lang="es">Unidad</span><span data-lang="en">Unit</span>
+              <span data-lang="es">Edificio</span><span data-lang="en">Build.</span>
+            </div>
+            <span class="badge-stack">
+              <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+              <span class="wm">BaW</span>
+              <span class="tag">BaW OS</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin doc · real estate -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>Reporte de administración</h4><span class="meta">Modo B · Adamant León</span></div>
+      <div class="app-body">
+        <div class="doc">
+          <div class="top">
+            <span class="badge-stack">
+              <svg viewBox="0 0 48 48" width="20" height="20"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--v2-ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--v2-ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--v2-ink)" opacity=".5"/></svg>
+              <span class="wm">BaW</span>
+              <span class="tag">Runs on BaW OS</span>
+            </span>
+            <div class="meta">Q4 2026<br>Report · 003</div>
+          </div>
+          <div class="sub">Adamant León · Ownership Report</div>
+          <h5>Operating summary<br>and NOI statement</h5>
+          <table>
+            <tr><th>Metric</th><th class="num">Q3</th><th class="num">Q4</th></tr>
+            <tr><td>Occupancy</td><td class="num">91.6%</td><td class="num">94.1%</td></tr>
+            <tr><td>Gross rent</td><td class="num">$4.21M</td><td class="num">$4.48M</td></tr>
+            <tr><td>Opex</td><td class="num">$1.38M</td><td class="num">$0.81M</td></tr>
+            <tr><td><b style="font-weight:500">Net operating</b></td><td class="num"><b style="font-weight:500">$2.83M</b></td><td class="num"><b style="font-weight:500">$3.67M</b></td></tr>
+          </table>
+          <div class="foot"><span>Confidential</span><span>Page 1 / 24</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email signature -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>Firma de email · operador</h4><span class="meta">B2B · SaaS voice</span></div>
+      <div class="app-body">
+        <div class="email-sig">
+          <div class="nm">María González</div>
+          <div class="rl">Head of Portfolio Operations</div>
+          <div class="ln">
+            <span>maria@baw.io</span>
+            <a>baw.io/ops</a>
+          </div>
+          <span class="badge-stack">
+            <svg viewBox="0 0 48 48" width="18" height="18"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm">BaW</span>
+            <span class="tag">Building Always Working</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favicons -->
+    <div class="app-card" style="grid-column: span 4">
+      <div class="app-top"><h4>Favicon · digital stack</h4><span class="meta">64 · 32 · 16 px</span></div>
+      <div class="app-body">
+        <div class="favicons">
+          <div class="fv">
+            <div class="f" style="width:64px; height:64px">
+              <svg viewBox="0 0 120 120" width="44" height="44" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity=".5"/></svg>
+            </div>
+            <span>64</span>
+          </div>
+          <div class="fv">
+            <div class="f" style="width:40px; height:40px">
+              <svg viewBox="0 0 120 120" width="28" height="28" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity=".5"/></svg>
+            </div>
+            <span>32</span>
+          </div>
+          <div class="fv">
+            <div class="f" style="width:24px; height:24px">
+              <svg viewBox="0 0 120 120" width="16" height="16" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity=".5"/></svg>
+            </div>
+            <span>16</span>
+          </div>
+          <div class="fv">
+            <div class="f dark" style="width:64px; height:64px">
+              <svg viewBox="0 0 120 120" width="44" height="44" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="#fff"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="#fff" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="#fff" opacity=".5"/></svg>
+            </div>
+            <span>dark</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business card -->
+    <div class="app-card" style="grid-column: span 6">
+      <div class="app-top"><h4>Business card · SaaS operator</h4><span class="meta">85 × 55 mm</span></div>
+      <div class="app-body">
+        <div class="bc-flip" style="max-width:420px">
+          <div class="bc front">
+            <div class="top-row">
+              <svg viewBox="0 0 120 120" width="36" height="36" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity=".5"/></svg>
+              <div style="text-align:right"><div class="nm">Juan Pedraza</div><div class="rl">Founder · CEO</div></div>
+            </div>
+            <div class="b-row">
+              <div>juan@baw.io<br>+52 55 0000 0000</div>
+              <div style="text-align:right">baw.io<br>CDMX</div>
+            </div>
+          </div>
+          <div class="bc back">
+            <div class="brand-mark">BaW</div>
+            <div>
+              <div class="tagline-mini">Building Always Working.</div>
+              <div style="margin-top:16px">
+                <span class="badge-stack">
+                  <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+                  <span class="wm">BaW</span>
+                  <span class="tag">The agentic OS for buildings</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social avatar -->
+    <div class="app-card" style="grid-column: span 6">
+      <div class="app-top"><h4>Social avatar · 400 × 400</h4><span class="meta">App store · LinkedIn · X</span></div>
+      <div class="app-body">
+        <div style="display:flex; gap:18px; align-items:center">
+          <div style="width:120px; height:120px; border-radius:22px; background:var(--ink); display:grid; place-items:center">
+            <svg viewBox="0 0 120 120" width="72" height="72" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="#fff"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="#fff" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="#fff" opacity=".5"/></svg>
+          </div>
+          <div style="width:120px; height:120px; border-radius:22px; background:#fff; border:1px solid var(--line); display:grid; place-items:center">
+            <svg viewBox="0 0 120 120" width="72" height="72" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity=".5"/></svg>
+          </div>
+          <div style="width:120px; height:120px; border-radius:22px; background:var(--v1-accent); display:grid; place-items:center">
+            <svg viewBox="0 0 120 120" width="72" height="72" fill="none"><path d="M10 82 L60 100 L110 82 L60 64 Z" fill="#fff"/><path d="M10 58 L60 76 L110 58 L60 40 Z" fill="#fff" opacity=".7"/><path d="M10 34 L60 52 L110 34 L60 16 Z" fill="#fff" opacity=".5"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 07 · CROSSOVER RULES ═══════════════════ -->
+<section class="block" data-screen-label="08 Crossover">
+  <div class="block-head">
+    <div class="no">07 · Crossover<span>Cuando dos voces se encuentran</span></div>
+    <div>
+      <h2>Las voces no se mezclan. <em>Se pasan el turno.</em></h2>
+      <p>Cada superficie vive en una sola voz. Si una audiencia cruza de una superficie a otra (un huésped abre el portal del landlord; un inversionista accede al dashboard), la voz cambia al del <b>destino</b>, no se queda una versión híbrida.</p>
+    </div>
+  </div>
+
+  <div class="crossover">
+    <div class="cross-card" data-show="2voz">
+      <div class="tag">Caso 1</div>
+      <h3>Huésped / inquilino → marca del edificio</h3>
+      <p>Un huésped de 3 noches y un inquilino de 2 años <b>ven exactamente la misma marca</b> (<i>The Mateos</i>, voz Residencia). La duración de la estadía no cambia la voz; sí cambia el copy — check-in vs contrato. Todo en español.</p>
+      <div class="rule">REGLA · No diferenciamos "hospedaje" de "renta" a nivel marca. Un solo nombre, una sola voz, un solo idioma (ES) de cara al usuario final.</div>
+    </div>
+
+    <div class="cross-card" data-show="2voz">
+      <div class="tag">Caso 2</div>
+      <h3>UI de app → SaaS voice, siempre</h3>
+      <p>La app del residente y el dashboard del administrador <b>siempre son SaaS voice</b> — limpia, operativa, densa. El nombre del edificio aparece en el top nav; la UI no lo hereda. Esto aplica igual para huésped corto y para inquilino de año.</p>
+      <div class="rule">REGLA · La UI vive en SaaS voice; la marca del edificio la etiqueta, no la dicta.</div>
+    </div>
+
+    <div class="cross-card" data-show="2voz">
+      <div class="tag">Caso 3</div>
+      <h3>Inversionista → reporte trimestral</h3>
+      <p>El reporte al inversionista usa la <b>misma voz Residencia</b> pero en modo institucional: Plex Serif, latón, tabular-nums. Puede salir en EN si el fondo lo exige — pero el documento principal vive en ES.</p>
+      <div class="rule">REGLA · El reporte es Residencia voice en modo institucional. ES default; EN bajo request de fondos internacionales.</div>
+    </div>
+
+    <div class="cross-card" data-show="2voz">
+      <div class="tag">Caso 4</div>
+      <h3>baw.io (marketing SaaS) → sitio del edificio</h3>
+      <p>baw.io es <b>SaaS voice</b> (EN, técnico, CLI). Los sitios de edificio (themateos.co, adamantleon.mx) son <b>Residencia voice</b> (ES, cálido, hospitalario). Dos dominios, dos voces — unidos solo por el badge "Runs on BaW OS".</p>
+      <div class="rule">REGLA · baw.io ≠ sitio del edificio. No mezclar audiencia B2B (operador) con B2C (huésped/inquilino).</div>
+    </div>
+
+    <div class="cross-card" data-show="3voz">
+      <div class="tag">Caso 1</div>
+      <h3>Residente (hospitality) → app del edificio</h3>
+      <p>El residente vive la marca del edificio (<i>The Mateos</i>, voz irreverente). Pero cuando abre la app para ver su renta o un ticket, la UI es <b>SaaS voice</b>: limpia, densa, operativa.</p>
+      <div class="rule">REGLA · La UI de la app siempre es SaaS voice. El nombre del edificio aparece en el top nav como etiqueta — no dicta la voz de la interfaz.</div>
+    </div>
+
+    <div class="cross-card" data-show="3voz">
+      <div class="tag">Caso 2</div>
+      <h3>Inversionista → reporte trimestral</h3>
+      <p>El inversionista consume la voz de real estate institucional (latón, Plex Serif, cifras). Cuando recibe el reporte, este mantiene esa voz — <b>incluso si el edificio es hospitality</b> (The Mateos, Naran).</p>
+      <div class="rule">REGLA · Los reportes al inversionista siempre son Real Estate voice, independiente del nombre comercial del edificio.</div>
+    </div>
+
+    <div class="cross-card" data-show="3voz">
+      <div class="tag">Caso 3</div>
+      <h3>Administrador B2B → página de producto</h3>
+      <p>El administrador que evalúa comprar BaW OS ve la voz SaaS. Si luego visita una propiedad operada, verá la voz del edificio — pero el marketing-site es siempre SaaS.</p>
+      <div class="rule">REGLA · baw.io es SaaS voice. Los sites de edificio (themateos.co, adamantleon.mx) tienen su propia voz + endorsement BaW.</div>
+    </div>
+
+    <div class="cross-card" data-show="3voz">
+      <div class="tag">Caso 4</div>
+      <h3>Un edificio con múltiples audiencias</h3>
+      <p>Un mismo edificio puede tener marketing de hospitalidad para huéspedes <b>y</b> reportes de real estate para el fondo. Son dos caras de la misma moneda, no una voz mezclada.</p>
+      <div class="rule">REGLA · Nunca mezclar voces en una misma superficie. Separar audiencias en distintos touchpoints.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ 08 · DO / DON'T ═══════════════════ -->
+<section class="block" data-screen-label="09 Rules">
+  <div class="block-head">
+    <div class="no">08 · Do / Don't<span>Reglas duras</span></div>
+    <div>
+      <h2>Ocho líneas rojas.</h2>
+      <p>Las cosas que, si las respetas, mantienen la marca coherente. Las que, si las rompes, la disuelven.</p>
+    </div>
+  </div>
+
+  <div class="dd">
+    <div class="dd-col do">
+      <h4>Hacer</h4>
+      <ul>
+        <li>Usar Plex Mono para el wordmark <b>siempre</b> — en todos los contextos, en todas las voces.</li>
+        <li>Mantener el mark <b>sin modificaciones</b>: tres losas, 100/70/50, alineadas a cubo.</li>
+        <li>Aplicar el badge stacked <b>en el borde inferior</b> de superficies con nombre propio.</li>
+        <li>Permitir al edificio tener su <b>propio nombre y voz</b>; BaW aparece como endorsement.</li>
+      </ul>
+    </div>
+    <div class="dd-col dont">
+      <h4>No hacer</h4>
+      <ul>
+        <li>No inclinar, estirar, animar o cambiar la opacidad de las tres losas del mark.</li>
+        <li>No poner el wordmark en caja sans serif (Inter, Plex Sans). <b>Siempre mono.</b></li>
+        <li>No usar más de <b>un acento de voz</b> activo a la vez en una misma superficie.</li>
+        <li>No traducir el tagline "Building Always Working" — funciona por las siglas B-a-W.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ COLOPHON ═══════════════════ -->
+<div class="colophon">
+  <b>BaW · Brand System v2</b> · 2026 · Juan Pedraza, Founder<br>
+  <span data-show="2voz">Dos voces: SaaS (operador B2B · EN) + Residencia (huésped + inquilino + inversionista · ES). Hospitality se pliega en Residencia.</span>
+  <span data-show="3voz">Tres voces: SaaS + Real Estate + Hospitality. Mark · Wordmark · Badge · Tagline — cuatro piezas fijas.</span>
+</div>
+
+</div>
+
+<!-- ═══════════════════ TWEAKS PANEL ═══════════════════ -->
+<div class="tweaks" id="tweaks">
+  <div class="tweaks-head">
+    <b>Tweaks</b>
+    <span class="model-tag" id="tw-model-label">2 voces · ES · cálido</span>
+  </div>
+  <div class="tweaks-body">
+    <div class="tw-group">
+      <label>Modelo de voz</label>
+      <div class="tw-seg" data-key="voiceModel">
+        <button data-value="2">2 voces</button>
+        <button data-value="3">3 voces</button>
+      </div>
+      <div class="tw-note">
+        <b>2 voces (default v2)</b> — Residencia absorbe Hospitality. Un huésped, un inquilino y un inversionista ven <i>la misma marca del edificio</i>.
+      </div>
+    </div>
+
+    <div class="tw-group">
+      <label>Idioma · Residencia / huésped</label>
+      <div class="tw-seg" data-key="hospLang">
+        <button data-value="es">Español</button>
+        <button data-value="en">English</button>
+      </div>
+      <div class="tw-note">
+        LatAm por default; la mayoría de huéspedes no son bilingües. EN disponible para reportes a fondos internacionales.
+      </div>
+    </div>
+
+    <div class="tw-group">
+      <label>Tono · superficie huésped</label>
+      <div class="tw-seg" data-key="hospTone">
+        <button data-value="warm">Cálido operador</button>
+        <button data-value="irreverente">Irreverente</button>
+      </div>
+      <div class="tw-note">
+        <b>Cálido</b> — operador del edificio, instrucciones claras, hospitalidad LatAm.<br>
+        <b>Irreverente</b> — voz v1 original, tipo ACE/Standard, humor seco.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const DEFAULTS = /*EDITMODE-BEGIN*/{
+    "voiceModel": "2",
+    "hospLang": "es",
+    "hospTone": "irreverente"
+  }/*EDITMODE-END*/;
+  let state = Object.assign({}, DEFAULTS);
+
+  const attrFor = { voiceModel: 'data-voice-model', hospLang: 'data-hosp-lang', hospTone: 'data-hosp-tone' };
+  const modelLabel = document.getElementById('tw-model-label');
+
+  function apply(){
+    for (const k in attrFor) document.body.setAttribute(attrFor[k], state[k]);
+    // update segmented button states
+    document.querySelectorAll('.tw-seg').forEach(seg => {
+      const key = seg.dataset.key;
+      seg.querySelectorAll('button').forEach(btn => {
+        btn.classList.toggle('on', btn.dataset.value === state[key]);
+      });
+    });
+    // status label
+    const lang = state.hospLang === 'es' ? 'ES' : 'EN';
+    const tone = state.hospTone === 'warm' ? 'cálido' : 'irreverente';
+    modelLabel.textContent = `${state.voiceModel} voces · ${lang} · ${tone}`;
+  }
+
+  // Bind segmented buttons
+  document.querySelectorAll('.tw-seg').forEach(seg => {
+    const key = seg.dataset.key;
+    seg.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state[key] = btn.dataset.value;
+        apply();
+        try {
+          window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: btn.dataset.value } }, '*');
+        } catch(e){}
+      });
+    });
+  });
+
+  // Edit-mode protocol
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || !d.type) return;
+    if (d.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+    if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+  });
+
+  apply();
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e){}
+})();
+</script>
+
+</body>
+</html>

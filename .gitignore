@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.cursor/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build output (cuando llegue)
+dist/
+build/
+.next/
+node_modules/
+
+# Env
+.env
+.env.local
+
+# Adobe / Figma temp files
+*.ai.lock
+*.fig.lock
+.~lock.*
+
+# Logs
+*.log

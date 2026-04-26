@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW OS — Wordmark Explorations</title>
+<link rel="preconnect" href="https://rsms.me/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --surface-3: oklch(96.6% 0.004 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --ink: oklch(22% 0.012 264);
+    --accent: oklch(52% 0.22 266);
+
+    --d-bg: oklch(15.8% 0.008 264);
+    --d-surface: oklch(18.6% 0.009 264);
+    --d-line: oklch(28% 0.012 264);
+    --d-text: oklch(96% 0.004 264);
+    --d-text-3: oklch(62% 0.010 264);
+
+    --font-sans: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --font-display: "Instrument Serif", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: var(--font-sans);
+    background: var(--bg); color: var(--text);
+    font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01","cv11";
+  }
+
+  .page { max-width: 1440px; margin: 0 auto; padding: 48px 56px 120px; }
+
+  .masthead {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 44px;
+  }
+  .masthead .section-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-size: 44px; line-height: 1.04;
+    letter-spacing: -0.03em; margin: 0 0 10px;
+    font-weight: 400; max-width: 900px;
+  }
+  .masthead h1 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .masthead p { max-width: 680px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  .masthead p b { color: var(--text); font-weight: 500; }
+  .masthead .meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-3); letter-spacing: 0.02em;
+    text-align: right; line-height: 1.7;
+  }
+
+  /* thesis row */
+  .thesis {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0; margin-bottom: 44px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); overflow: hidden;
+  }
+  .thesis > div { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .thesis > div:last-child { border-right: 0; }
+  .thesis h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin: 0 0 10px; font-weight: 500; }
+  .thesis p { font-size: 12.5px; color: var(--text-2); line-height: 1.55; margin: 0; }
+  .thesis p b { color: var(--text); font-weight: 500; }
+  .thesis .current {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 30px; letter-spacing: -0.02em; color: var(--text);
+    margin-top: 8px;
+  }
+  .thesis .current b { font-style: normal; font-weight: 400; }
+
+  /* ─── Option block ─── */
+  .opt {
+    border: 1px solid var(--line); border-radius: 10px;
+    margin-bottom: 22px; background: var(--surface); overflow: hidden;
+  }
+  .opt-head {
+    display: grid; grid-template-columns: 60px 1fr 360px;
+    gap: 24px; align-items: baseline;
+    padding: 20px 26px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .opt-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
+  .opt-title { font-family: var(--font-display); font-size: 24px; letter-spacing: -0.02em; font-weight: 400; margin: 0; }
+  .opt-title em { color: oklch(40% 0.10 266); font-style: italic; }
+  .opt-note { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+  .opt-note b { color: var(--text); font-weight: 500; }
+
+  /* two-panel body: light hero + dark hero */
+  .opt-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .panel {
+    padding: 48px 40px; min-height: 280px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; border-right: 1px solid var(--line);
+  }
+  .panel:last-child { border-right: 0; }
+  .panel.dark { background: var(--d-bg); border-right-color: var(--d-line); }
+  .panel .tag {
+    position: absolute; top: 14px; left: 18px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-4); letter-spacing: 0.08em;
+  }
+  .panel.dark .tag { color: var(--d-text-3); }
+
+  .panel::before {
+    content:""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/24px 24px,
+      linear-gradient(to bottom, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/24px 24px;
+    pointer-events: none;
+  }
+  .panel.dark::before {
+    background:
+      linear-gradient(to right, oklch(100% 0 0 / 0.04) 1px, transparent 1px) 0 0/24px 24px,
+      linear-gradient(to bottom, oklch(100% 0 0 / 0.04) 1px, transparent 1px) 0 0/24px 24px;
+  }
+
+  /* the lockup itself */
+  .lockup {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .lockup svg { display: block; flex-shrink: 0; }
+  .panel.dark .wm { color: #fff; }
+  .wm { color: var(--ink); white-space: nowrap; }
+
+  /* scale ladder strip */
+  .ladder {
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 16px 26px;
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+    gap: 0;
+  }
+  .ladder > div {
+    display: flex; align-items: center; gap: 18px;
+    padding: 10px 18px 10px 0;
+  }
+  .ladder > div:last-child { padding-left: 18px; border-left: 1px dashed var(--line); padding-right: 0; }
+  .ladder .sz {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .ladder .sz .lbl {
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--text-4); letter-spacing: 0.04em;
+    width: 28px; text-align: right;
+  }
+
+  /* contextual mini-apps */
+  .context {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .context > div {
+    padding: 18px 22px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 10px;
+    min-height: 96px;
+  }
+  .context > div:last-child { border-right: 0; }
+  .context h5 {
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--text-4); letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0; font-weight: 500;
+  }
+
+  /* favicon strip */
+  .favs { display: flex; gap: 10px; align-items: center; }
+  .fav {
+    width: 22px; height: 22px; border-radius: 5px;
+    background: var(--surface); border: 1px solid var(--line);
+    display: grid; place-items: center; overflow: hidden;
+  }
+  .fav.dark { background: var(--d-bg); border-color: var(--d-line); }
+  .fav.big { width: 30px; height: 30px; border-radius: 7px; }
+
+  /* sidebar mini-chrome */
+  .chrome {
+    display: grid; grid-template-columns: 1fr;
+    border: 1px solid var(--line); border-radius: 6px;
+    overflow: hidden; background: var(--surface);
+  }
+  .chrome .topbar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .chrome .topbar .mini-lock { display: flex; align-items: center; gap: 6px; }
+  .chrome .topbar .mini-wm { font-size: 12px; }
+  .chrome .topbar .dots { margin-left: auto; display: flex; gap: 4px; }
+  .chrome .topbar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+
+  /* CLI-ish tag */
+  .cli {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-2); line-height: 1.5;
+  }
+  .cli b { color: var(--text); font-weight: 500; }
+  .cli span.prompt { color: var(--text-4); margin-right: 6px; }
+  .cli span.accent { color: var(--accent); }
+
+  /* ═════════ TYPE RECIPES ═════════ */
+  /* Each option gets a .wm-NN class; we keep the mark fixed and swap typography. */
+
+  /* 01 — Current: Instrument Serif italic */
+  .wm-01 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  .wm-01 .os { font-style: normal; }
+
+  /* 02 — IBM Plex Mono (system-y, echoes the mono already in the design system) */
+  .wm-02 {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .wm-02 .os { font-weight: 400; color: var(--text-3); }
+
+  /* 03 — Inter SemiBold, tight, all-lowercase (software-first, modern) */
+  .wm-03 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    text-transform: lowercase;
+    font-feature-settings: "ss01","cv11";
+  }
+  .wm-03 .os { font-weight: 500; color: var(--text-3); letter-spacing: -0.02em; }
+
+  /* 04 — Space Grotesk 700 (geometric, plays with the isometric mark) */
+  .wm-04 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .wm-04 .os {
+    font-weight: 500; color: var(--text-3);
+    margin-left: 4px; letter-spacing: -0.01em;
+  }
+
+  /* 05 — Fraunces (display serif with soft humanist contrast, kept upright not italic) */
+  .wm-05 {
+    font-family: "Fraunces", "Instrument Serif", Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    font-variation-settings: "SOFT" 50, "opsz" 96;
+  }
+  .wm-05 .os { font-weight: 400; color: var(--text-3); font-variation-settings: "opsz" 96; margin-left: 2px; }
+
+  /* 06 — Newsreader italic (more reserved editorial serif than Instrument) */
+  .wm-06 {
+    font-family: "Newsreader", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 72;
+  }
+  .wm-06 .os { font-style: normal; color: var(--text-3); }
+
+  /* 07 — Archivo 600 + small-caps OS (Swiss operating-system feel) */
+  .wm-07 {
+    font-family: "Archivo", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .wm-07 .os {
+    font-weight: 500; color: var(--text-3);
+    text-transform: uppercase;
+    font-size: 0.62em;
+    letter-spacing: 0.12em;
+    margin-left: 8px;
+    border-left: 1px solid currentColor;
+    padding-left: 8px;
+    opacity: 0.7;
+  }
+  .panel.dark .wm-07 .os { color: var(--d-text-3); }
+
+  /* 08 — JetBrains Mono (developer tooling tone) */
+  .wm-08 {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .wm-08 .os { font-weight: 400; color: var(--text-3); }
+
+  /* 09 — Schibsted Grotesk 700 (warm geometric, OS-brand-feeling) */
+  .wm-09 {
+    font-family: "Schibsted Grotesk", "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  .wm-09 .os { font-weight: 500; color: var(--text-3); margin-left: 4px; letter-spacing: -0.02em; }
+
+  /* 10 — Manrope 600 + monospaced "/OS" suffix (product tag style) */
+  .wm-10 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .wm-10 .sep {
+    color: var(--text-4); font-weight: 400;
+    margin: 0 2px 0 4px; font-family: var(--font-mono);
+  }
+  .wm-10 .os {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500; color: var(--text-3);
+    font-size: 0.72em; letter-spacing: 0.02em;
+  }
+
+  /* 11 — IBM Plex Serif italic (editorial but engineered) */
+  .wm-11 {
+    font-family: "IBM Plex Serif", "IBM Plex Mono", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+  .wm-11 .os { font-style: normal; color: var(--text-3); font-weight: 400; }
+
+  /* Default wm sizing per context */
+  .panel .wm { font-size: 44px; line-height: 1; }
+
+  /* Scale ladder sizes */
+  .sz .wm { line-height: 1; }
+  .sz.s14 .wm { font-size: 14px; }
+  .sz.s18 .wm { font-size: 18px; }
+  .sz.s24 .wm { font-size: 24px; }
+  .sz.s32 .wm { font-size: 32px; }
+  .sz.s44 .wm { font-size: 44px; }
+
+  /* decision bar */
+  .decision {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 0; margin-top: 44px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface-2); overflow: hidden;
+  }
+  .decision > div { padding: 24px 26px; border-right: 1px solid var(--line); }
+  .decision > div:last-child { border-right: 0; }
+  .decision h3 {
+    font-family: var(--font-display);
+    font-size: 22px; margin: 0 0 10px;
+    font-weight: 400; letter-spacing: -0.02em;
+  }
+  .decision h3 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .decision p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0 0 6px; }
+  .decision p b { color: var(--text); font-weight: 500; }
+  .decision .tag {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--text-3); letter-spacing: 0.06em;
+    padding: 2px 8px; border: 1px solid var(--line);
+    border-radius: 3px; margin-right: 6px; margin-bottom: 4px;
+    background: var(--surface);
+  }
+  .decision .tag.pick { color: var(--text); border-color: var(--text-3); }
+
+  /* final on-dark comparison strip */
+  .strip {
+    margin-top: 20px; padding: 36px 28px;
+    border: 1px solid var(--d-line);
+    border-radius: 10px; background: var(--d-bg);
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 0; overflow: hidden;
+  }
+  .strip > div {
+    display: flex; flex-direction: column;
+    align-items: flex-start; gap: 14px;
+    padding: 6px 18px;
+    border-right: 1px solid var(--d-line);
+  }
+  .strip > div:last-child { border-right: 0; }
+  .strip .lbl {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--d-text-3); letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .strip .wm { font-size: 26px; color: #fff; line-height: 1; }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Wordmark Explorations">
+
+<!-- ───── Masthead ───── -->
+<header class="masthead">
+  <div>
+    <div class="section-no">WORDMARK · EXPLORATIONS · V1</div>
+    <h1>El <em>mark</em> se queda. El wordmark necesita una segunda conversación.</h1>
+    <p>El símbolo de placas apiladas funciona: lee como arquitectura silenciosa, sin acento. La <b>Instrument Serif italic</b> actual es elegante, pero la cursiva humanista puede sonar blanda al lado de un mark tan técnico. Abajo, once direcciones sobre el mismo símbolo — de muy técnicas a muy editoriales. Claro y oscuro lado a lado. Cada una en escala completa: favicon → topbar → producto → hero.</p>
+  </div>
+  <div class="meta">
+    Mark · Plates (sin cambios)<br>
+    Target · Wordmark solo<br>
+    Paleta · Tinta + índigo
+  </div>
+</header>
+
+<!-- ───── Thesis row ───── -->
+<section class="thesis">
+  <div>
+    <h4>Estado actual</h4>
+    <div class="current">BaW<b> OS</b></div>
+    <p style="margin-top:6px">Instrument Serif italic · 28px · tracking −0.02em. Muy editorial, muy humanista.</p>
+  </div>
+  <div>
+    <h4>Tensión que notas</h4>
+    <p>El mark es <b>isométrico, ortogonal, sin color</b>. La cursiva serif va en dirección opuesta: contraste alto, ejes inclinados orgánicos, voz literaria. <b>Contraste legítimo</b>, pero no todos los contrastes son buenos.</p>
+  </div>
+  <div>
+    <h4>Ejes que exploramos</h4>
+    <p><b>Técnica</b> (mono, geométrico) ↔ <b>Editorial</b> (serif). <b>Industrial</b> (Swiss, neutro) ↔ <b>Humanista</b> (con carácter). <b>Con/sin separador</b> entre "BaW" y "OS". <b>Peso</b> del tratamiento del sufijo "OS".</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 01 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">01</div>
+    <div><h2 class="opt-title">Instrument Serif italic <em>— el baseline actual</em></h2></div>
+    <div class="opt-note"><b>Tu punto de partida.</b> Serif humanista, contraste alto, italic. Voz: editorial, cálida, un poco literaria. Tensiona con el mark técnico — puede leerse como una decisión, o como un desajuste.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-01">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-01">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+  <div class="context">
+    <div>
+      <h5>Favicon / app icon</h5>
+      <div class="favs">
+        <div class="fav"><svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg></div>
+        <div class="fav dark"><svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg></div>
+        <div class="fav big"><svg viewBox="0 0 48 48" width="18" height="18"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg></div>
+      </div>
+    </div>
+    <div>
+      <h5>Topbar de producto</h5>
+      <div class="chrome">
+        <div class="topbar">
+          <div class="mini-lock">
+            <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-01 mini-wm">BaW<span class="os"> OS</span></span>
+          </div>
+          <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>Terminal · CLI</h5>
+      <div class="cli"><span class="prompt">$</span><b>baw</b> status <span class="accent">&gt;</span> ok</div>
+      <div class="cli" style="margin-top:-4px">Instrument Serif no aparece en CLI; el nombre se colapsa a <b>baw</b> en mono.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 02 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">02</div>
+    <div><h2 class="opt-title">IBM Plex Mono <em>— el sistema operativo real</em></h2></div>
+    <div class="opt-note"><b>Mono, del mismo tipo que ya usas en tokens.</b> El wordmark se lee como una línea de terminal. Voz: técnica, honesta, sin adornos. El sufijo OS se alivia a 400. Máxima coherencia con la tipografía de datos ya adoptada.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+  <div class="context">
+    <div>
+      <h5>Topbar de producto</h5>
+      <div class="chrome">
+        <div class="topbar">
+          <div class="mini-lock">
+            <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-02 mini-wm">BaW<span class="os"> OS</span></span>
+          </div>
+          <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>Tag de versión</h5>
+      <div class="cli"><b>BaW OS</b> <span class="accent">v0.1.4</span> · build 2026.04.18</div>
+    </div>
+    <div>
+      <h5>Terminal · CLI</h5>
+      <div class="cli"><span class="prompt">$</span><b>BaW OS</b> --ready<br>&nbsp;&nbsp;El nombre no cambia forma entre UI y consola.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 03 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">03</div>
+    <div><h2 class="opt-title">Inter SemiBold · <em>lowercase "baw os"</em></h2></div>
+    <div class="opt-note"><b>Minúsculas, apretado, sin fricción.</b> La misma Inter del UI, cerrada con tracking −0.04em. Voz: software moderno, al estilo de herramientas-para-creadores. Minúsculas hacen el mark y la palabra pesar parejo — el símbolo gobierna.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-03">baw<span class="os"> os</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-03">baw<span class="os"> os</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 04 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">04</div>
+    <div><h2 class="opt-title">Space Grotesk Bold <em>— geométrico, con carácter</em></h2></div>
+    <div class="opt-note"><b>Rima con el isométrico del mark.</b> Terminales rectos, "a" y "g" de doble piso con personalidad. Voz: producto tecnológico con una gota de diseñador. Más "amistoso" que un grotesque suizo puro, pero lejos del editorial.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-04">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-04">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 05 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">05</div>
+    <div><h2 class="opt-title">Fraunces Medium <em>— serif, pero de pie</em></h2></div>
+    <div class="opt-note"><b>Si querías serif, pero no cursiva.</b> Fraunces en peso 500, con el eje SOFT activado y óptico 96 — serif contemporánea con curvas cálidas, sin el drama de la cursiva. Voz: editorial moderno, "diseñado en 2025", no "revista literaria".</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-05">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-05">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 06 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">06</div>
+    <div><h2 class="opt-title">Newsreader italic <em>— serif editorial, más reservada</em></h2></div>
+    <div class="opt-note"><b>Si quieres conservar la cursiva pero bajar el drama.</b> Newsreader tiene menos contraste que Instrument Serif y una italic más discreta. Voz: periódico serio, no revista literaria. Mantiene el calor humanista sin gritar.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-06">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-06">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 07 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">07</div>
+    <div><h2 class="opt-title">Archivo + small-caps <em>| OS como subdivisión</em></h2></div>
+    <div class="opt-note"><b>"BaW" es la marca; "OS" es el producto.</b> Archivo 600 para el nombre, luego una barra vertical y <span style="font-family:Archivo;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;">OS</span> en small-caps. Arquitectura Swiss, pero con jerarquía. Escala bien a favicon (se cae la etiqueta, queda "BaW").</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 08 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">08</div>
+    <div><h2 class="opt-title">JetBrains Mono Bold <em>— heads-down engineering</em></h2></div>
+    <div class="opt-note"><b>La opción más "developer-tool".</b> Más condensado que Plex Mono, terminales más gruesos. Se parece a lo que verías en un IDE o en un changelog. Voz: hecho por ingenieros, para ingenieros — sin pedir disculpas.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-08">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-08">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 09 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">09</div>
+    <div><h2 class="opt-title">Schibsted Grotesk Bold <em>— grotesque moderno</em></h2></div>
+    <div class="opt-note"><b>El punto medio Swiss.</b> Geométrica, ápices ligeramente humanistas, diseñada para interfaces. Voz: producto serio, adulto, con un poco de alma. Cercana a lo que usarían Arc, Linear o Vercel si quisieran más calor.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW<span class="os">OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 10 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">10</div>
+    <div><h2 class="opt-title">Manrope Bold · <em>BaW / os en mono</em> — híbrido</h2></div>
+    <div class="opt-note"><b>Híbrido expresivo.</b> Sans geométrica moderna para "BaW", slash literal, y "os" en Plex Mono a 72% — como un path o una ruta. Voz: producto versionado, con conciencia del sistema. La dualidad sans/mono resuelve la jerarquía nombre/plataforma.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 11 ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">11</div>
+    <div><h2 class="opt-title">IBM Plex Serif italic <em>— serif "de ingeniería"</em></h2></div>
+    <div class="opt-note"><b>Mitad Instrument, mitad Plex Mono.</b> La serif italic de la misma familia que usas en mono — menos contraste que Instrument, más técnica, pero aún cálida. El ecosistema Plex unifica mono, sans y serif bajo un mismo idioma.</div>
+  </div>
+  <div class="opt-body">
+    <div class="panel">
+      <span class="tag">Hero · Light · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-11">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+    <div class="panel dark">
+      <span class="tag">Hero · Dark · 44px</span>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="44" height="44"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-11">BaW<span class="os"> OS</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="ladder">
+    <div>
+      <div class="sz s14"><span class="lbl">14</span><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s18"><span class="lbl">18</span><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s24"><span class="lbl">24</span><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+    </div>
+    <div>
+      <div class="sz s32"><span class="lbl">32</span><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+      <div class="sz s44"><span class="lbl">44</span><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ COMPARATIVA EN OSCURO ═══════════════════════════════ -->
+<section class="strip">
+  <div><div class="lbl">01 · Instrument</div><span class="wm wm-01">BaW<span class="os"> OS</span></span></div>
+  <div><div class="lbl">02 · Plex Mono</div><span class="wm wm-02">BaW<span class="os"> OS</span></span></div>
+  <div><div class="lbl">03 · Inter low.</div><span class="wm wm-03">baw<span class="os"> os</span></span></div>
+  <div><div class="lbl">04 · Space Gr.</div><span class="wm wm-04">BaW<span class="os">OS</span></span></div>
+  <div><div class="lbl">05 · Fraunces</div><span class="wm wm-05">BaW<span class="os"> OS</span></span></div>
+  <div><div class="lbl">06 · Newsreader</div><span class="wm wm-06">BaW<span class="os"> OS</span></span></div>
+</section>
+<section class="strip" style="margin-top:12px">
+  <div><div class="lbl">07 · Archivo|OS</div><span class="wm wm-07">BaW<span class="os">OS</span></span></div>
+  <div><div class="lbl">08 · JetBrains</div><span class="wm wm-08">BaW<span class="os"> OS</span></span></div>
+  <div><div class="lbl">09 · Schibsted</div><span class="wm wm-09">BaW<span class="os">OS</span></span></div>
+  <div><div class="lbl">10 · Manrope/os</div><span class="wm wm-10">BaW<span class="sep">/</span><span class="os">os</span></span></div>
+  <div><div class="lbl">11 · Plex Serif</div><span class="wm wm-11">BaW<span class="os"> OS</span></span></div>
+  <div><div class="lbl">— próximo paso</div><span class="wm wm-02" style="font-size:18px">pick 2 → refine</span></div>
+</section>
+
+
+<!-- ═══════════════════════════════ DECISIÓN ═══════════════════════════════ -->
+<section class="decision">
+  <div>
+    <h3>Mi recomendación <em>— aunque tú decides</em></h3>
+    <p><b>02 · IBM Plex Mono</b> es la elección más coherente con tu sistema: ya usas Plex Mono para tokens y datos, así que el wordmark se vuelve parte del mismo idioma. El mark isométrico + mono técnica es una pareja ideológica limpia: <b>arquitectura + máquina</b>.</p>
+    <p style="margin-top:10px">Si quieres mantener la serif por nostalgia del baseline, salta a <b>05 · Fraunces</b> (serif sin cursiva) o <b>11 · Plex Serif italic</b> (serif del mismo ecosistema).</p>
+    <div style="margin-top:14px">
+      <span class="tag pick">02</span><span class="tag pick">05</span><span class="tag pick">11</span>
+      <span class="tag">07</span><span class="tag">09</span>
+    </div>
+  </div>
+  <div>
+    <h3>Lo que perderíamos</h3>
+    <p><b>Dejar Instrument Serif italic</b> significa perder el contraste humanista que hace que el sistema no se sienta estéril. Si optamos por mono, hay que compensar esa calidez en otro lado — por ejemplo, manteniendo Instrument para titulares en marketing (no en producto).</p>
+    <p style="margin-top:10px"><b>No es obligatorio que el wordmark sea la misma familia</b> que todo el display system. De hecho, la mayoría de sistemas operativos tienen un wordmark diferente del tipo de UI.</p>
+  </div>
+  <div>
+    <h3>Próximos pasos</h3>
+    <p>1 · Marca 2–3 favoritas arriba.</p>
+    <p>2 · Te preparo una ronda <b>v2</b> con solo las finalistas, a escala real sobre loading screen, login, "About", y merchandising.</p>
+    <p>3 · Decidimos si el wordmark de marketing = wordmark de producto, o divergen.</p>
+    <p style="margin-top:10px;font-family:var(--font-mono);font-size:10.5px;color:var(--text-3)">el mark no se toca · solo el wordmark</p>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

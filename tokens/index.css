@@ -1,0 +1,17 @@
+/* ════════════════════════════════════════════════════════════════════════
+   BaW OS — Design Tokens (entry point)
+   ────────────────────────────────────────────────────────────────────────
+   Importa todo el sistema de tokens de una sola vez:
+
+     import '@baw/design/tokens/index.css'
+
+   …o, en HTML:
+
+     <link rel="stylesheet" href="../baw-design/tokens/index.css" />
+
+   Después aplica .mode--light o .mode--dark al <html>.
+   ──────────────────────────────────────────────────────────────────────── */
+
+@import url("./colors.css");
+@import url("./typography.css");
+@import url("./spacing.css");

@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW — Mark Distinctive + Inside Badge</title>
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --ink: oklch(22% 0.012 264);
+    --accent: oklch(52% 0.22 266);
+    --brass: oklch(64% 0.10 80);
+    --d-bg: oklch(15.8% 0.008 264);
+    --d-line: oklch(28% 0.012 264);
+    --d-text-3: oklch(62% 0.010 264);
+    --font-sans: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1440px; margin: 0 auto; padding: 48px 56px 120px; }
+  .masthead { display:grid; grid-template-columns: 1fr auto; align-items:end; gap:40px; padding-bottom:22px; border-bottom:1px solid var(--line); margin-bottom:44px; }
+  .section-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 6px; }
+  h1 { font-family: var(--font-mono); font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 500; max-width: 900px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .masthead p { max-width: 720px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  .masthead p b { color: var(--text); font-weight: 500; }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.02em; text-align: right; line-height: 1.7; }
+
+  h2.sec { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px; font-weight: 500; }
+
+  /* 5 mark options grid */
+  .mark-grid { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); margin-bottom: 22px; }
+  .mc { padding: 28px 20px 22px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+  .mc:last-child { border-right: 0; }
+  .mc .tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.08em; text-transform: uppercase; }
+  .mc h3 { font-family: var(--font-mono); font-size: 15px; margin: 0; font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+  .mc .hero { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 22px; display: grid; place-items: center; min-height: 180px; position: relative; }
+  .mc .hero::before { content:""; position:absolute; inset:0; background: linear-gradient(to right, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/18px 18px, linear-gradient(to bottom, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/18px 18px; border-radius: 6px; pointer-events:none; }
+  .mc .hero svg { position: relative; z-index: 1; }
+  .mc .desc { font-size: 12px; color: var(--text-2); line-height: 1.55; }
+  .mc .desc b { color: var(--text); font-weight: 500; }
+
+  /* Scale row: show each mark at small sizes to check fidelity */
+  .scale-row { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); padding: 18px 0; margin-bottom: 44px; }
+  .scale-row > div { display:flex; align-items: center; justify-content: center; gap: 14px; border-right: 1px dashed var(--line); }
+  .scale-row > div:last-child { border-right: 0; }
+  .scale-row .sc { display: grid; place-items: center; }
+  .scale-row .sc-lbl { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); letter-spacing: 0.06em; margin-top: 6px; }
+
+  /* Inside badge section */
+  .badges-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); margin-bottom: 22px; }
+  .bc { padding: 28px 22px 22px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+  .bc:last-child { border-right: 0; }
+  .bc .tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.08em; text-transform: uppercase; }
+  .bc h3 { font-family: var(--font-mono); font-size: 15px; margin: 0; font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+  .bc .desc { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+  .bc .desc b { color: var(--text); font-weight: 500; }
+  .bc .showcase { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 28px 22px; display: grid; place-items: center; min-height: 130px; position: relative; }
+  .bc .showcase.dark { background: var(--d-bg); border-color: var(--d-line); }
+
+  /* ───── Badge recipes ───── */
+  /* Common: the wordmark uses Plex Mono 500 */
+  .baw-wm { font-family: var(--font-mono); font-weight: 500; letter-spacing: -0.01em; color: currentColor; white-space: nowrap; }
+  .baw-wm .sub { opacity: 0.65; font-weight: 400; }
+
+  /* Badge A — rectangle, Intel-style border */
+  .badge-a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px 6px 8px; border: 1px solid currentColor; border-radius: 3px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--ink); }
+  .badge-a svg { flex-shrink: 0; }
+  .badge-a .inside { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: currentColor; opacity: 0.7; }
+
+  /* Badge B — pill, signature */
+  .badge-b { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 8px; border-radius: 999px; background: var(--ink); color: #fff; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.02em; }
+  .badge-b svg path { fill: #fff !important; }
+  .badge-b .inside { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.65; }
+
+  /* Badge C — stacked label, no border */
+  .badge-c { display: inline-grid; grid-template-columns: auto auto; gap: 0 8px; align-items: center; color: var(--ink); }
+  .badge-c svg { grid-row: 1 / span 2; }
+  .badge-c .wm { font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: -0.01em; line-height: 1; grid-row: 1; align-self: end; }
+  .badge-c .inside { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); line-height: 1; grid-row: 2; align-self: start; margin-top: 3px; }
+
+  /* Badge D — punch, like Intel original */
+  .badge-d { display: inline-flex; align-items: center; gap: 0; padding: 0; border-radius: 3px; overflow: hidden; border: 1px solid var(--ink); color: var(--ink); font-family: var(--font-mono); }
+  .badge-d .l { padding: 5px 8px 5px 8px; border-right: 1px solid var(--ink); background: transparent; display: flex; align-items: center; gap: 6px; }
+  .badge-d .r { padding: 5px 10px; background: var(--ink); color: #fff; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .badge-d .wm { font-size: 11px; font-weight: 500; letter-spacing: -0.01em; }
+
+  /* Applications grid — show badge in context */
+  .apps-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); margin-top: 22px; }
+  .app { padding: 22px 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+  .app:last-child { border-right: 0; }
+  .app h4 { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; margin: 0; font-weight: 500; }
+
+  /* Plaque with building name + badge */
+  .plaque { background: linear-gradient(135deg, oklch(72% 0.018 80), oklch(60% 0.022 75)); color: oklch(18% 0.010 75); padding: 22px 24px; border-radius: 4px; box-shadow: 0 2px 8px -2px oklch(0% 0 0 / 0.18), inset 0 1px 0 oklch(100% 0 0 / 0.3); display: flex; flex-direction: column; gap: 14px; }
+  .plaque .main { display: flex; align-items: center; gap: 14px; }
+  .plaque .name { font-family: var(--font-mono); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.015em; }
+  .plaque .addr { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(28% 0.010 75); }
+  .plaque .foot { display: flex; justify-content: flex-end; padding-top: 10px; border-top: 1px solid oklch(48% 0.015 80); }
+  .plaque .badge-a { color: oklch(22% 0.010 75); border-color: oklch(32% 0.010 75); }
+  .plaque .badge-a svg path { fill: oklch(22% 0.010 75) !important; }
+
+  /* Lobby sign (irreverent hospitality) */
+  .lobby { background: #111; color: #fff; padding: 28px 26px; border-radius: 4px; display: flex; flex-direction: column; gap: 14px; min-height: 180px; }
+  .lobby .h { font-family: var(--font-mono); font-size: 26px; letter-spacing: -0.02em; font-weight: 500; line-height: 1; }
+  .lobby .c { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(68% 0.01 264); max-width: 220px; line-height: 1.5; }
+  .lobby .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid oklch(28% 0.012 264); }
+  .lobby .foot .room { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: oklch(62% 0.010 264); }
+  .lobby .badge-b { font-size: 9.5px; padding: 4px 10px 4px 7px; background: #fff; color: #111; }
+  .lobby .badge-b svg path { fill: #111 !important; }
+
+  /* App footer */
+  .app-mock { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); display: flex; flex-direction: column; min-height: 180px; }
+  .app-mock .top { padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); font-family: var(--font-mono); font-size: 11px; color: var(--text-2); }
+  .app-mock .body { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .app-mock .ln { height: 6px; background: var(--line); border-radius: 3px; }
+  .app-mock .ln.sm { width: 40%; } .app-mock .ln.md { width: 70%; }
+  .app-mock .footer { padding: 10px 14px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; }
+
+  /* Three brand voices strip */
+  .voices { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); margin-top: 44px; }
+  .voice { padding: 24px 26px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+  .voice:last-child { border-right: 0; }
+  .voice h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin: 0; font-weight: 500; }
+  .voice .h { font-family: var(--font-mono); font-size: 18px; margin: 0; font-weight: 500; color: var(--text); letter-spacing: -0.01em; line-height: 1.3; }
+  .voice .h em { font-style: normal; color: var(--accent); }
+  .voice p { font-size: 12.5px; color: var(--text-2); line-height: 1.55; margin: 0; }
+  .voice p b { color: var(--text); font-weight: 500; }
+  .voice .example { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--text-2); line-height: 1.5; margin-top: 6px; min-height: 80px; display: flex; align-items: center; }
+  .voice .example b { color: var(--text); font-weight: 500; }
+
+  /* Decision */
+  .decision { margin-top: 44px; padding: 26px 30px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .decision h3 { font-family: var(--font-mono); font-size: 16px; margin: 0 0 12px; font-weight: 500; color: var(--text); }
+  .decision h3 em { color: var(--accent); font-style: normal; }
+  .decision p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin: 0 0 8px; max-width: 920px; }
+  .decision p b { color: var(--text); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Mark Distinctive + Inside">
+
+<header class="masthead">
+  <div>
+    <div class="section-no">MARK · DISTINCTIVE TOUCH + INSIDE BADGE</div>
+    <h1>Cinco formas de darle un <em>tell</em> al cubo, y un sello "BaW Inside" para edificios con nombre propio.</h1>
+    <p><b>Intel Inside resuelve la arquitectura de marca.</b> El edificio puede llamarse <i>BaW Mateos 809P</i>, <i>Adamant León</i> o <i>The Mateos</i> — lo que sea. En todos los casos, un pequeño sello aparece abajo diciendo "este edificio corre sobre BaW". Produce endorsement sin forzar el naming.</p>
+  </div>
+  <div class="meta">
+    Mark · B (cube) + distintivo<br>
+    Badge · 4 tratamientos<br>
+    Naming · libre · endorsement
+  </div>
+</header>
+
+<!-- ═══════════════════════════════ 5 MARK DISTINCTIVE TOUCHES ═══════════════════════════════ -->
+<h2 class="sec">01 · Mark B + distintivo · cinco opciones</h2>
+
+<section class="mark-grid">
+  <!-- 1: Datum line -->
+  <div class="mc">
+    <div class="tag">01 · datum</div>
+    <h3>Línea de nivel</h3>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <!-- datum line crossing mid slab -->
+        <line x1="0" y1="58" x2="120" y2="58" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 3"/>
+      </svg>
+    </div>
+    <div class="desc"><b>Un 1px horizontal</b> cruza la losa media — marca de nivel topográfico. Discreta. Aparece solo en contextos con aire (hero, placa); se cae en favicon.</div>
+  </div>
+
+  <!-- 2: Notch -->
+  <div class="mc">
+    <div class="tag">02 · notch</div>
+    <h3>Esquina recortada</h3>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <!-- top slab with notch on right side -->
+        <path d="M10 34 L60 52 L95 39 L95 31 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="desc"><b>La losa superior pierde una esquina</b> — asimetría mínima. Convierte cubo en "edificio con terraza". Único. Memorable. Funciona en favicon.</div>
+  </div>
+
+  <!-- 3: Light point -->
+  <div class="mc">
+    <div class="tag">03 · light point</div>
+    <h3>Punto de luz variable</h3>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <!-- accent dot on top slab vertex -->
+        <circle cx="60" cy="16" r="4" fill="var(--accent)"/>
+      </svg>
+    </div>
+    <div class="desc"><b>Un punto</b> en el vértice de la losa top. <b>Variable por voz:</b> índigo en SaaS, latón en RE, acento por edificio en hospitalidad. El mark mismo es el sistema.</div>
+  </div>
+
+  <!-- 4: Ratio guides -->
+  <div class="mc">
+    <div class="tag">04 · index</div>
+    <h3>Numeración 01·02·03</h3>
+    <div class="hero">
+      <svg viewBox="0 0 160 120" width="136" height="102" fill="none">
+        <path d="M30 82 L80 100 L130 82 L80 64 Z" fill="var(--ink)"/>
+        <path d="M30 58 L80 76 L130 58 L80 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M30 34 L80 52 L130 34 L80 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <!-- index labels -->
+        <text x="140" y="38" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)" letter-spacing="0.5">01</text>
+        <text x="140" y="62" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)" letter-spacing="0.5">02</text>
+        <text x="140" y="86" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)" letter-spacing="0.5">03</text>
+      </svg>
+    </div>
+    <div class="desc"><b>Etiquetas mono</b> a la derecha — diagrama más que logo. Técnico, riguroso. <b>Riesgo:</b> ruido en tamaños pequeños; necesita versión corta sin índices.</div>
+  </div>
+
+  <!-- 5: Tone shift -->
+  <div class="mc">
+    <div class="tag">05 · tone shift</div>
+    <h3>Cambio de hue en losa media</h3>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <!-- middle slab with accent-tinted ink (not just opacity) -->
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="oklch(38% 0.08 266)"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="desc"><b>La losa media</b> cambia de tono (no de opacidad) — hacia índigo sutil. Rompe la serie 100/70/50. <b>Firma</b> silenciosa. El acento vive dentro del mark, no al lado.</div>
+  </div>
+</section>
+
+<!-- Scale check: the same 5 at 18px + favicon -->
+<section class="scale-row">
+  <div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="42" height="42" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <line x1="0" y1="58" x2="120" y2="58" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 3"/>
+      </svg>
+      <div class="sc-lbl">01 · 42 px</div>
+    </div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="18" height="18" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">favicon · se cae el datum</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="42" height="42" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L95 39 L95 31 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">02 · 42 px</div>
+    </div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="18" height="18" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L95 39 L95 31 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">favicon · notch sobrevive</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="42" height="42" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <circle cx="60" cy="16" r="4" fill="var(--accent)"/>
+      </svg>
+      <div class="sc-lbl">03 · 42 px</div>
+    </div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="18" height="18" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <circle cx="60" cy="16" r="8" fill="var(--accent)"/>
+      </svg>
+      <div class="sc-lbl">favicon · el punto aguanta</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sc">
+      <svg viewBox="0 0 160 120" width="56" height="42" fill="none">
+        <path d="M30 82 L80 100 L130 82 L80 64 Z" fill="var(--ink)"/>
+        <path d="M30 58 L80 76 L130 58 L80 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M30 34 L80 52 L130 34 L80 16 Z" fill="var(--ink)" opacity="0.5"/>
+        <text x="140" y="38" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)">01</text>
+        <text x="140" y="62" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)">02</text>
+        <text x="140" y="86" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-3)">03</text>
+      </svg>
+      <div class="sc-lbl">04 · 56 px</div>
+    </div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="18" height="18" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">favicon · sin índices</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="42" height="42" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="oklch(38% 0.08 266)"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">05 · 42 px</div>
+    </div>
+    <div class="sc">
+      <svg viewBox="0 0 120 120" width="18" height="18" fill="none">
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="oklch(38% 0.08 266)"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+      <div class="sc-lbl">favicon · el tono sobrevive</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ INSIDE BADGE · 4 TRATAMIENTOS ═══════════════════════════════ -->
+<h2 class="sec">02 · "BaW Inside" badge · cuatro tratamientos</h2>
+
+<section class="badges-grid">
+  <div class="bc">
+    <div class="tag">A · outlined rectangle</div>
+    <h3>Intel-style box</h3>
+    <div class="showcase">
+      <span class="badge-a">
+        <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span>BaW</span>
+        <span class="inside">Inside</span>
+      </span>
+    </div>
+    <div class="desc">Referencia directa a Intel Inside. Marco 1px, legible, sobrevive en monocromo e impresión. <b>Familiar</b> — eso es virtud y defecto.</div>
+  </div>
+
+  <div class="bc">
+    <div class="tag">B · pill, dark</div>
+    <h3>Firma / signature</h3>
+    <div class="showcase">
+      <span class="badge-b">
+        <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span>BaW</span>
+        <span class="inside">Inside</span>
+      </span>
+    </div>
+    <div class="desc">Píldora oscura. Se lee como <b>sello / stamp</b>. Funciona muy bien sobre fotografía (fachada, interior) y en fondos de color.</div>
+  </div>
+
+  <div class="bc">
+    <div class="tag">C · stacked label</div>
+    <h3>Sin contenedor</h3>
+    <div class="showcase">
+      <span class="badge-c">
+        <svg viewBox="0 0 48 48" width="22" height="22"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm">BaW</span>
+        <span class="inside">Runs on BaW OS</span>
+      </span>
+    </div>
+    <div class="desc">Sin marco — solo mark + wordmark + línea tipo <i>"Runs on BaW OS"</i>. Más discreto, más institucional. Mejor cuando NO queremos look de "marca patrocinadora".</div>
+  </div>
+
+  <div class="bc">
+    <div class="tag">D · split badge</div>
+    <h3>Punched label</h3>
+    <div class="showcase">
+      <span class="badge-d">
+        <span class="l">
+          <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm">BaW</span>
+        </span>
+        <span class="r">Inside</span>
+      </span>
+    </div>
+    <div class="desc">Dividido en dos zonas — izquierda clara (mark), derecha sólida (texto). <b>Más memorable</b>, con una estructura clara. Muy "tech-hardware", que es nuestro código.</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ APLICACIONES ═══════════════════════════════ -->
+<h2 class="sec">03 · Aplicaciones — el badge en contexto</h2>
+
+<section class="apps-grid">
+  <div class="app">
+    <h4>Placa de edificio · real estate</h4>
+    <div class="plaque">
+      <div class="main">
+        <svg viewBox="0 0 48 48" width="42" height="42"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="currentColor"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="currentColor" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="currentColor" opacity=".5"/></svg>
+        <div>
+          <div class="name">Adamant León</div>
+          <div class="addr">Av. Reforma 2468 · CDMX</div>
+        </div>
+      </div>
+      <div class="foot">
+        <span class="badge-a">
+          <svg viewBox="0 0 48 48" width="12" height="12"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="oklch(22% 0.010 75)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="oklch(22% 0.010 75)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="oklch(22% 0.010 75)" opacity=".5"/></svg>
+          <span style="font-size:10px">BaW</span>
+          <span class="inside" style="font-size:8.5px">Inside</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <h4>Letrero de lobby · hospitality irreverente</h4>
+    <div class="lobby">
+      <div class="h">The Mateos</div>
+      <div class="c">A 12-floor experiment in buildings that run themselves. No concierge desk. Front door, your phone.</div>
+      <div class="foot">
+        <span class="room">Room 412 · Lobby north</span>
+        <span class="badge-b">
+          <svg viewBox="0 0 48 48" width="12" height="12"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#111"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#111" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#111" opacity=".5"/></svg>
+          <span style="font-size:9.5px">BaW</span>
+          <span class="inside" style="font-size:8.5px">Inside</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <h4>App del residente · footer</h4>
+    <div class="app-mock">
+      <div class="top">Mateos 809P · Panel</div>
+      <div class="body">
+        <div class="ln md"></div><div class="ln sm"></div>
+        <div class="ln"></div><div class="ln md"></div>
+        <div class="ln sm"></div>
+      </div>
+      <div class="footer">
+        <span class="badge-c">
+          <svg viewBox="0 0 48 48" width="18" height="18"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm">BaW</span>
+          <span class="inside">Runs on BaW OS</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ LAS TRES VOCES ═══════════════════════════════ -->
+<h2 class="sec" style="margin-top:44px">04 · Las tres voces — común denominador: tech-based</h2>
+
+<section class="voices">
+  <div class="voice">
+    <h4>01 · Agentic-native AI OS</h4>
+    <h3 class="h">El sistema <em>operativo</em> real.</h3>
+    <p><b>Público:</b> administradores, operadores. <b>Voz:</b> CLI, precisión, honestidad. <b>Tipografía:</b> Plex Mono (wordmark) + Inter (UI densa). <b>Color:</b> ink + índigo eléctrico. <b>Imagen:</b> UI screens reales, dashboards, logs.</p>
+    <div class="example">
+      <div>
+        <span class="baw-wm" style="font-size:17px">BaW<span class="sub"> OS</span></span><br>
+        <span style="color:var(--text-3)">$ baw agents ls</span><br>
+        <span style="color:var(--accent)">✓</span> 12 agents online · 3 idle
+      </div>
+    </div>
+  </div>
+
+  <div class="voice">
+    <h4>02 · Real estate institucional</h4>
+    <h3 class="h">Operamos <em>cada metro</em> del edificio.</h3>
+    <p><b>Público:</b> inversionistas, developers, inquilinos de clase A. <b>Voz:</b> adulta, reservada, data-forward. <b>Tipografía:</b> Plex Mono wordmark + Plex Sans body. <b>Color:</b> ink + crema/latón. <b>Imagen:</b> fachadas, axonometría, planos.</p>
+    <div class="example">
+      <div>
+        <span class="baw-wm" style="font-size:15px">BaW<span class="sub"> Mateos&nbsp;809P</span></span><br>
+        <span style="color:var(--text-3);font-size:10.5px;letter-spacing:0.04em">OPERATING SINCE 2026 · 48 UNITS · 94% OCCUPIED</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="voice">
+    <h4>03 · Hospitality irreverente</h4>
+    <h3 class="h">The building runs <em>itself</em>.</h3>
+    <p><b>Público:</b> huéspedes jóvenes, tech-forward. <b>Voz:</b> punchy, autoconsciente, irónica. <b>Tipografía:</b> Plex Mono en display a tamaños grandes. <b>Color:</b> ink + un acento saturado por propiedad (naranja, cobalto, rosa). <b>Imagen:</b> fotografía conceptual, objetos aislados, humor.</p>
+    <div class="example">
+      <div>
+        <span class="baw-wm" style="font-size:17px">The Mateos</span><br>
+        <span style="color:var(--text-3);font-size:10.5px;letter-spacing:0.04em">WE READ THE METER SO YOU DON'T</span><br>
+        <span class="badge-c" style="margin-top:6px">
+          <svg viewBox="0 0 48 48" width="14" height="14"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm" style="font-size:10px">BaW</span>
+          <span class="inside" style="font-size:7.5px">Inside</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ DECISIÓN ═══════════════════════════════ -->
+<section class="decision">
+  <h3>Mi recomendación <em>— para avanzar</em></h3>
+  <p><b>Mark:</b> opción <b>03 (punto de luz variable)</b> — el distintivo mismo flexiona por voz, lo cual es exactamente el sistema que necesitas. El punto es índigo en SaaS, latón en real estate, acento por edificio en hospitalidad. El mark se convierte en el sistema en miniatura.</p>
+  <p><b>Inside badge:</b> <b>D (split / punched)</b> como principal, con <b>C (sin contenedor)</b> como versión "institucional" para cuando queremos que desaparezca. A evita por familiar; B es secundaria.</p>
+  <p><b>Naming:</b> libre. El edificio puede ser <i>BaW Mateos 809P</i>, <i>Adamant León</i> o <i>The Mateos</i>. BaW solo aparece como endorsement. El tagline <b>"Building Always Working"</b> se mantiene — y aquí sí pega porque es la justificación del badge: el edificio funciona solo <i>porque</i> BaW está adentro.</p>
+  <p style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--text-3)">siguiente paso · Brand System v1 con tu elección de distintivo y badge, las tres voces en profundidad, y reglas de cruce</p>
+</section>
+
+</div>
+</body>
+</html>

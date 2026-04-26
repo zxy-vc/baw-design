@@ -1,0 +1,58 @@
+/* ════════════════════════════════════════════════════════════════════════
+   BaW OS — Spacing, Radii, Shadow, Motion Tokens
+   ────────────────────────────────────────────────────────────────────────
+   Source of truth: /BRAND_FOUNDATIONS.md (sección Espaciado y Forma)
+   Base: 4px (geométrica para layout, no estricta para spacing pequeño)
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── SPACING — escala de 13 niveles ──────────────────────────────── */
+  /* Pequeños valores (2px, 6px) para affordances finas tipo Linear */
+  --s-0:  0;
+  --s-1:  2px;
+  --s-2:  4px;
+  --s-3:  6px;
+  --s-4:  8px;
+  --s-5:  12px;
+  --s-6:  16px;
+  --s-7:  20px;
+  --s-8:  24px;
+  --s-9:  32px;
+  --s-10: 40px;
+  --s-11: 48px;
+  --s-12: 64px;
+
+  /* ── RADII — tight, Linear-ish ──────────────────────────────────── */
+  /* Filosofía: sin esquinas demasiado redondeadas. Mantenemos sharpness
+     que comunica precisión técnica, en línea con Linear/Vercel/Arc. */
+  --r-0: 0;
+  --r-1: 2px;   /* tags, chips */
+  --r-2: 4px;   /* inputs, small buttons */
+  --r-3: 6px;   /* default UI */
+  --r-4: 8px;   /* cards */
+  --r-5: 10px;  /* modales */
+  --r-6: 14px;  /* contenedores hero */
+  --r-full: 9999px;
+
+  /* ── SHADOW ──────────────────────────────────────────────────────── */
+  /* Suaves y sutiles. Las sombras gritan en software empresarial. */
+  --shadow-sm: 0 1px 0 oklch(0% 0 0 / 0.04);
+  --shadow-md: 0 2px 8px -2px oklch(0% 0 0 / 0.06),
+               0 1px 0 oklch(0% 0 0 / 0.04);
+  --shadow-lg: 0 10px 30px -8px oklch(0% 0 0 / 0.10),
+               0 2px 6px -2px oklch(0% 0 0 / 0.06);
+  --shadow-xl: 0 24px 60px -12px oklch(0% 0 0 / 0.18),
+               0 4px 12px -4px oklch(0% 0 0 / 0.08);
+
+  /* ── MOTION — duraciones ─────────────────────────────────────────── */
+  --dur-instant: 80ms;
+  --dur-fast:    160ms;
+  --dur-normal:  240ms;
+  --dur-slow:    400ms;
+
+  /* ── MOTION — easing curves ──────────────────────────────────────── */
+  /* ease-out es el default para entradas (anticipa, llega) */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);  /* overshoot sutil */
+}

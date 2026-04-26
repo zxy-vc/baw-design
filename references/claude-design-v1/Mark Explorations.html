@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW — Mark Explorations</title>
+<link rel="preconnect" href="https://rsms.me/" />
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --surface-3: oklch(96.6% 0.004 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --brand: oklch(58% 0.21 266);
+    --agent: oklch(62% 0.19 300);
+    --font-sans: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --font-display: "Instrument Serif", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1440px; margin: 0 auto; padding: 48px 56px 96px; }
+  .masthead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: 44px; }
+  .masthead h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 8px; font-weight: 400; max-width: 780px; }
+  .masthead h1 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .masthead p { max-width: 600px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  .masthead .meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.02em; }
+  .section-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 6px; }
+
+  /* Four direction cards, full-width rows */
+  .dir {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .dir-head {
+    display: grid;
+    grid-template-columns: 80px 1fr 280px;
+    gap: 24px;
+    align-items: baseline;
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dir-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
+  .dir-title { font-family: var(--font-display); font-size: 28px; letter-spacing: -0.02em; font-weight: 400; margin: 0; }
+  .dir-title em { color: oklch(40% 0.10 266); font-style: italic; }
+  .dir-note { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+  .dir-note b { color: var(--text); font-weight: 500; }
+
+  .dir-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 0;
+  }
+  .hero-panel {
+    padding: 56px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    position: relative;
+    border-right: 1px solid var(--line);
+  }
+  .hero-panel.dark { background: oklch(15.8% 0.008 264); border-right-color: oklch(28% 0.012 264); }
+  .hero-panel .tag {
+    position: absolute;
+    top: 14px; left: 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hero-panel.dark .tag { color: oklch(48% 0.011 264); }
+
+  .apps-panel {
+    padding: 24px 28px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 18px;
+  }
+  .apps-panel h4 {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin: 0 0 12px;
+    font-weight: 500;
+  }
+  .size-ladder {
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+    padding: 14px 0;
+  }
+  .size-ladder .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .size-ladder .item .sz-lbl { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-4); letter-spacing: 0.05em; }
+
+  .lockup-row {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+  }
+  .lockup-row .lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .wordmark-sans {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  /* sidebar example + OS chrome */
+  .chrome-demo {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+    overflow: hidden;
+    height: 120px;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+  }
+  .chrome-demo .sb {
+    background: var(--surface-2);
+    border-right: 1px solid var(--line);
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .chrome-demo .sb-logo {
+    width: 24px; height: 24px;
+  }
+  .chrome-demo .sb-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); }
+  .chrome-demo .main {
+    padding: 12px 14px;
+    display: grid; gap: 8px;
+  }
+  .chrome-demo .main .ln { height: 6px; background: var(--surface-3); border-radius: 2px; }
+  .chrome-demo .main .ln.short { width: 40%; }
+  .chrome-demo .main .ln.med { width: 70%; }
+
+  .favicon-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .favicon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .favicon.dark {
+    background: oklch(18.6% 0.009 264);
+    border-color: oklch(28% 0.012 264);
+  }
+  .favicon svg { width: 20px; height: 20px; }
+  .favicon.big { width: 40px; height: 40px; border-radius: 8px; }
+  .favicon.big svg { width: 28px; height: 28px; }
+
+  .gloss { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); line-height: 1.55; }
+  .gloss b { color: var(--text); font-weight: 500; }
+
+  .tokens {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-3);
+    letter-spacing: 0.02em;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 4px 16px;
+    line-height: 1.5;
+  }
+  .tokens b { color: var(--text-2); font-weight: 500; }
+
+  .hint {
+    font-size: 12px;
+    color: var(--text-3);
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    border-left: 2px solid var(--line-2);
+    line-height: 1.55;
+  }
+  .hint b { color: var(--text); font-weight: 500; }
+
+  /* compare strip at bottom */
+  .compare {
+    margin-top: 44px;
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+  }
+  .compare h3 { font-family: var(--font-display); font-size: 22px; margin: 0 0 18px; font-weight: 400; letter-spacing: -0.02em; }
+  .compare h3 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .compare-grid > div {
+    padding: 28px 20px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background: oklch(15.8% 0.008 264);
+  }
+  .compare-grid > div:last-child { border-right: 0; }
+  .compare-grid .lbl {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: oklch(62% 0.010 264);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <div>
+    <div class="section-no">EXPLORATION · 01 · BRAND MARK</div>
+    <h1>Four isometric directions for the <em>BaW</em> mark.</h1>
+    <p>Architectural grammar — volume, plan, section, axis — without reading as CAD or architecture software. Every direction is drawn at a single 2‑px grid, works as a 16 × 16 favicon, and has a lockup with the italic serif wordmark.</p>
+  </div>
+  <div class="meta">
+    Date · 2026.04.23<br>
+    Brief · arch, not CAD<br>
+    Constraint · mono / 1‑color first
+  </div>
+</header>
+
+<!-- ─────────── DIRECTION 01 ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">01</div>
+    <div>
+      <h2 class="dir-title">Stacked <em>plates</em> — the building as mass.</h2>
+    </div>
+    <div class="dir-note">Three parallelograms offset on the isometric axis. Reads as <b>floors</b> or <b>operating layers</b>. The middle plate is nudged — a small break in the stack that implies supervision / attention / the one item that needs judgment.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <!-- bottom plate -->
+        <path d="M40 168 L120 200 L200 168 L120 136 Z" fill="oklch(22% 0.012 264)"/>
+        <!-- middle plate, offset slightly right -->
+        <path d="M52 128 L132 160 L212 128 L132 96 Z" fill="oklch(22% 0.012 264)" opacity="0.75"/>
+        <!-- top plate -->
+        <path d="M40 88 L120 120 L200 88 L120 56 Z" fill="oklch(22% 0.012 264)" opacity="0.55"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M2 11 L8 13.5 L14 11 L8 8.5 Z" fill="var(--text)"/><path d="M3 8.5 L9 11 L15 8.5 L9 6 Z" fill="var(--text)" opacity=".7"/><path d="M2 6 L8 8.5 L14 6 L8 3.5 Z" fill="var(--text)" opacity=".5"/></svg>
+            <span class="sz-lbl">16</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 16.5 L12 20 L21 16.5 L12 13 Z" fill="var(--text)"/><path d="M4 12.5 L13 16 L22 12.5 L13 9 Z" fill="var(--text)" opacity=".7"/><path d="M3 8.5 L12 12 L21 8.5 L12 5 Z" fill="var(--text)" opacity=".5"/></svg>
+            <span class="sz-lbl">24</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 32 32" width="32" height="32"><path d="M4 22 L16 27 L28 22 L16 17 Z" fill="var(--text)"/><path d="M5 17 L17 22 L29 17 L17 12 Z" fill="var(--text)" opacity=".7"/><path d="M4 12 L16 17 L28 12 L16 7 Z" fill="var(--text)" opacity=".5"/></svg>
+            <span class="sz-lbl">32</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 48 48" width="48" height="48"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--text)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--text)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--text)" opacity=".5"/></svg>
+            <span class="sz-lbl">48</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 64 64" width="64" height="64"><path d="M8 44 L32 54 L56 44 L32 34 Z" fill="var(--text)"/><path d="M10 34 L34 44 L58 34 L34 24 Z" fill="var(--text)" opacity=".7"/><path d="M8 24 L32 34 L56 24 L32 14 Z" fill="var(--text)" opacity=".5"/></svg>
+            <span class="sz-lbl">64</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24"><path d="M3 16.5 L12 20 L21 16.5 L12 13 Z" fill="var(--text)"/><path d="M4 12.5 L13 16 L22 12.5 L13 9 Z" fill="var(--text)" opacity=".7"/><path d="M3 8.5 L12 12 L21 8.5 L12 5 Z" fill="var(--text)" opacity=".5"/></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main">
+            <div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div>
+          </div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><path d="M2 14 L10 17 L18 14 L10 11 Z" fill="var(--text)"/><path d="M3 10.5 L11 13.5 L19 10.5 L11 7.5 Z" fill="var(--text)" opacity=".7"/><path d="M2 7 L10 10 L18 7 L10 4 Z" fill="var(--text)" opacity=".5"/></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><path d="M2 14 L10 17 L18 14 L10 11 Z" fill="#fff"/><path d="M3 10.5 L11 13.5 L19 10.5 L11 7.5 Z" fill="#fff" opacity=".7"/><path d="M2 7 L10 10 L18 7 L10 4 Z" fill="#fff" opacity=".5"/></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><path d="M3 19.5 L14 24 L25 19.5 L14 15 Z" fill="var(--text)"/><path d="M4 14.5 L15 19 L26 14.5 L15 10 Z" fill="var(--text)" opacity=".7"/><path d="M3 10 L14 14.5 L25 10 L14 5.5 Z" fill="var(--text)" opacity=".5"/></svg></div>
+          <div class="gloss"><b>Strengths.</b> Instantly legible. Scales to 16px.<br><b>Watch.</b> Similar mass to some crypto/DeFi marks.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><path d="M4 22 L16 27 L28 22 L16 17 Z" fill="var(--text)"/><path d="M5 17 L17 22 L29 17 L17 12 Z" fill="var(--text)" opacity=".7"/><path d="M4 12 L16 17 L28 12 L16 7 Z" fill="var(--text)" opacity=".5"/></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>angle</span><b>30° iso</b>
+          <span>plates</span><b>3 · stacked</b>
+          <span>opacity</span><b>100 / 70 / 50</b>
+          <span>grid</span><b>2px</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DIRECTION 02 ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">02</div>
+    <div>
+      <h2 class="dir-title">The <em>supervised</em> cube — a building with one lit unit.</h2>
+    </div>
+    <div class="dir-note">A single isometric volume constructed with three faces. One face carries a smaller inset square — <b>the unit that needs your attention</b>. The mark visualizes the product thesis: a system running in the background, with one thing surfaced for judgment.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <!-- top face -->
+        <path d="M120 40 L200 80 L120 120 L40 80 Z" fill="oklch(22% 0.012 264)" opacity=".55"/>
+        <!-- left face -->
+        <path d="M40 80 L120 120 L120 200 L40 160 Z" fill="oklch(22% 0.012 264)" opacity=".8"/>
+        <!-- right face -->
+        <path d="M200 80 L120 120 L120 200 L200 160 Z" fill="oklch(22% 0.012 264)"/>
+        <!-- inset "lit" unit on right face -->
+        <path d="M170 112 L146 124 L146 152 L170 140 Z" fill="oklch(62% 0.19 300)"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 L14 5 L8 8 L2 5 Z" fill="var(--text)" opacity=".55"/><path d="M2 5 L8 8 L8 14 L2 11 Z" fill="var(--text)" opacity=".8"/><path d="M14 5 L8 8 L8 14 L14 11 Z" fill="var(--text)"/><rect x="10" y="8" width="2.5" height="3" fill="var(--agent)"/></svg>
+            <span class="sz-lbl">16</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 3 L21 7.5 L12 12 L3 7.5 Z" fill="var(--text)" opacity=".55"/><path d="M3 7.5 L12 12 L12 21 L3 16.5 Z" fill="var(--text)" opacity=".8"/><path d="M21 7.5 L12 12 L12 21 L21 16.5 Z" fill="var(--text)"/><path d="M17 11 L13.5 13 L13.5 17 L17 15 Z" fill="var(--agent)"/></svg>
+            <span class="sz-lbl">24</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 4 L28 10 L16 16 L4 10 Z" fill="var(--text)" opacity=".55"/><path d="M4 10 L16 16 L16 28 L4 22 Z" fill="var(--text)" opacity=".8"/><path d="M28 10 L16 16 L16 28 L28 22 Z" fill="var(--text)"/><path d="M23 14 L18 16.5 L18 22 L23 19.5 Z" fill="var(--agent)"/></svg>
+            <span class="sz-lbl">32</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 48 48" width="48" height="48"><path d="M24 6 L42 15 L24 24 L6 15 Z" fill="var(--text)" opacity=".55"/><path d="M6 15 L24 24 L24 42 L6 33 Z" fill="var(--text)" opacity=".8"/><path d="M42 15 L24 24 L24 42 L42 33 Z" fill="var(--text)"/><path d="M35 21 L27.5 24.5 L27.5 33 L35 29 Z" fill="var(--agent)"/></svg>
+            <span class="sz-lbl">48</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 64 64" width="64" height="64"><path d="M32 8 L56 20 L32 32 L8 20 Z" fill="var(--text)" opacity=".55"/><path d="M8 20 L32 32 L32 56 L8 44 Z" fill="var(--text)" opacity=".8"/><path d="M56 20 L32 32 L32 56 L56 44 Z" fill="var(--text)"/><path d="M47 28 L36.5 33 L36.5 44 L47 39 Z" fill="var(--agent)"/></svg>
+            <span class="sz-lbl">64</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24"><path d="M12 3 L21 7.5 L12 12 L3 7.5 Z" fill="var(--text)" opacity=".55"/><path d="M3 7.5 L12 12 L12 21 L3 16.5 Z" fill="var(--text)" opacity=".8"/><path d="M21 7.5 L12 12 L12 21 L21 16.5 Z" fill="var(--text)"/><path d="M17 11 L13.5 13 L13.5 17 L17 15 Z" fill="var(--agent)"/></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main">
+            <div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div>
+          </div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><path d="M10 2.5 L17.5 6.5 L10 10.5 L2.5 6.5 Z" fill="var(--text)" opacity=".55"/><path d="M2.5 6.5 L10 10.5 L10 17.5 L2.5 13.5 Z" fill="var(--text)" opacity=".8"/><path d="M17.5 6.5 L10 10.5 L10 17.5 L17.5 13.5 Z" fill="var(--text)"/><path d="M14.5 9.5 L11.5 11.25 L11.5 14.25 L14.5 12.5 Z" fill="var(--agent)"/></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><path d="M10 2.5 L17.5 6.5 L10 10.5 L2.5 6.5 Z" fill="#fff" opacity=".55"/><path d="M2.5 6.5 L10 10.5 L10 17.5 L2.5 13.5 Z" fill="#fff" opacity=".8"/><path d="M17.5 6.5 L10 10.5 L10 17.5 L17.5 13.5 Z" fill="#fff"/><path d="M14.5 9.5 L11.5 11.25 L11.5 14.25 L14.5 12.5 Z" fill="var(--agent)"/></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><path d="M14 3.5 L24.5 9 L14 14.5 L3.5 9 Z" fill="var(--text)" opacity=".55"/><path d="M3.5 9 L14 14.5 L14 24.5 L3.5 19 Z" fill="var(--text)" opacity=".8"/><path d="M24.5 9 L14 14.5 L14 24.5 L24.5 19 Z" fill="var(--text)"/><path d="M20.5 13 L16 15.25 L16 19.75 L20.5 17.5 Z" fill="var(--agent)"/></svg></div>
+          <div class="gloss"><b>Strengths.</b> Visualizes the thesis literally. Violet is earned, not decorative.<br><b>Watch.</b> Three‑face cube has Bitcoin/blockchain priors — mitigated by the lit inset.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 4 L28 10 L16 16 L4 10 Z" fill="var(--text)" opacity=".55"/><path d="M4 10 L16 16 L16 28 L4 22 Z" fill="var(--text)" opacity=".8"/><path d="M28 10 L16 16 L16 28 L28 22 Z" fill="var(--text)"/><path d="M23 14 L18 16.5 L18 22 L23 19.5 Z" fill="var(--agent)"/></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>angle</span><b>30° iso</b>
+          <span>faces</span><b>3 + inset</b>
+          <span>accent</span><b>agent violet</b>
+          <span>grid</span><b>2px</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DIRECTION 03 ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">03</div>
+    <div>
+      <h2 class="dir-title">The <em>section cut</em> — a B read architecturally.</h2>
+    </div>
+    <div class="dir-note">A B‑glyph redrawn as an isometric section. Two stacked voids suggest floors. The counters — the two enclosed bowls of the B — become inhabited chambers. Holds the letterform equity while adding dimensional grammar.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <!-- outer B section - left spine -->
+        <path d="M60 60 L60 200 L76 208 L76 68 Z" fill="oklch(22% 0.012 264)"/>
+        <!-- top face of B -->
+        <path d="M60 60 L76 68 L180 68 L164 60 Z" fill="oklch(22% 0.012 264)" opacity=".55"/>
+        <!-- right slab upper -->
+        <path d="M164 60 L180 68 L180 116 L164 108 Z" fill="oklch(22% 0.012 264)" opacity=".75"/>
+        <!-- mid bar top face -->
+        <path d="M60 124 L76 132 L180 132 L164 124 Z" fill="oklch(22% 0.012 264)" opacity=".55"/>
+        <!-- right slab mid to bottom -->
+        <path d="M164 124 L180 132 L180 200 L164 192 Z" fill="oklch(22% 0.012 264)" opacity=".75"/>
+        <!-- right slab upper continues -->
+        <path d="M180 116 L180 124 L76 124 L76 116 Z" fill="oklch(22% 0.012 264)"/>
+        <!-- bottom face -->
+        <path d="M60 200 L76 208 L180 208 L164 200 Z" fill="oklch(22% 0.012 264)" opacity=".75"/>
+        <path d="M180 200 L164 192 L164 200 Z" fill="oklch(22% 0.012 264)" opacity=".9"/>
+        <!-- inset upper void (agent) -->
+        <path d="M98 82 L150 82 L150 110 L98 110 Z" fill="oklch(96.6% 0.004 264)"/>
+        <!-- inset lower void -->
+        <path d="M98 144 L150 144 L150 186 L98 186 Z" fill="oklch(96.6% 0.004 264)"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 3 L3 13 L4.5 14 L4.5 4 Z M3 3 L4.5 4 L12.5 4 L11 3 Z M11 3 L12.5 4 L12.5 7.5 L11 6.5 Z M3 7 L4.5 8 L12.5 8 L11 7 Z M11 7.5 L12.5 8.5 L12.5 13 L11 12 Z M3 13 L4.5 14 L12.5 14 L11 13 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">16</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><g fill="var(--text)"><path d="M4 4 L4 20 L6 21 L6 5 Z"/><path d="M4 4 L6 5 L19 5 L17 4 Z"/><path d="M17 4 L19 5 L19 11 L17 10 Z"/><path d="M4 11 L6 12 L19 12 L17 11 Z"/><path d="M17 12 L19 13 L19 20 L17 19 Z"/><path d="M4 20 L6 21 L19 21 L17 20 Z"/></g></svg>
+            <span class="sz-lbl">24</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 32 32" width="32" height="32"><g fill="var(--text)"><path d="M6 6 L6 26 L9 28 L9 8 Z"/><path d="M6 6 L9 8 L25 8 L22 6 Z"/><path d="M22 6 L25 8 L25 15 L22 13 Z"/><path d="M6 14 L9 16 L25 16 L22 14 Z"/><path d="M22 16 L25 18 L25 26 L22 24 Z"/><path d="M6 26 L9 28 L25 28 L22 26 Z"/></g></svg>
+            <span class="sz-lbl">32</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 48 48" width="48" height="48"><g fill="var(--text)"><path d="M9 9 L9 39 L13 42 L13 12 Z"/><path d="M9 9 L13 12 L37 12 L33 9 Z"/><path d="M33 9 L37 12 L37 23 L33 20 Z"/><path d="M9 21 L13 24 L37 24 L33 21 Z"/><path d="M33 24 L37 27 L37 39 L33 36 Z"/><path d="M9 39 L13 42 L37 42 L33 39 Z"/></g></svg>
+            <span class="sz-lbl">48</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 64 64" width="64" height="64"><g fill="var(--text)"><path d="M12 12 L12 52 L18 56 L18 16 Z"/><path d="M12 12 L18 16 L50 16 L44 12 Z"/><path d="M44 12 L50 16 L50 30 L44 26 Z"/><path d="M12 28 L18 32 L50 32 L44 28 Z"/><path d="M44 32 L50 36 L50 52 L44 48 Z"/><path d="M12 52 L18 56 L50 56 L44 52 Z"/></g></svg>
+            <span class="sz-lbl">64</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24"><g fill="var(--text)"><path d="M4 4 L4 20 L6 21 L6 5 Z"/><path d="M4 4 L6 5 L19 5 L17 4 Z"/><path d="M17 4 L19 5 L19 11 L17 10 Z"/><path d="M4 11 L6 12 L19 12 L17 11 Z"/><path d="M17 12 L19 13 L19 20 L17 19 Z"/><path d="M4 20 L6 21 L19 21 L17 20 Z"/></g></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main">
+            <div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div>
+          </div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><g fill="var(--text)"><path d="M3.5 3.5 L3.5 16.5 L5.5 18 L5.5 5 Z"/><path d="M3.5 3.5 L5.5 5 L15.5 5 L13.5 3.5 Z"/><path d="M13.5 3.5 L15.5 5 L15.5 9.5 L13.5 8 Z"/><path d="M3.5 9 L5.5 10.5 L15.5 10.5 L13.5 9 Z"/><path d="M13.5 10.5 L15.5 12 L15.5 16.5 L13.5 15 Z"/><path d="M3.5 16.5 L5.5 18 L15.5 18 L13.5 16.5 Z"/></g></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><g fill="#fff"><path d="M3.5 3.5 L3.5 16.5 L5.5 18 L5.5 5 Z"/><path d="M3.5 3.5 L5.5 5 L15.5 5 L13.5 3.5 Z"/><path d="M13.5 3.5 L15.5 5 L15.5 9.5 L13.5 8 Z"/><path d="M3.5 9 L5.5 10.5 L15.5 10.5 L13.5 9 Z"/><path d="M13.5 10.5 L15.5 12 L15.5 16.5 L13.5 15 Z"/><path d="M3.5 16.5 L5.5 18 L15.5 18 L13.5 16.5 Z"/></g></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><g fill="var(--text)"><path d="M5 5 L5 23 L8 25 L8 7 Z"/><path d="M5 5 L8 7 L22 7 L19 5 Z"/><path d="M19 5 L22 7 L22 13 L19 11 Z"/><path d="M5 12 L8 14 L22 14 L19 12 Z"/><path d="M19 14 L22 16 L22 23 L19 21 Z"/><path d="M5 23 L8 25 L22 25 L19 23 Z"/></g></svg></div>
+          <div class="gloss"><b>Strengths.</b> Keeps the B; adds dimension. Honest to property.<br><b>Watch.</b> More complex at 16px — needs careful rasterization.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><g fill="var(--text)"><path d="M6 6 L6 26 L9 28 L9 8 Z"/><path d="M6 6 L9 8 L25 8 L22 6 Z"/><path d="M22 6 L25 8 L25 15 L22 13 Z"/><path d="M6 14 L9 16 L25 16 L22 14 Z"/><path d="M22 16 L25 18 L25 26 L22 24 Z"/><path d="M6 26 L9 28 L25 28 L22 26 Z"/></g></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>construction</span><b>iso extrusion</b>
+          <span>voids</span><b>2 · inhabited</b>
+          <span>letterform</span><b>B retained</b>
+          <span>grid</span><b>2px</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DIRECTION 04 ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">04</div>
+    <div>
+      <h2 class="dir-title">The <em>axis</em> — plan + elevation, one glyph.</h2>
+    </div>
+    <div class="dir-note">A small isometric volume set inside a thin outer frame. Reads as <b>plan within elevation</b> — the supervised unit inside the oversight system. Geometric, confident, unusual — closest to Linear/Vercel's aesthetic register. Least "real‑estate" looking of the four.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <!-- thin outer square frame, rotated 45 -->
+        <rect x="44" y="44" width="152" height="152" fill="none" stroke="oklch(22% 0.012 264)" stroke-width="6"/>
+        <!-- inner iso volume -->
+        <path d="M120 86 L166 112 L120 138 L74 112 Z" fill="oklch(22% 0.012 264)" opacity=".5"/>
+        <path d="M74 112 L120 138 L120 184 L74 158 Z" fill="oklch(22% 0.012 264)" opacity=".8"/>
+        <path d="M166 112 L120 138 L120 184 L166 158 Z" fill="oklch(22% 0.012 264)"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect x="2" y="2" width="12" height="12" fill="none" stroke="var(--text)" stroke-width="1.2"/><path d="M8 6 L11 7.5 L8 9 L5 7.5 Z" fill="var(--text)" opacity=".55"/><path d="M5 7.5 L8 9 L8 12 L5 10.5 Z" fill="var(--text)" opacity=".8"/><path d="M11 7.5 L8 9 L8 12 L11 10.5 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">16</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="3" width="18" height="18" fill="none" stroke="var(--text)" stroke-width="1.5"/><path d="M12 8 L17 11 L12 14 L7 11 Z" fill="var(--text)" opacity=".55"/><path d="M7 11 L12 14 L12 19 L7 16 Z" fill="var(--text)" opacity=".8"/><path d="M17 11 L12 14 L12 19 L17 16 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">24</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 32 32" width="32" height="32"><rect x="4" y="4" width="24" height="24" fill="none" stroke="var(--text)" stroke-width="2"/><path d="M16 10 L23 14 L16 18 L9 14 Z" fill="var(--text)" opacity=".55"/><path d="M9 14 L16 18 L16 26 L9 22 Z" fill="var(--text)" opacity=".8"/><path d="M23 14 L16 18 L16 26 L23 22 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">32</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 48 48" width="48" height="48"><rect x="6" y="6" width="36" height="36" fill="none" stroke="var(--text)" stroke-width="3"/><path d="M24 15 L35 21 L24 27 L13 21 Z" fill="var(--text)" opacity=".55"/><path d="M13 21 L24 27 L24 39 L13 33 Z" fill="var(--text)" opacity=".8"/><path d="M35 21 L24 27 L24 39 L35 33 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">48</span>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 64 64" width="64" height="64"><rect x="8" y="8" width="48" height="48" fill="none" stroke="var(--text)" stroke-width="4"/><path d="M32 20 L46 28 L32 36 L18 28 Z" fill="var(--text)" opacity=".55"/><path d="M18 28 L32 36 L32 52 L18 44 Z" fill="var(--text)" opacity=".8"/><path d="M46 28 L32 36 L32 52 L46 44 Z" fill="var(--text)"/></svg>
+            <span class="sz-lbl">64</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" fill="none" stroke="var(--text)" stroke-width="1.5"/><path d="M12 8 L17 11 L12 14 L7 11 Z" fill="var(--text)" opacity=".55"/><path d="M7 11 L12 14 L12 19 L7 16 Z" fill="var(--text)" opacity=".8"/><path d="M17 11 L12 14 L12 19 L17 16 Z" fill="var(--text)"/></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main">
+            <div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div>
+          </div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><rect x="2.5" y="2.5" width="15" height="15" fill="none" stroke="var(--text)" stroke-width="1.3"/><path d="M10 7 L14 9.5 L10 12 L6 9.5 Z" fill="var(--text)" opacity=".55"/><path d="M6 9.5 L10 12 L10 16 L6 13.5 Z" fill="var(--text)" opacity=".8"/><path d="M14 9.5 L10 12 L10 16 L14 13.5 Z" fill="var(--text)"/></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><rect x="2.5" y="2.5" width="15" height="15" fill="none" stroke="#fff" stroke-width="1.3"/><path d="M10 7 L14 9.5 L10 12 L6 9.5 Z" fill="#fff" opacity=".55"/><path d="M6 9.5 L10 12 L10 16 L6 13.5 Z" fill="#fff" opacity=".8"/><path d="M14 9.5 L10 12 L10 16 L14 13.5 Z" fill="#fff"/></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><rect x="3.5" y="3.5" width="21" height="21" fill="none" stroke="var(--text)" stroke-width="1.8"/><path d="M14 10 L20 13.5 L14 17 L8 13.5 Z" fill="var(--text)" opacity=".55"/><path d="M8 13.5 L14 17 L14 23 L8 19.5 Z" fill="var(--text)" opacity=".8"/><path d="M20 13.5 L14 17 L14 23 L20 19.5 Z" fill="var(--text)"/></svg></div>
+          <div class="gloss"><b>Strengths.</b> Most abstract. Unusual silhouette. Closest to Linear register.<br><b>Watch.</b> Frame can read as "app icon frame" — not real‑estate‑specific.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><rect x="4" y="4" width="24" height="24" fill="none" stroke="var(--text)" stroke-width="2"/><path d="M16 10 L23 14 L16 18 L9 14 Z" fill="var(--text)" opacity=".55"/><path d="M9 14 L16 18 L16 26 L9 22 Z" fill="var(--text)" opacity=".8"/><path d="M23 14 L16 18 L16 26 L23 22 Z" fill="var(--text)"/></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>frame</span><b>orthogonal</b>
+          <span>volume</span><b>iso cube</b>
+          <span>register</span><b>abstract</b>
+          <span>grid</span><b>2px</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── HEAD TO HEAD (DARK) ─────────── -->
+<div class="compare">
+  <h3>Head‑to‑head · on <em>dark</em>, at product scale.</h3>
+  <div class="compare-grid">
+    <div>
+      <svg viewBox="0 0 48 48" width="56" height="56"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+      <div style="font-family:var(--font-display); font-size:24px; font-style:italic; color:#fff; letter-spacing:-0.02em">BaW</div>
+      <div class="lbl">01 · Plates</div>
+    </div>
+    <div>
+      <svg viewBox="0 0 48 48" width="56" height="56"><path d="M24 6 L42 15 L24 24 L6 15 Z" fill="#fff" opacity=".55"/><path d="M6 15 L24 24 L24 42 L6 33 Z" fill="#fff" opacity=".8"/><path d="M42 15 L24 24 L24 42 L42 33 Z" fill="#fff"/><path d="M35 21 L27.5 24.5 L27.5 33 L35 29 Z" fill="var(--agent)"/></svg>
+      <div style="font-family:var(--font-display); font-size:24px; font-style:italic; color:#fff; letter-spacing:-0.02em">BaW</div>
+      <div class="lbl">02 · Supervised cube</div>
+    </div>
+    <div>
+      <svg viewBox="0 0 48 48" width="56" height="56"><g fill="#fff"><path d="M9 9 L9 39 L13 42 L13 12 Z"/><path d="M9 9 L13 12 L37 12 L33 9 Z"/><path d="M33 9 L37 12 L37 23 L33 20 Z"/><path d="M9 21 L13 24 L37 24 L33 21 Z"/><path d="M33 24 L37 27 L37 39 L33 36 Z"/><path d="M9 39 L13 42 L37 42 L33 39 Z"/></g></svg>
+      <div style="font-family:var(--font-display); font-size:24px; font-style:italic; color:#fff; letter-spacing:-0.02em">BaW</div>
+      <div class="lbl">03 · Section cut</div>
+    </div>
+    <div>
+      <svg viewBox="0 0 48 48" width="56" height="56"><rect x="6" y="6" width="36" height="36" fill="none" stroke="#fff" stroke-width="3"/><path d="M24 15 L35 21 L24 27 L13 21 Z" fill="#fff" opacity=".55"/><path d="M13 21 L24 27 L24 39 L13 33 Z" fill="#fff" opacity=".8"/><path d="M35 21 L24 27 L24 39 L35 33 Z" fill="#fff"/></svg>
+      <div style="font-family:var(--font-display); font-size:24px; font-style:italic; color:#fff; letter-spacing:-0.02em">BaW</div>
+      <div class="lbl">04 · Axis</div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top:22px">
+    <div class="hint">
+      <b>My recommendation.</b> <b>02 (Supervised cube)</b> is the strongest — it literally draws the product thesis ("one unit lit inside a running building") and earns the violet accent the system already reserves for agent authorship. <b>04 (Axis)</b> is the safer, more abstract choice if you want distance from real‑estate category cues.
+    </div>
+    <div class="hint">
+      <b>Next.</b> Pick a direction (or combine — e.g. 02's concept with 04's abstraction) and I'll (a) refine at pixel level for 16/20/32/40, (b) apply across the system sheet, (c) start the landing page with the selected mark in motion.
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW OS — Wordmark Explorations v2</title>
+<link rel="preconnect" href="https://rsms.me/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --surface-3: oklch(96.6% 0.004 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --ink: oklch(22% 0.012 264);
+    --ink-soft: oklch(42% 0.012 264);
+    --accent: oklch(52% 0.22 266);
+
+    --d-bg: oklch(15.8% 0.008 264);
+    --d-surface: oklch(18.6% 0.009 264);
+    --d-line: oklch(28% 0.012 264);
+    --d-text: oklch(96% 0.004 264);
+    --d-text-3: oklch(62% 0.010 264);
+
+    --font-sans: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: var(--font-sans);
+    background: var(--bg); color: var(--text);
+    font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01","cv11";
+  }
+
+  .page { max-width: 1440px; margin: 0 auto; padding: 48px 56px 120px; }
+
+  .masthead {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 44px;
+  }
+  .masthead .section-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .masthead h1 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 38px; line-height: 1.1;
+    letter-spacing: -0.025em; margin: 0 0 10px;
+    font-weight: 500; max-width: 900px;
+  }
+  .masthead h1 em { font-style: normal; color: var(--accent); }
+  .masthead p { max-width: 720px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  .masthead p b { color: var(--text); font-weight: 500; }
+  .masthead .meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-3); letter-spacing: 0.02em;
+    text-align: right; line-height: 1.7;
+  }
+
+  /* ───── Thesis / decisions panel ───── */
+  .thesis {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 44px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); overflow: hidden;
+  }
+  .thesis > div { padding: 20px 22px; border-right: 1px solid var(--line); }
+  .thesis > div:last-child { border-right: 0; }
+  .thesis h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin: 0 0 10px; font-weight: 500; }
+  .thesis p { font-size: 12.5px; color: var(--text-2); line-height: 1.55; margin: 0; }
+  .thesis p b { color: var(--text); font-weight: 500; }
+  .thesis .n { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-4); letter-spacing: 0.06em; }
+
+  /* ───── Mark comparison row ───── */
+  .mark-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    margin-bottom: 44px;
+    border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; background: var(--surface);
+  }
+  .mark-cell { padding: 40px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; border-right: 1px solid var(--line); }
+  .mark-cell:last-child { border-right: 0; }
+  .mark-cell .label { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .mark-cell h3 { font-family: var(--font-mono); font-size: 18px; margin: 0 0 10px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+  .mark-cell .desc { font-size: 12.5px; color: var(--text-2); line-height: 1.55; margin: 0; }
+  .mark-cell .desc b { color: var(--text); font-weight: 500; }
+  .mark-cell .hero { display: flex; justify-content: center; align-items: center; padding: 20px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; min-height: 220px; position: relative; }
+  .mark-cell .hero::before {
+    content:""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/20px 20px,
+      linear-gradient(to bottom, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/20px 20px;
+    border-radius: 8px; pointer-events: none;
+  }
+  .mark-cell .hero svg { position: relative; z-index: 1; }
+
+  /* ───── Option block ───── */
+  .opt {
+    border: 1px solid var(--line); border-radius: 12px;
+    margin-bottom: 28px; background: var(--surface); overflow: hidden;
+  }
+  .opt-head {
+    display: grid; grid-template-columns: 72px 1fr 380px;
+    gap: 24px; align-items: baseline;
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .opt-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
+  .opt-title { font-family: var(--font-mono); font-size: 22px; letter-spacing: -0.015em; font-weight: 500; margin: 0; color: var(--text); }
+  .opt-title em { font-style: normal; color: var(--accent); }
+  .opt-note { font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+  .opt-note b { color: var(--text); font-weight: 500; }
+
+  /* Naming system lockups grid */
+  .names {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+  .name-col {
+    padding: 28px 32px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .name-col:last-child { border-right: 0; }
+  .name-col.dark { background: var(--d-bg); color: var(--d-text); }
+  .name-col h5 {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-3); letter-spacing: 0.1em;
+    text-transform: uppercase; margin: 0; font-weight: 500;
+  }
+  .name-col.dark h5 { color: var(--d-text-3); }
+
+  .lockup {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .lockup svg { flex-shrink: 0; display: block; }
+  .lockup .wm { white-space: nowrap; color: var(--ink); line-height: 1; }
+  .name-col.dark .lockup .wm { color: #fff; }
+  .lockup .wm-meta {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-4); letter-spacing: 0.06em;
+    margin-left: auto; padding-left: 16px;
+  }
+  .name-col.dark .lockup .wm-meta { color: var(--d-text-3); }
+
+  /* Separators between BaW and variable part */
+  .sep-slash { color: var(--text-4); margin: 0 6px 0 4px; font-weight: 400; }
+  .name-col.dark .sep-slash { color: var(--d-text-3); }
+  .sep-dim { opacity: 0.5; }
+  .sep-pipe {
+    display: inline-block;
+    width: 1px; height: 0.78em;
+    background: currentColor; opacity: 0.35;
+    margin: 0 10px; vertical-align: -0.05em;
+  }
+
+  /* Tagline */
+  .tagline {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3); margin-top: 4px;
+  }
+  .name-col.dark .tagline { color: var(--d-text-3); }
+  .tagline.es { color: var(--text-3); }
+
+  /* Applications row */
+  .apps {
+    display: grid; grid-template-columns: 1fr 0.9fr 1.5fr;
+    border-top: 1px solid var(--line);
+  }
+  .apps > div {
+    padding: 22px 26px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .apps > div:last-child { border-right: 0; }
+  .apps h5 {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-3); letter-spacing: 0.1em;
+    text-transform: uppercase; margin: 0; font-weight: 500;
+  }
+
+  /* Building plaque (concrete/brass look) */
+  .plaque {
+    background: linear-gradient(135deg, oklch(72% 0.018 80), oklch(64% 0.020 75));
+    color: oklch(18% 0.010 75);
+    padding: 16px 20px; border-radius: 3px;
+    box-shadow: 0 2px 6px -2px oklch(0% 0 0 / 0.15), inset 0 1px 0 oklch(100% 0 0 / 0.3);
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono);
+  }
+  .plaque svg path { fill: oklch(18% 0.010 75) !important; }
+  .plaque .wm { color: oklch(18% 0.010 75); line-height: 1.05; }
+  .plaque-sub {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.1em; color: oklch(28% 0.010 75);
+    margin-top: 4px; text-transform: uppercase;
+  }
+
+  /* Resident app topbar */
+  .app-chrome {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden;
+  }
+  .app-topbar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .app-topbar .lockup { gap: 10px; }
+  .app-topbar .lockup .wm { font-size: 14px !important; }
+  .app-topbar .dots { margin-left: auto; display: flex; gap: 4px; }
+  .app-topbar .dots .d { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+  .app-body {
+    padding: 12px 14px 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .app-body .ln { height: 7px; background: var(--line); border-radius: 3px; }
+  .app-body .ln.sm { width: 40%; }
+  .app-body .ln.md { width: 70%; }
+
+  /* Admin doc header */
+  .doc {
+    padding: 18px 22px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  .doc .doc-head {
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .doc .doc-head .wm { font-size: 16px !important; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+  .doc .doc-meta {
+    margin-left: auto; font-family: var(--font-mono);
+    font-size: 9px; color: var(--text-3); text-align: right; line-height: 1.5;
+    flex-shrink: 0; letter-spacing: 0.02em;
+  }
+  .doc .doc-body {
+    padding-top: 12px; font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--text-2); line-height: 1.7;
+  }
+  .doc .doc-body b { color: var(--text); font-weight: 500; }
+
+  /* ─── Typography recipes ─── */
+  /* 02 — IBM Plex Mono */
+  .wm-02 { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; letter-spacing: -0.01em; }
+  .wm-02 .sub { font-weight: 400; color: inherit; opacity: 0.65; }
+
+  /* 03 — Inter lowercase */
+  .wm-03 { font-family: "Inter", sans-serif; font-weight: 600; letter-spacing: -0.04em; text-transform: lowercase; font-feature-settings: "ss01","cv11"; }
+  .wm-03 .sub { font-weight: 500; opacity: 0.55; letter-spacing: -0.02em; }
+
+  /* 07 — Archivo + small-caps OS */
+  .wm-07 { font-family: "Archivo", "Helvetica Neue", sans-serif; font-weight: 600; letter-spacing: -0.03em; }
+  .wm-07 .sub { font-weight: 500; opacity: 0.6; }
+  .wm-07 .caps { text-transform: uppercase; font-size: 0.62em; letter-spacing: 0.12em; opacity: 0.65; font-weight: 500; }
+
+  /* 09 — Schibsted Grotesk */
+  .wm-09 { font-family: "Schibsted Grotesk", "Inter", sans-serif; font-weight: 700; letter-spacing: -0.04em; }
+  .wm-09 .sub { font-weight: 500; opacity: 0.55; letter-spacing: -0.02em; }
+
+  /* Default sizing for name-col lockups */
+  .name-col .wm { font-size: 30px; }
+  .name-col .wm.sm { font-size: 20px; }
+  .name-col .wm.big { font-size: 38px; }
+
+  /* Pipe sep scales with surrounding font-size automatically */
+
+  /* Compare strip (dark, all four final at same size) */
+  .compare {
+    margin-top: 28px; padding: 32px 26px;
+    border: 1px solid var(--d-line); border-radius: 10px;
+    background: var(--d-bg); color: #fff;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .compare > div {
+    padding: 4px 20px; display: flex; flex-direction: column;
+    gap: 18px; border-right: 1px solid var(--d-line);
+  }
+  .compare > div:last-child { border-right: 0; }
+  .compare .cap {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--d-text-3);
+  }
+  .compare .wm { color: #fff; font-size: 26px; line-height: 1.1; }
+  .compare .wm.lg { font-size: 30px; }
+  .compare .wm.sm { font-size: 18px; }
+
+  /* Question / Decision */
+  .decision {
+    margin-top: 44px;
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    border: 1px solid var(--line); border-radius: 12px;
+    background: var(--surface-2); overflow: hidden;
+  }
+  .decision > div { padding: 24px 28px; border-right: 1px solid var(--line); }
+  .decision > div:last-child { border-right: 0; }
+  .decision h3 { font-family: var(--font-mono); font-size: 18px; margin: 0 0 10px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+  .decision h3 em { font-style: normal; color: var(--accent); }
+  .decision p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0 0 8px; }
+  .decision p b { color: var(--text); font-weight: 500; }
+  .decision .tag {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--text-3); letter-spacing: 0.06em;
+    padding: 3px 8px; border: 1px solid var(--line);
+    border-radius: 3px; margin-right: 6px; margin-bottom: 6px;
+    background: var(--surface);
+  }
+  .decision .tag.pick { color: var(--text); border-color: var(--text-2); }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Wordmark v2">
+
+<!-- ───── Masthead ───── -->
+<header class="masthead">
+  <div>
+    <div class="section-no">WORDMARK · V2 · SYSTEM</div>
+    <h1>Cuatro finalistas, el mark <em>bajo reconsideración</em>, y un sistema de nombres para edificios.</h1>
+    <p>Resolvemos tres cosas a la vez: (1) qué tipografía para el wordmark, (2) el desfase del mark es intención o error, (3) cómo se extiende la marca al nombre de los inmuebles (<b>BaW Mateos 809P</b>, <b>BaW Adamant León</b>). El tagline "Building Always Working" aparece opcional, con variante en español para el mercado LATAM.</p>
+  </div>
+  <div class="meta">
+    Finalistas · 02 · 03 · 07 · 09<br>
+    Mark · A (desfase) / B (cubo)<br>
+    Naming · producto + inmueble
+  </div>
+</header>
+
+<!-- ───── Context / thesis ───── -->
+<section class="thesis">
+  <div>
+    <h4><span class="n">01 ·</span> BaW OS</h4>
+    <p><b>El software.</b> Sistema operativo para administradores de propiedades. Siempre presente en la UI del producto.</p>
+  </div>
+  <div>
+    <h4><span class="n">02 ·</span> BaW {edificio}</h4>
+    <p><b>Prefijo de marca</b> para inmuebles operados. <i>BaW Mateos 809P</i>, <i>BaW Adamant León</i>, <i>BaW Aeropuerto 2020</i>.</p>
+  </div>
+  <div>
+    <h4><span class="n">03 ·</span> {edificio} solo</h4>
+    <p><b>Cuando ya estás dentro</b> del contexto del edificio (app del residente), el prefijo BaW desaparece para no confundir.</p>
+  </div>
+  <div>
+    <h4><span class="n">04 ·</span> Tagline</h4>
+    <p><b>Building Always Working</b> — opcional, marketing. Versión ES: <i>"El edificio siempre operando"</i>. Nunca en producto.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MARK A vs B ═══════════════════════════════ -->
+<section class="mark-row">
+  <div class="mark-cell">
+    <div>
+      <div class="label">Mark · A</div>
+      <h3>Desfase pronunciado</h3>
+      <p class="desc">El offset entre placas se <b>asume</b> como decisión — se nota, tiene voz, rompe la lectura de "cubo mal dibujado". Sensación: capas operativas, floors de software, jerarquía.</p>
+    </div>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none">
+        <!-- pronounced offset: wider horizontal spread -->
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M16 58 L66 76 L116 58 L66 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M4 34 L54 52 L104 34 L54 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+  <div class="mark-cell">
+    <div>
+      <div class="label">Mark · B</div>
+      <h3>Alineado a cubo</h3>
+      <p class="desc">Las placas centradas y apiladas sobre un eje vertical limpio — lee como <b>volumen</b>, un edificio de tres niveles visto en isométrico. Menos metáfora, más literal.</p>
+    </div>
+    <div class="hero">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none">
+        <!-- aligned vertical stack -->
+        <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="var(--ink)"/>
+        <path d="M10 58 L60 76 L110 58 L60 40 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M10 34 L60 52 L110 34 L60 16 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ OPT 02 — PLEX MONO ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">02</div>
+    <div><h2 class="opt-title">IBM Plex Mono <em>— el sistema operativo real</em></h2></div>
+    <div class="opt-note"><b>Máxima coherencia.</b> Ya usas Plex Mono para tokens, datos y CLI — el wordmark se vuelve parte del mismo idioma. El nombre <i>BaW</i> no cambia forma entre terminal y UI.</div>
+  </div>
+
+  <div class="names">
+    <div class="name-col">
+      <h5>Producto — BaW OS</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-02 big">BaW<span class="sub"> OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+
+      <h5 style="margin-top:10px">Inmueble con dirección — BaW Mateos 809P</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW<span class="sep-slash">/</span><span class="sub">Mateos&nbsp;809P</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Inmueble con nombre — BaW Adamant León</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW<span class="sep-slash">/</span><span class="sub">Adamant&nbsp;León</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Dentro del edificio — sin prefijo</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="28" height="28"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-02 sm">Mateos&nbsp;809P</span>
+      </div>
+    </div>
+
+    <div class="name-col dark">
+      <h5>En oscuro — login / loading</h5>
+      <div class="lockup" style="margin-top:4px">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-02 big">BaW<span class="sub"> OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+      <div class="tagline es" style="opacity:.7">El edificio siempre operando</div>
+
+      <h5 style="margin-top:10px">Sin tagline — versión limpia</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW<span class="sub"> OS</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Marca sola</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-02">BaW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applications -->
+  <div class="apps">
+    <div>
+      <h5>Placa de edificio</h5>
+      <div class="plaque">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <div>
+          <span class="wm wm-02" style="font-size:20px">BaW<span class="sep-slash">/</span><span class="sub">Mateos&nbsp;809P</span></span>
+          <div class="plaque-sub">Blvd. A. López Mateos 809 Pte.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>App residente · topbar</h5>
+      <div class="app-chrome">
+        <div class="app-topbar">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-02">Mateos&nbsp;809P</span>
+          </div>
+          <div class="dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+        </div>
+        <div class="app-body"><div class="ln md"></div><div class="ln sm"></div><div class="ln"></div></div>
+      </div>
+    </div>
+    <div>
+      <h5>Documento administrador</h5>
+      <div class="doc">
+        <div class="doc-head">
+          <svg viewBox="0 0 48 48" width="22" height="22"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm wm-02">BaW<span class="sub"> OS</span></span>
+          <div class="doc-meta">Reporte mensual<br>2026.04 · Mateos 809P</div>
+        </div>
+        <div class="doc-body"><b>Ocupación</b> 94 % · <b>Morosidad</b> 3.2 % · <b>Tickets</b> 12 abiertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 03 — INTER LOWERCASE ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">03</div>
+    <div><h2 class="opt-title">Inter semibold · <em>baw os lowercase</em></h2></div>
+    <div class="opt-note"><b>Tu favorita.</b> Minúsculas, apretado, moderno. El mark gobierna; el wordmark acompaña. El sistema operativo <i>detrás</i> de los inmuebles — no encima. <b>Perder fuerza es la intención.</b></div>
+  </div>
+
+  <div class="names">
+    <div class="name-col">
+      <h5>Producto — baw os</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-03 big">baw<span class="sub"> os</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+
+      <h5 style="margin-top:10px">Inmueble — baw / mateos 809p</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-03">baw<span class="sep-slash">/</span><span class="sub">mateos&nbsp;809p</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Inmueble — baw / adamant león</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-03">baw<span class="sep-slash">/</span><span class="sub">adamant&nbsp;león</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Dentro del edificio — sin prefijo</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="28" height="28"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-03 sm">mateos&nbsp;809p</span>
+      </div>
+    </div>
+
+    <div class="name-col dark">
+      <h5>En oscuro — login / loading</h5>
+      <div class="lockup" style="margin-top:4px">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-03 big">baw<span class="sub"> os</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+      <div class="tagline es" style="opacity:.7">El edificio siempre operando</div>
+
+      <h5 style="margin-top:10px">Sin tagline — versión limpia</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-03">baw<span class="sub"> os</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Marca sola</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-03">baw</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="apps">
+    <div>
+      <h5>Placa de edificio</h5>
+      <div class="plaque">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <div>
+          <span class="wm wm-03" style="font-size:22px">baw<span class="sep-slash">/</span><span class="sub">mateos&nbsp;809p</span></span>
+          <div class="plaque-sub">Blvd. A. López Mateos 809 Pte.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>App residente · topbar</h5>
+      <div class="app-chrome">
+        <div class="app-topbar">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-03">mateos&nbsp;809p</span>
+          </div>
+          <div class="dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+        </div>
+        <div class="app-body"><div class="ln md"></div><div class="ln sm"></div><div class="ln"></div></div>
+      </div>
+    </div>
+    <div>
+      <h5>Documento administrador</h5>
+      <div class="doc">
+        <div class="doc-head">
+          <svg viewBox="0 0 48 48" width="22" height="22"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm wm-03">baw<span class="sub"> os</span></span>
+          <div class="doc-meta">Reporte mensual<br>2026.04 · mateos 809p</div>
+        </div>
+        <div class="doc-body"><b>Ocupación</b> 94 % · <b>Morosidad</b> 3.2 % · <b>Tickets</b> 12 abiertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 07 — ARCHIVO + SMALL-CAPS ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">07</div>
+    <div><h2 class="opt-title">Archivo · <em>BaW | OS</em> con pipe</h2></div>
+    <div class="opt-note"><b>La más cercana a tu placeholder Helvetica.</b> "BaW" es la marca; "OS" / "Mateos 809P" es el contexto variable, separado por una <i>pipe</i> vertical fina. Arquitectura Swiss, jerarquía explícita.</div>
+  </div>
+
+  <div class="names">
+    <div class="name-col">
+      <h5>Producto — BaW | OS</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-07 big">BaW<span class="sep-pipe"></span><span class="caps">OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+
+      <h5 style="margin-top:10px">Inmueble — BaW | Mateos 809P</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW<span class="sep-pipe"></span><span class="sub">Mateos&nbsp;809P</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Inmueble — BaW | Adamant León</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW<span class="sep-pipe"></span><span class="sub">Adamant&nbsp;León</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Dentro del edificio — sin prefijo</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="28" height="28"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-07 sm">Mateos&nbsp;809P</span>
+      </div>
+    </div>
+
+    <div class="name-col dark">
+      <h5>En oscuro — login / loading</h5>
+      <div class="lockup" style="margin-top:4px">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-07 big">BaW<span class="sep-pipe"></span><span class="caps">OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+      <div class="tagline es" style="opacity:.7">El edificio siempre operando</div>
+
+      <h5 style="margin-top:10px">Sin tagline — versión limpia</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW<span class="sep-pipe"></span><span class="caps">OS</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Marca sola</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-07">BaW</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="apps">
+    <div>
+      <h5>Placa de edificio</h5>
+      <div class="plaque">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <div>
+          <span class="wm wm-07" style="font-size:22px">BaW<span class="sep-pipe"></span><span class="sub">Mateos&nbsp;809P</span></span>
+          <div class="plaque-sub">Blvd. A. López Mateos 809 Pte.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>App residente · topbar</h5>
+      <div class="app-chrome">
+        <div class="app-topbar">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-07">Mateos&nbsp;809P</span>
+          </div>
+          <div class="dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+        </div>
+        <div class="app-body"><div class="ln md"></div><div class="ln sm"></div><div class="ln"></div></div>
+      </div>
+    </div>
+    <div>
+      <h5>Documento administrador</h5>
+      <div class="doc">
+        <div class="doc-head">
+          <svg viewBox="0 0 48 48" width="22" height="22"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm wm-07">BaW<span class="sep-pipe"></span><span class="caps">OS</span></span>
+          <div class="doc-meta">Reporte mensual<br>2026.04 · Mateos 809P</div>
+        </div>
+        <div class="doc-body"><b>Ocupación</b> 94 % · <b>Morosidad</b> 3.2 % · <b>Tickets</b> 12 abiertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ OPT 09 — SCHIBSTED GROTESK ═══════════════════════════════ -->
+<section class="opt">
+  <div class="opt-head">
+    <div class="opt-no">09</div>
+    <div><h2 class="opt-title">Schibsted Grotesk <em>— grotesque moderno, con calor</em></h2></div>
+    <div class="opt-note"><b>El punto medio entre 07 y tu placeholder.</b> Geometría limpia con ápices humanistas. Se siente producto adulto, no corporate. El separador es sólo contraste de color, sin pipe ni slash.</div>
+  </div>
+
+  <div class="names">
+    <div class="name-col">
+      <h5>Producto — BaW OS</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-09 big">BaW<span class="sub">&nbsp;OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+
+      <h5 style="margin-top:10px">Inmueble — BaW Mateos 809P</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW<span class="sub">&nbsp;Mateos&nbsp;809P</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Inmueble — BaW Adamant León</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW<span class="sub">&nbsp;Adamant&nbsp;León</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Dentro del edificio — sin prefijo</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="28" height="28"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <span class="wm wm-09 sm">Mateos&nbsp;809P</span>
+      </div>
+    </div>
+
+    <div class="name-col dark">
+      <h5>En oscuro — login / loading</h5>
+      <div class="lockup" style="margin-top:4px">
+        <svg viewBox="0 0 48 48" width="40" height="40"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-09 big">BaW<span class="sub">&nbsp;OS</span></span>
+      </div>
+      <div class="tagline">Building always working</div>
+      <div class="tagline es" style="opacity:.7">El edificio siempre operando</div>
+
+      <h5 style="margin-top:10px">Sin tagline — versión limpia</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW<span class="sub">&nbsp;OS</span></span>
+      </div>
+
+      <h5 style="margin-top:4px">Marca sola</h5>
+      <div class="lockup">
+        <svg viewBox="0 0 48 48" width="36" height="36"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+        <span class="wm wm-09">BaW</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="apps">
+    <div>
+      <h5>Placa de edificio</h5>
+      <div class="plaque">
+        <svg viewBox="0 0 48 48" width="32" height="32"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+        <div>
+          <span class="wm wm-09" style="font-size:22px">BaW<span class="sub">&nbsp;Mateos&nbsp;809P</span></span>
+          <div class="plaque-sub">Blvd. A. López Mateos 809 Pte.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>App residente · topbar</h5>
+      <div class="app-chrome">
+        <div class="app-topbar">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" width="16" height="16"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <span class="wm wm-09">Mateos&nbsp;809P</span>
+          </div>
+          <div class="dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+        </div>
+        <div class="app-body"><div class="ln md"></div><div class="ln sm"></div><div class="ln"></div></div>
+      </div>
+    </div>
+    <div>
+      <h5>Documento administrador</h5>
+      <div class="doc">
+        <div class="doc-head">
+          <svg viewBox="0 0 48 48" width="22" height="22"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wm wm-09">BaW<span class="sub">&nbsp;OS</span></span>
+          <div class="doc-meta">Reporte mensual<br>2026.04 · Mateos 809P</div>
+        </div>
+        <div class="doc-body"><b>Ocupación</b> 94 % · <b>Morosidad</b> 3.2 % · <b>Tickets</b> 12 abiertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ COMPARATIVA FINAL EN OSCURO ═══════════════════════════════ -->
+<section class="compare">
+  <div>
+    <div class="cap">02 · Plex Mono</div>
+    <span class="wm wm-02 lg">BaW<span class="sub" style="opacity:.6"> OS</span></span>
+    <span class="wm wm-02 sm">BaW<span class="sep-slash">/</span><span class="sub" style="opacity:.6">Mateos&nbsp;809P</span></span>
+    <span class="wm wm-02 sm" style="opacity:.7">Mateos&nbsp;809P</span>
+  </div>
+  <div>
+    <div class="cap">03 · Inter lowercase</div>
+    <span class="wm wm-03 lg">baw<span class="sub" style="opacity:.6"> os</span></span>
+    <span class="wm wm-03 sm">baw<span class="sep-slash">/</span><span class="sub" style="opacity:.6">mateos&nbsp;809p</span></span>
+    <span class="wm wm-03 sm" style="opacity:.7">mateos&nbsp;809p</span>
+  </div>
+  <div>
+    <div class="cap">07 · Archivo | pipe</div>
+    <span class="wm wm-07 lg">BaW<span class="sep-pipe"></span><span class="caps">OS</span></span>
+    <span class="wm wm-07 sm">BaW<span class="sep-pipe"></span><span class="sub" style="opacity:.6">Mateos&nbsp;809P</span></span>
+    <span class="wm wm-07 sm" style="opacity:.7">Mateos&nbsp;809P</span>
+  </div>
+  <div>
+    <div class="cap">09 · Schibsted</div>
+    <span class="wm wm-09 lg">BaW<span class="sub" style="opacity:.6">&nbsp;OS</span></span>
+    <span class="wm wm-09 sm">BaW<span class="sub" style="opacity:.6">&nbsp;Mateos&nbsp;809P</span></span>
+    <span class="wm wm-09 sm" style="opacity:.7">Mateos&nbsp;809P</span>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ DECISIÓN ═══════════════════════════════ -->
+<section class="decision">
+  <div>
+    <h3>Lecturas honestas <em>por opción</em></h3>
+    <p><b>02 Plex Mono</b> — La más coherente con el sistema. <b>Riesgo:</b> en la placa del edificio puede sentirse demasiado "software", poco "bienes raíces".</p>
+    <p><b>03 Inter lowercase</b> — El mark manda, el nombre acompaña. Perfecta para "software detrás de". <b>Riesgo:</b> las minúsculas sí pueden leerse débiles en fachadas o marketing impreso.</p>
+    <p><b>07 Archivo | pipe</b> — La continuación natural de tu Helvetica. Jerarquía explícita. <b>Riesgo:</b> la pipe es un patrón muy usado (Vercel, etc.).</p>
+    <p><b>09 Schibsted</b> — Carácter sin gritar. <b>Riesgo:</b> menos distintiva que 03 — se parece a muchos productos 2025.</p>
+  </div>
+  <div>
+    <h3>Sobre el <em>mark</em></h3>
+    <p><b>Mark A (desfase pronunciado)</b> convierte un posible error en voz. Capas, floors, operación.</p>
+    <p><b>Mark B (alineado a cubo)</b> dice "edificio" de forma literal y resuelve la duda de alineación. Más conservador, más inmobiliario.</p>
+    <p style="margin-top:8px">Mi sugerencia: <b>Mark B</b> si el negocio es bienes raíces con software; <b>Mark A</b> si es software para bienes raíces. La diferencia importa.</p>
+  </div>
+  <div>
+    <h3>Tagline <em>— voz</em></h3>
+    <p><b>"Building Always Working"</b> aprovecha que "BaW" son las iniciales del tagline — un hallazgo feliz.</p>
+    <p>En LATAM el wordplay se pierde. Opciones:<br>
+    · Tagline bilingüe: inglés en marketing global, ES en material local.<br>
+    · Solo español: <i>"El edificio siempre operando"</i>.<br>
+    · Sin tagline en producto (login/about), sí en landing.</p>
+    <div style="margin-top:10px">
+      <span class="tag pick">Mark B</span>
+      <span class="tag pick">03 ó 07</span>
+      <span class="tag">Tagline en landing</span>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

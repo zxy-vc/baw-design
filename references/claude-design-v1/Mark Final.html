@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>BaW — Mark, Final</title>
+<link rel="preconnect" href="https://rsms.me/" />
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" />
+<style>
+  :root {
+    --bg: oklch(99.2% 0.002 264);
+    --surface: #fff;
+    --surface-2: oklch(98.4% 0.003 264);
+    --surface-3: oklch(96.6% 0.004 264);
+    --line: oklch(92.4% 0.005 264);
+    --line-2: oklch(88% 0.006 264);
+    --text: oklch(22% 0.012 264);
+    --text-2: oklch(42% 0.012 264);
+    --text-3: oklch(58% 0.014 264);
+    --text-4: oklch(72% 0.010 264);
+    --ink: oklch(22% 0.012 264);
+    --ink-dark: oklch(12% 0.010 264);
+    --font-sans: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --font-display: "Instrument Serif", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","cv11"; }
+  .page { max-width: 1440px; margin: 0 auto; padding: 48px 56px 96px; }
+  .masthead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: 44px; }
+  .masthead h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 8px; font-weight: 400; max-width: 820px; }
+  .masthead h1 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .masthead p { max-width: 620px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  .masthead .meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.02em; text-align: right; line-height: 1.7; }
+  .section-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 6px; }
+
+  /* ─── Direction blocks ─── */
+  .dir { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 24px; background: var(--surface); overflow: hidden; }
+  .dir-head { display: grid; grid-template-columns: 80px 1fr 320px; gap: 24px; align-items: baseline; padding: 22px 28px 18px; border-bottom: 1px solid var(--line); }
+  .dir-no { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
+  .dir-title { font-family: var(--font-display); font-size: 28px; letter-spacing: -0.02em; font-weight: 400; margin: 0; }
+  .dir-title em { color: oklch(40% 0.10 266); font-style: italic; }
+  .dir-note { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+  .dir-note b { color: var(--text); font-weight: 500; }
+
+  .dir-body { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .hero-panel { padding: 56px 48px; display: flex; align-items: center; justify-content: center; min-height: 380px; position: relative; border-right: 1px solid var(--line); }
+  .hero-panel.dark { background: oklch(15.8% 0.008 264); border-right-color: oklch(28% 0.012 264); }
+  .hero-panel .tag { position: absolute; top: 14px; left: 16px; font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.08em; }
+  .hero-panel.dark .tag { color: oklch(58% 0.010 264); }
+
+  /* hero grid lines for "drawn, not vibed" look */
+  .hero-panel::before {
+    content:""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/24px 24px,
+      linear-gradient(to bottom, oklch(0% 0 0 / 0.03) 1px, transparent 1px) 0 0/24px 24px;
+    pointer-events: none;
+  }
+  .hero-panel.dark::before {
+    background:
+      linear-gradient(to right, oklch(100% 0 0 / 0.04) 1px, transparent 1px) 0 0/24px 24px,
+      linear-gradient(to bottom, oklch(100% 0 0 / 0.04) 1px, transparent 1px) 0 0/24px 24px;
+  }
+  .hero-panel > svg { position: relative; z-index: 1; }
+
+  .apps-panel { padding: 28px 28px 24px; display: grid; grid-template-rows: auto auto auto; gap: 22px; }
+  .apps-panel h4 { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 10px; font-weight: 500; }
+
+  .size-ladder { display: flex; align-items: end; gap: 22px; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; }
+  .size-ladder .item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sz-lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); }
+
+  .chrome-demo { display: grid; grid-template-columns: 52px 1fr; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface-2); }
+  .chrome-demo .sb { padding: 12px 10px; border-right: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .chrome-demo .sb-dot { width: 22px; height: 4px; background: var(--line-2); border-radius: 2px; }
+  .chrome-demo .main { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .chrome-demo .ln { height: 8px; background: var(--line-2); border-radius: 3px; }
+  .chrome-demo .ln.short { width: 40%; }
+  .chrome-demo .ln.med { width: 70%; }
+
+  .favicon-row { display: grid; grid-template-columns: 20px 20px 28px 1fr; gap: 14px; align-items: center; }
+  .favicon { width: 20px; height: 20px; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; }
+  .favicon.dark { background: oklch(15.8% 0.008 264); border-color: oklch(28% 0.012 264); }
+  .favicon.big { width: 28px; height: 28px; border-radius: 6px; }
+  .gloss { font-size: 11.5px; color: var(--text-3); line-height: 1.5; }
+  .gloss b { color: var(--text-2); font-weight: 500; }
+
+  .lockup-row { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; padding-top: 16px; border-top: 1px dashed var(--line); }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .wordmark { font-family: var(--font-display); font-size: 32px; font-style: italic; letter-spacing: -0.03em; color: var(--text); }
+  .tokens { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 4px 12px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); line-height: 1.5; }
+  .tokens b { color: var(--text-2); font-weight: 500; }
+
+  /* decision bar */
+  .decision { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; padding: 28px 32px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .decision h3 { font-family: var(--font-display); font-size: 22px; margin: 0 0 10px; font-weight: 400; letter-spacing: -0.02em; }
+  .decision h3 em { font-style: italic; color: oklch(40% 0.10 266); }
+  .decision p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin: 0 0 6px; }
+  .decision p b { color: var(--text); font-weight: 500; }
+  .decision .note { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); margin-top: 10px; }
+
+  /* final-on-dark strip */
+  .final-strip { margin-top: 24px; padding: 40px 32px; border-radius: 10px; background: oklch(15.8% 0.008 264); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid oklch(28% 0.012 264); overflow: hidden; }
+  .final-strip > div { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 20px; border-right: 1px solid oklch(28% 0.012 264); }
+  .final-strip > div:last-child { border-right: 0; }
+  .final-strip .lbl { font-family: var(--font-mono); font-size: 10.5px; color: oklch(62% 0.010 264); letter-spacing: 0.06em; text-transform: uppercase; }
+  .final-strip .wm { font-family: var(--font-display); font-size: 24px; font-style: italic; color: #fff; letter-spacing: -0.02em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <div>
+    <div class="section-no">MARK · FINAL</div>
+    <h1>Two <em>two‑tint</em> marks, same family. Pick one.</h1>
+    <p>You liked <b>01 · Plates</b> and the thesis behind <b>02 · Supervised cube</b> — but the cube's violet unit was louder than the brief asked for. Below: both directions reduced to a single ink in two opacities, so the mark reads as architecture, not as an accent color asking for attention.</p>
+  </div>
+  <div class="meta">
+    Version · v2<br>
+    Change · two‑tint only<br>
+    Violet · removed from mark
+  </div>
+</header>
+
+<!-- ─────────── DIRECTION 01 — PLATES (unchanged, re-shown) ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">01</div>
+    <div><h2 class="dir-title">Stacked <em>plates</em> — the building as mass.</h2></div>
+    <div class="dir-note">Three parallelograms offset on the isometric axis. Opacity ladder <b>100 / 70 / 50</b>. Reads as floors or operating layers. No accent; the mark itself is the logo color.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light · Ink 100/70/50</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <path d="M40 168 L120 200 L200 168 L120 136 Z" fill="var(--ink)"/>
+        <path d="M52 128 L132 160 L212 128 L132 96 Z" fill="var(--ink)" opacity="0.7"/>
+        <path d="M40 88 L120 120 L200 88 L120 56 Z" fill="var(--ink)" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M2 11 L8 13.5 L14 11 L8 8.5 Z" fill="var(--ink)"/><path d="M3 8.5 L9 11 L15 8.5 L9 6 Z" fill="var(--ink)" opacity=".7"/><path d="M2 6 L8 8.5 L14 6 L8 3.5 Z" fill="var(--ink)" opacity=".5"/></svg><span class="sz-lbl">16</span></div>
+          <div class="item"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 16.5 L12 20 L21 16.5 L12 13 Z" fill="var(--ink)"/><path d="M4 12.5 L13 16 L22 12.5 L13 9 Z" fill="var(--ink)" opacity=".7"/><path d="M3 8.5 L12 12 L21 8.5 L12 5 Z" fill="var(--ink)" opacity=".5"/></svg><span class="sz-lbl">24</span></div>
+          <div class="item"><svg viewBox="0 0 32 32" width="32" height="32"><path d="M4 22 L16 27 L28 22 L16 17 Z" fill="var(--ink)"/><path d="M5 17 L17 22 L29 17 L17 12 Z" fill="var(--ink)" opacity=".7"/><path d="M4 12 L16 17 L28 12 L16 7 Z" fill="var(--ink)" opacity=".5"/></svg><span class="sz-lbl">32</span></div>
+          <div class="item"><svg viewBox="0 0 48 48" width="48" height="48"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg><span class="sz-lbl">48</span></div>
+          <div class="item"><svg viewBox="0 0 64 64" width="64" height="64"><path d="M8 44 L32 54 L56 44 L32 34 Z" fill="var(--ink)"/><path d="M10 34 L34 44 L58 34 L34 24 Z" fill="var(--ink)" opacity=".7"/><path d="M8 24 L32 34 L56 24 L32 14 Z" fill="var(--ink)" opacity=".5"/></svg><span class="sz-lbl">64</span></div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24" width="24" height="24"><path d="M3 16.5 L12 20 L21 16.5 L12 13 Z" fill="var(--ink)"/><path d="M4 12.5 L13 16 L22 12.5 L13 9 Z" fill="var(--ink)" opacity=".7"/><path d="M3 8.5 L12 12 L21 8.5 L12 5 Z" fill="var(--ink)" opacity=".5"/></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main"><div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div></div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><path d="M2 14 L10 17 L18 14 L10 11 Z" fill="var(--ink)"/><path d="M3 10.5 L11 13.5 L19 10.5 L11 7.5 Z" fill="var(--ink)" opacity=".7"/><path d="M2 7 L10 10 L18 7 L10 4 Z" fill="var(--ink)" opacity=".5"/></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><path d="M2 14 L10 17 L18 14 L10 11 Z" fill="#fff"/><path d="M3 10.5 L11 13.5 L19 10.5 L11 7.5 Z" fill="#fff" opacity=".7"/><path d="M2 7 L10 10 L18 7 L10 4 Z" fill="#fff" opacity=".5"/></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><path d="M3 19.5 L14 24 L25 19.5 L14 15 Z" fill="var(--ink)"/><path d="M4 14.5 L15 19 L26 14.5 L15 10 Z" fill="var(--ink)" opacity=".7"/><path d="M3 10 L14 14.5 L25 10 L14 5.5 Z" fill="var(--ink)" opacity=".5"/></svg></div>
+          <div class="gloss"><b>Strengths.</b> Instantly legible, reads as mass, no accent needed.<br><b>Watch.</b> Plate silhouette is a familiar motif — variation saves it.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><path d="M4 22 L16 27 L28 22 L16 17 Z" fill="var(--ink)"/><path d="M5 17 L17 22 L29 17 L17 12 Z" fill="var(--ink)" opacity=".7"/><path d="M4 12 L16 17 L28 12 L16 7 Z" fill="var(--ink)" opacity=".5"/></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>angle</span><b>30° iso</b>
+          <span>plates</span><b>3 · stacked</b>
+          <span>opacity</span><b>100 / 70 / 50</b>
+          <span>tint</span><b>1 ink</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DIRECTION 02 — SUPERVISED CUBE, NOW TWO-TINT ─────────── -->
+<section class="dir">
+  <div class="dir-head">
+    <div class="dir-no">02 · revised</div>
+    <div><h2 class="dir-title">The <em>supervised</em> cube — two tints, no accent.</h2></div>
+    <div class="dir-note">Same three‑face isometric volume. The lit unit is <b>darker ink on ink</b>, not violet — it reads as a punched‑out aperture in the right face. The thesis still holds: a building with <b>one thing surfaced for judgment</b>, expressed through contrast alone.</div>
+  </div>
+  <div class="dir-body">
+    <div class="hero-panel">
+      <span class="tag">Hero · Light · Ink 55/80/100 + 12%</span>
+      <svg viewBox="0 0 240 240" width="220" height="220" fill="none">
+        <!-- top face -->
+        <path d="M120 40 L200 80 L120 120 L40 80 Z" fill="var(--ink)" opacity=".55"/>
+        <!-- left face -->
+        <path d="M40 80 L120 120 L120 200 L40 160 Z" fill="var(--ink)" opacity=".8"/>
+        <!-- right face -->
+        <path d="M200 80 L120 120 L120 200 L200 160 Z" fill="var(--ink)"/>
+        <!-- inset "supervised" unit — darker ink, carved into the right face -->
+        <path d="M170 112 L146 124 L146 152 L170 140 Z" fill="var(--ink-dark)"/>
+      </svg>
+    </div>
+    <div class="apps-panel">
+      <div>
+        <h4>Size ladder · 16 → 64px</h4>
+        <div class="size-ladder">
+          <div class="item"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 L14 5 L8 8 L2 5 Z" fill="var(--ink)" opacity=".55"/><path d="M2 5 L8 8 L8 14 L2 11 Z" fill="var(--ink)" opacity=".8"/><path d="M14 5 L8 8 L8 14 L14 11 Z" fill="var(--ink)"/><rect x="10" y="8" width="2.5" height="3" fill="var(--ink-dark)"/></svg><span class="sz-lbl">16</span></div>
+          <div class="item"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 3 L21 7.5 L12 12 L3 7.5 Z" fill="var(--ink)" opacity=".55"/><path d="M3 7.5 L12 12 L12 21 L3 16.5 Z" fill="var(--ink)" opacity=".8"/><path d="M21 7.5 L12 12 L12 21 L21 16.5 Z" fill="var(--ink)"/><path d="M17 11 L13.5 13 L13.5 17 L17 15 Z" fill="var(--ink-dark)"/></svg><span class="sz-lbl">24</span></div>
+          <div class="item"><svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 4 L28 10 L16 16 L4 10 Z" fill="var(--ink)" opacity=".55"/><path d="M4 10 L16 16 L16 28 L4 22 Z" fill="var(--ink)" opacity=".8"/><path d="M28 10 L16 16 L16 28 L28 22 Z" fill="var(--ink)"/><path d="M23 14 L18 16.5 L18 22 L23 19.5 Z" fill="var(--ink-dark)"/></svg><span class="sz-lbl">32</span></div>
+          <div class="item"><svg viewBox="0 0 48 48" width="48" height="48"><path d="M24 6 L42 15 L24 24 L6 15 Z" fill="var(--ink)" opacity=".55"/><path d="M6 15 L24 24 L24 42 L6 33 Z" fill="var(--ink)" opacity=".8"/><path d="M42 15 L24 24 L24 42 L42 33 Z" fill="var(--ink)"/><path d="M35 21 L27.5 24.5 L27.5 33 L35 29 Z" fill="var(--ink-dark)"/></svg><span class="sz-lbl">48</span></div>
+          <div class="item"><svg viewBox="0 0 64 64" width="64" height="64"><path d="M32 8 L56 20 L32 32 L8 20 Z" fill="var(--ink)" opacity=".55"/><path d="M8 20 L32 32 L32 56 L8 44 Z" fill="var(--ink)" opacity=".8"/><path d="M56 20 L32 32 L32 56 L56 44 Z" fill="var(--ink)"/><path d="M47 28 L36.5 33 L36.5 44 L47 39 Z" fill="var(--ink-dark)"/></svg><span class="sz-lbl">64</span></div>
+        </div>
+      </div>
+      <div>
+        <h4>Applications</h4>
+        <div class="chrome-demo">
+          <div class="sb">
+            <svg class="sb-logo" viewBox="0 0 24 24" width="24" height="24"><path d="M12 3 L21 7.5 L12 12 L3 7.5 Z" fill="var(--ink)" opacity=".55"/><path d="M3 7.5 L12 12 L12 21 L3 16.5 Z" fill="var(--ink)" opacity=".8"/><path d="M21 7.5 L12 12 L12 21 L21 16.5 Z" fill="var(--ink)"/><path d="M17 11 L13.5 13 L13.5 17 L17 15 Z" fill="var(--ink-dark)"/></svg>
+            <div class="sb-dot"></div><div class="sb-dot"></div><div class="sb-dot"></div>
+          </div>
+          <div class="main"><div class="ln med"></div><div class="ln short"></div><div class="ln"></div><div class="ln med"></div></div>
+        </div>
+        <div class="favicon-row" style="margin-top:10px">
+          <div class="favicon"><svg viewBox="0 0 20 20"><path d="M10 2.5 L17.5 6.5 L10 10.5 L2.5 6.5 Z" fill="var(--ink)" opacity=".55"/><path d="M2.5 6.5 L10 10.5 L10 17.5 L2.5 13.5 Z" fill="var(--ink)" opacity=".8"/><path d="M17.5 6.5 L10 10.5 L10 17.5 L17.5 13.5 Z" fill="var(--ink)"/><path d="M14.5 9.5 L11.5 11.25 L11.5 14.25 L14.5 12.5 Z" fill="var(--ink-dark)"/></svg></div>
+          <div class="favicon dark"><svg viewBox="0 0 20 20"><path d="M10 2.5 L17.5 6.5 L10 10.5 L2.5 6.5 Z" fill="#fff" opacity=".55"/><path d="M2.5 6.5 L10 10.5 L10 17.5 L2.5 13.5 Z" fill="#fff" opacity=".8"/><path d="M17.5 6.5 L10 10.5 L10 17.5 L17.5 13.5 Z" fill="#fff"/><path d="M14.5 9.5 L11.5 11.25 L11.5 14.25 L14.5 12.5 Z" fill="#fff" opacity=".35"/></svg></div>
+          <div class="favicon big"><svg viewBox="0 0 28 28"><path d="M14 3.5 L24.5 9 L14 14.5 L3.5 9 Z" fill="var(--ink)" opacity=".55"/><path d="M3.5 9 L14 14.5 L14 24.5 L3.5 19 Z" fill="var(--ink)" opacity=".8"/><path d="M24.5 9 L14 14.5 L14 24.5 L24.5 19 Z" fill="var(--ink)"/><path d="M20.5 13 L16 15.25 L16 19.75 L20.5 17.5 Z" fill="var(--ink-dark)"/></svg></div>
+          <div class="gloss"><b>Strengths.</b> Draws the product thesis literally. Two‑tint keeps it quiet.<br><b>Watch.</b> On dark bg the inset inverts to low‑opacity white.</div>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 4 L28 10 L16 16 L4 10 Z" fill="var(--ink)" opacity=".55"/><path d="M4 10 L16 16 L16 28 L4 22 Z" fill="var(--ink)" opacity=".8"/><path d="M28 10 L16 16 L16 28 L28 22 Z" fill="var(--ink)"/><path d="M23 14 L18 16.5 L18 22 L23 19.5 Z" fill="var(--ink-dark)"/></svg>
+          <span class="wordmark">BaW</span>
+        </div>
+        <div class="tokens">
+          <span>angle</span><b>30° iso</b>
+          <span>faces</span><b>3 + inset</b>
+          <span>opacity</span><b>55 / 80 / 100</b>
+          <span>tint</span><b>1 ink</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DECISION STRIP ─────────── -->
+<section class="decision">
+  <div>
+    <div class="section-no">MY READ</div>
+    <h3>Both now live in the <em>same family</em>.</h3>
+    <p>Plates and the Supervised cube share the 30° isometric axis, the single‑ink palette, and the opacity ladder. You can ship either and the system stays coherent — tables, badges, and confidence signals don't need to change.</p>
+    <p style="margin-top:10px"><b>Supervised cube</b> carries more product meaning (the thesis of "one unit surfaced") but asks more of the viewer. <b>Plates</b> is simpler, less editorial, easier at 16px.</p>
+    <p class="note">Pick one — landing page and full system sheet re‑skin to match.</p>
+  </div>
+  <div>
+    <div class="section-no">CHANGES FROM v1</div>
+    <h3>Violet is gone from the <em>mark</em>.</h3>
+    <p>The accent color (violet 300h) is still reserved in the system — for agent actions, confidence signals, and the autonomy dial — but it no longer appears in the logo. The mark is a two‑tint architectural glyph; the agent layer adds the color when it earns it.</p>
+    <p style="margin-top:10px"><b>Inset opacity.</b> Dark‑ink inset at 100% on light bg; on dark bg it inverts to white at ~35% so it still reads as "punched out" without introducing a new hue.</p>
+    <p class="note">Same grid, same angle, same wordmark. Only the palette narrowed.</p>
+  </div>
+</section>
+
+<!-- ─────────── FINAL STRIP — BOTH MARKS ON DARK ─────────── -->
+<section class="final-strip">
+  <div>
+    <svg viewBox="0 0 48 48" width="56" height="56"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="#fff"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="#fff" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="#fff" opacity=".5"/></svg>
+    <div class="wm">BaW</div>
+    <div class="lbl">01 · Plates · dark</div>
+  </div>
+  <div>
+    <svg viewBox="0 0 48 48" width="56" height="56"><path d="M24 6 L42 15 L24 24 L6 15 Z" fill="#fff" opacity=".55"/><path d="M6 15 L24 24 L24 42 L6 33 Z" fill="#fff" opacity=".8"/><path d="M42 15 L24 24 L24 42 L42 33 Z" fill="#fff"/><path d="M35 21 L27.5 24.5 L27.5 33 L35 29 Z" fill="#fff" opacity=".35"/></svg>
+    <div class="wm">BaW</div>
+    <div class="lbl">02 · Cube · dark</div>
+  </div>
+  <div>
+    <svg viewBox="0 0 48 48" width="56" height="56"><path d="M6 33 L24 40.5 L42 33 L24 25.5 Z" fill="var(--ink)"/><path d="M7.5 25.5 L25.5 33 L43.5 25.5 L25.5 18 Z" fill="var(--ink)" opacity=".7"/><path d="M6 18 L24 25.5 L42 18 L24 10.5 Z" fill="var(--ink)" opacity=".5"/></svg>
+    <div class="wm" style="color: var(--ink)">BaW</div>
+    <div class="lbl" style="color: var(--text-3)">01 · Plates · reversed</div>
+  </div>
+  <div>
+    <svg viewBox="0 0 48 48" width="56" height="56"><path d="M24 6 L42 15 L24 24 L6 15 Z" fill="var(--ink)" opacity=".55"/><path d="M6 15 L24 24 L24 42 L6 33 Z" fill="var(--ink)" opacity=".8"/><path d="M42 15 L24 24 L24 42 L42 33 Z" fill="var(--ink)"/><path d="M35 21 L27.5 24.5 L27.5 33 L35 29 Z" fill="var(--ink-dark)"/></svg>
+    <div class="wm" style="color: var(--ink)">BaW</div>
+    <div class="lbl" style="color: var(--text-3)">02 · Cube · reversed</div>
+  </div>
+</section>
+
+<!-- Force reversed cards to light background -->
+<style>
+.final-strip > div:nth-child(3),
+.final-strip > div:nth-child(4) {
+  background: var(--surface);
+}
+.final-strip > div:nth-child(3) { border-left: 1px solid var(--line); }
+.final-strip > div:nth-child(3),
+.final-strip > div:nth-child(4) { border-right-color: var(--line); }
+</style>
+
+</div>
+</body>
+</html>

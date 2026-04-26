@@ -1,0 +1,81 @@
+/* ════════════════════════════════════════════════════════════════════════
+   BaW OS — Typography Tokens
+   ────────────────────────────────────────────────────────────────────────
+   Source of truth: /BRAND_FOUNDATIONS.md (sección Tipografía)
+
+   Stack tripartita:
+   • Inter         — UI, body, labels (variable, optimizada para pantalla)
+   • IBM Plex Mono — code, datos tabulares, IDs, timestamps, technical voice
+   • Instrument Serif — display, momentos editoriales, marketing
+
+   Carga vía Google Fonts en HTML; en producción servir self-hosted desde CDN.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── FAMILY ───────────────────────────────────────────────────────── */
+  --font-sans:    "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-display: "Instrument Serif", "Source Serif 4", Georgia, serif;
+
+  /* ── SIZE — modular scale (1.125 ratio) ──────────────────────────── */
+  --fs-11: 11px;   /* micro: tags, captions, mono labels */
+  --fs-12: 12px;   /* small: secondary text */
+  --fs-13: 13px;   /* compact UI */
+  --fs-14: 14px;   /* body default */
+  --fs-15: 15px;   /* body comfortable */
+  --fs-16: 16px;   /* prose */
+  --fs-18: 18px;   /* small heading */
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-32: 32px;   /* h2 */
+  --fs-40: 40px;
+  --fs-48: 48px;   /* h1 web */
+  --fs-56: 56px;   /* hero */
+  --fs-72: 72px;   /* display */
+
+  /* ── WEIGHT ───────────────────────────────────────────────────────── */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ── LINE HEIGHT ──────────────────────────────────────────────────── */
+  --lh-tight:   1.1;   /* display, hero */
+  --lh-snug:    1.25;  /* headings */
+  --lh-normal:  1.5;   /* body */
+  --lh-relaxed: 1.6;   /* prose largo */
+
+  /* ── LETTER SPACING ───────────────────────────────────────────────── */
+  --ls-tight:  -0.03em;  /* display (tipografía grande, kerning más cerrado) */
+  --ls-snug:   -0.02em;
+  --ls-normal: -0.01em;
+  --ls-wide:    0.02em;
+  --ls-mono:    0.08em;  /* mono labels en mayúsculas */
+
+  /* ── FEATURES ─────────────────────────────────────────────────────── */
+  /* Inter: ss01 = single-story 'a', cv11 = alternate digits */
+  --ff-inter:  "ss01", "cv11";
+  /* IBM Plex Mono: zero = slashed zero (clave para datos numéricos) */
+  --ff-mono- "zero", "tnum";
+}
+
+/* ── BASE — aplicar a html/body ─────────────────────────────────────── */
+html {
+  font-family: var(--font-sans);
+  font-feature-settings: var(--ff-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── UTILITY CLASSES (opcionales) ───────────────────────────────────── */
+.text-display { font-family: var(--font-display); font-weight: var(--fw-regular); letter-spacing: var(--ls-tight); }
+.text-mono    { font-family: var(--font-mono);    font-feature-settings: var(--ff-mono-data); letter-spacing: var(--ls-mono); }
+.text-mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
