@@ -1,50 +1,47 @@
-# Claude Design v1 — Exploraciones iniciales
+# References — Claude Design v1
 
-> **Read-only.** Este folder contiene los archivos originales generados por Claude Design (abril 2026) que sirvieron como punto de partida del sistema de diseño BaW. **No editar estos archivos.** Cualquier evolución se hace en `/tokens/`, `/BRAND_FOUNDATIONS.md` o `/assets/`.
+Este folder contiene los artefactos del primer ciclo de exploración de marca y producto BaW realizado con Claude. Se conserva como referencia histórica — **no es código vivo del sistema de diseño**.
 
-## Origen
+## Estructura
 
-Generado en Claude (modo artifacts) usando como input el research interno `uploads/baw-os-design-research.pdf`. El research sintetiza cuatro investigaciones primarias sobre UX agent-native, command centers, colaboración humano-agente y tendencias agentic SaaS 2025–2026.
-
-## Contenido
-
-| Archivo | Qué contiene |
-|---|---|
-| `System Sheet.html` | **El más importante.** Hoja maestra con todos los tokens (colores OKLCH, tipografía, espaciados, radios, sombras), modos light/dark, identidad de agente, semánticos RAG. |
-| `System Sheet-print.html` | Versión imprimible del System Sheet. |
-| `Brand System v1.html` | Primera iteración del sistema de marca. |
-| `Brand System v2.html` | Segunda iteración con 3 voces (SaaS / Real Estate / Hospitality). **Nota:** la arquitectura de 3 voces fue descartada — BaW arranca como marca paraguas + edificios con marca propia. Tomar de aquí solo la paleta y ejemplos visuales. |
-| `Mark Final.html` | Iteraciones del símbolo (mark) finales. |
-| `Mark Distinctive + Inside Badge.html` | Variantes con "inside badge" estilo Intel Inside. |
-| `Mark Explorations.html` | Exploraciones de mark (early). |
-| `Wordmark Explorations.html` | Exploraciones de wordmark (early). |
-| `Wordmark Explorations v2.html` | Segunda iteración de wordmark. |
-| `tweaks-panel.jsx` | Componente React reusable para un panel de ajustes en vivo (live tweak). Útil para iterar tokens en cualquiera de los HTMLs sin editar código. |
-| `uploads/baw-os-design-research.pdf` | Research base (crítico para entender el porqué del producto). |
-| `uploads/pasted-*.png` | Screenshots de referencia/inspiración usados por Claude. |
-
-## Cómo abrir
-
-Los HTMLs son autocontenidos: abánlos directamente en el navegador. No necesitan servidor.
-
-```bash
-open "System Sheet.html"
-open "Brand System v2.html"
+```
+claude-design-v1/
+├── README.md                          ← este archivo
+├── *.html                             (10 archivos)  prototipos visuales y exploraciones de UI
+└── uploads/                           (research material original)
+    ├── *.pdf                          research PDF de partida
+    └── *.png                          (8 capturas)   referencias visuales y mood
 ```
 
-## Activar el panel de tweaks
+## Qué hay aquí
 
-En cualquier HTML que cargue React, abre la consola y ejecuta:
+- **HTMLs**: prototipos navegables generados durante la fase de exploración. Cubren landing, dashboard, agent fleet view, approval hub, owner portal, tenant portal, brand site y variantes.
+- **uploads/**: el material de entrada original — research en PDF + capturas de pantalla y referencias visuales que sirvieron para informar las decisiones tempranas.
 
-```js
-window.postMessage({ type: '__activate_edit_mode' }, '*')
-```
+## Qué NO es
 
-Ver el comentario en `tweaks-panel.jsx` para detalles.
+- **No es** la implementación de referencia. La implementación viva está en `~/Developer/zxy-ventures/baw-os`.
+- **No es** el sistema de diseño actual. Los tokens canónicos viven en `/tokens/` de este repo (`baw-design`).
+- **No es** documentación normativa. La documentación normativa es `BRAND_FOUNDATIONS.md` + los ADRs en `/decisions/`.
 
-## Por qué conservamos esto
+## Por qué se conserva
 
-Aunque ya no es source of truth, lo mantenemos versionado porque:
-1. Documenta el punto de partida del sistema y las decisiones tempranas.
-2. Sirve de referencia visual mientras el sistema productivo madura.
-3. Permite comparar cómo evoluciona la marca (auditoría de marca).
+Tres razones:
+
+1. **Trazabilidad**: muchas decisiones registradas en los ADRs (especialmente 0001–0005) hacen referencia a patrones explorados aquí. Conservar los artefactos originales facilita auditar de dónde viene cada decisión.
+2. **Mood y dirección visual**: las capturas en `uploads/` siguen siendo material útil para discutir dirección visual con colaboradores externos (agencia, contratistas de marca, diseñadores invitados).
+3. **Anti-revisionismo**: si en el futuro alguien propone "volvamos al look de la primera versión", aquí está la primera versión, completa y sin filtros, para revisar.
+
+## Reglas de uso
+
+- **No editar los HTMLs**. Si surge una idea derivada de uno, se documenta como propuesta nueva en el sistema vivo, no como edición del histórico.
+- **No referenciar desde producción**. Nada en `baw-os` debe importar de aquí — ni CSS, ni componentes, ni assets.
+- **Sí extraer aprendizajes**. Cualquier patrón que valga la pena conservar se promueve formalmente: tokens al `/tokens/`, principios al `BRAND_FOUNDATIONS.md`, decisiones al `/decisions/`.
+
+## Cómo abrir los HTMLs
+
+Localmente, basta con abrirlos en el navegador. Algunos asumen que las imágenes de `uploads/` están en la ruta relativa esperada — si una imagen no carga, verificar paths.
+
+## Contexto temporal
+
+Este folder es un snapshot del trabajo previo a la formalización del design system. La fecha efectiva de "cierre" es cuando se creó `baw-design` como repo independiente con tokens canónicos. A partir de ese punto, este folder queda congelado.
