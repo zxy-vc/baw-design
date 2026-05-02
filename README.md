@@ -26,6 +26,8 @@ baw-design/
 │   └── screenshots/               ← referencias visuales
 ├── references/
 │   └── claude-design-v1/          ← exploraciones iniciales (read-only)
+├── visual-review/                 ← galería navegable para decisiones visuales
+├── figma/                         ← link y workflow del archivo Figma
 ├── decisions/                     ← ADRs (Architecture Decision Records)
 └── scripts/                       ← utilidades (cuando lleguen)
 ```
@@ -41,6 +43,8 @@ baw-design/
 | Agregar el logo vectorizado | Subirlo a `assets/logos/` |
 | Documentar una decisión estratégica | Crear un ADR en `decisions/` |
 | Ver inspiración histórica | Abrir HTMLs en `references/claude-design-v1/` |
+| Revisar assets visualmente | Abrir `visual-review/index.html` |
+| Entender el flujo con Figma | Leer `figma/README.md` |
 
 ---
 
