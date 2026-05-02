@@ -41,6 +41,7 @@ baw-design/
 | Entender la marca BaW | Leer `BRAND_FOUNDATIONS.md` |
 | Cambiar un color, tipografía, espaciado | Editar `tokens/*.css` |
 | Agregar el logo vectorizado | Subirlo a `assets/logos/` |
+| Usar identidad aprobada | Ver `assets/logos/baw-mark-a.svg` y `decisions/0015-identidad-base-mark-a-wordmark-mono.md` |
 | Documentar una decisión estratégica | Crear un ADR en `decisions/` |
 | Ver inspiración histórica | Abrir HTMLs en `references/claude-design-v1/` |
 | Revisar assets visualmente | Abrir `visual-review/index.html` |

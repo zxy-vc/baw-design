@@ -1,0 +1,12 @@
+<svg width="408" height="120" viewBox="0 0 408 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">BaW OS Lockup</title>
+  <desc id="desc">BaW OS lockup using Mark A and monospaced technical wordmark.</desc>
+  <g color="#151515">
+    <path d="M10 82 L60 100 L110 82 L60 64 Z" fill="currentColor"/>
+    <path d="M16 58 L66 76 L116 58 L66 40 Z" fill="currentColor" opacity="0.7"/>
+    <path d="M4 34 L54 52 L104 34 L54 16 Z" fill="currentColor" opacity="0.5"/>
+  </g>
+  <text x="144" y="68" fill="#151515" font-family="IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="42" font-weight="600" letter-spacing="-2">BaW</text>
+  <text x="248" y="68" fill="#77736B" font-family="IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="42" font-weight="500" letter-spacing="-2">OS</text>
+  <text x="146" y="91" fill="#77736B" font-family="IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="500" letter-spacing="1.8">BUILDING ALWAYS WORKING</text>
+</svg>
